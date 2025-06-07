@@ -15,6 +15,10 @@ A simple custom card that displays "hello world!" inside an `ha-card`.
 1. Add this repository as a custom repository of type **plugin** in HACS.
 2. Install **dihor-ha-components** from the HACS UI.
 3. Reload Lovelace resources.
+4. HACS should register the resource
+   `/hacsfiles/dihor-ha-components/www/cards/hello-world-card.js` automatically.
+   If it is missing, add this path manually to your Lovelace resources as a
+   module.
 
 #### Manual
 
