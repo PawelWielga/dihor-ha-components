@@ -1,0 +1,10 @@
+{
+  "name": "dihor-ha-components",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
