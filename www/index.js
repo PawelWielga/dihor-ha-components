@@ -1,1 +1,1 @@
-export * from './cards/hello-world-card';
+export * from './cards/dihor-hello-world-card';

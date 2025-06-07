@@ -1,6 +1,6 @@
 {
   "name": "dihor-ha-components",
-  "filename": "www/cards/hello-world-card.js",
+  "filename": "www/cards/dihor-hello-world-card.js",
   "type": "module",
   "render_readme": true,
   "description": "Custom UI components for Home Assistant"
