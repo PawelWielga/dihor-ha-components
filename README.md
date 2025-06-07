@@ -16,17 +16,17 @@ A simple custom card that displays "hello world!" inside an `ha-card`.
 2. Install **dihor-ha-components** from the HACS UI.
 3. Reload Lovelace resources.
 4. HACS should register the resource
-   `/hacsfiles/dihor-ha-components/www/cards/dihor-hello-world-card.js` automatically.
+   `/hacsfiles/dihor-ha-components/dihor-hello-world-card.js` automatically.
    If it is missing, add this path manually to your Lovelace resources as a
    module.
 
 #### Manual
 
-1. Copy `www/cards/dihor-hello-world-card.js` to the `www` folder of your Home Assistant configuration directory (no build step required).
+1. Copy `dihor-hello-world-card.js` to the `www` folder of your Home Assistant configuration directory (no build step required).
 2. Add the following to your Lovelace resources:
 
 ```yaml
-- url: /local/cards/dihor-hello-world-card.js
+- url: /local/dihor-hello-world-card.js
   type: module
 ```
 
