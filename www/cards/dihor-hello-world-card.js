@@ -16,4 +16,6 @@ export class HelloWorldCard extends HTMLElement {
         return 1;
     }
 }
-customElements.define('hello-world-card', HelloWorldCard);
+if (!customElements.get('dihor-hello-world-card')) {
+    customElements.define('dihor-hello-world-card', HelloWorldCard);
+}
