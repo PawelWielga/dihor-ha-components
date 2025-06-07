@@ -21,6 +21,7 @@ A simple custom card that displays "hello world!" inside an `ha-card`.
    `/local/community/dihor-ha-components/dihor-hello-world-card.js`.
    If it is missing, add this path manually to your Lovelace resources as a
    module.
+   Other cards from this repository must be added manually.
 
 #### Manual
 
@@ -50,6 +51,29 @@ That's it! You should now see a card with the text "hello world!".
 ## dihor-person-card
 
 A simple card that displays the picture of a `person` entity.
+
+### Installation
+
+#### Using HACS
+
+1. Install **dihor-ha-components** from the HACS UI.
+2. Reload Lovelace resources.
+3. HACS only registers `dihor-hello-world-card.js` automatically, so add
+   `/hacsfiles/dihor-ha-components/dihor-person-card.js` to your Lovelace
+   resources as a module.
+
+#### Manual
+
+1. Create a folder called `dihor-ha-components` inside your Home Assistant
+   `www` directory.
+2. Copy `dihor-person-card.js` from this repository into that folder so you
+   end up with `www/dihor-ha-components/dihor-person-card.js`.
+3. Add the following to your Lovelace resources:
+
+```yaml
+- url: /local/dihor-ha-components/dihor-person-card.js
+  type: module
+```
 
 ### Usage
 
