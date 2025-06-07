@@ -2,7 +2,7 @@
   "name": "dihor-ha-components",
   "version": "0.1.0",
   "scripts": {
-    "build": "tsc && cp www/cards/dihor-hello-world-card.js dihor-hello-world-card.js"
+    "build": "tsc && cp www/cards/dihor-hello-world-card.js dihor-hello-world-card.js && cp www/cards/dihor-person-card.js dihor-person-card.js"
   },
   "devDependencies": {
     "typescript": "^5.0.0"

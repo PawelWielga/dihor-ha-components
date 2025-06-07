@@ -46,3 +46,18 @@ Add the card in your dashboard YAML:
 
 That's it! You should now see a card with the text "hello world!".
 
+
+## dihor-person-card
+
+A simple card that displays the picture of a `person` entity.
+
+### Usage
+
+Add the card in your dashboard YAML:
+
+```yaml
+- type: custom:dihor-person-card
+  entity: person.your_name
+```
+
+The card will show the person's profile picture using the entity's `entity_picture` attribute.
