@@ -19,8 +19,12 @@ export class MinecraftCard extends HTMLElement {
     this._hass = hass;
     const p = this._config.entity_prefix;
 
-    const get = (suffix: string): string => {
-      return hass.states[`${p}${suffix}`]?.state ?? 'N/A';
+    const getState = (suffix: string): string => {
+      return (
+        hass.states[`sensor.${p}${suffix}`]?.state ??
+        hass.states[`binary_sensor.${p}${suffix}`]?.state ??
+        'N/A'
+      );
     };
 
     if (!this._contentCreated) {
@@ -57,12 +61,12 @@ export class MinecraftCard extends HTMLElement {
       if (el) el.textContent = value;
     };
 
-    setText('motd', get(''));
-    setText('version', get('_version'));
-    setText('status', get('_status'));
-    setText('protocol', get('_protocol_version'));
-    setText('players', `${get('_players_online')}/${get('_players_max')}`);
-    setText('latency', get('_latency'));
+    setText('motd', getState(''));
+    setText('version', getState('_version'));
+    setText('status', getState('_status'));
+    setText('protocol', getState('_protocol_version'));
+    setText('players', `${getState('_players_online')}/${getState('_players_max')}`);
+    setText('latency', getState('_latency'));
   }
 
   getCardSize() {
