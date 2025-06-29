@@ -65,7 +65,7 @@ export class MinecraftCard extends HTMLElement {
       "players",
       `${getState("_players_online")} / ${getState("_players_max")}`
     );
-    updateText("latency", latency);
+    updateText("latency", latency.split(".")[0]);
 
     // --- Zmiana klasy statusu (online/offline) ---
     const statusEl = this.querySelector("#status");
