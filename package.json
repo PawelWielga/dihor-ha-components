@@ -2,9 +2,9 @@
   "name": "dihor-ha-components",
   "version": "0.1.0",
   "scripts": {
-    "build": "tsc && cp www/cards/dihor-hello-world-card.js dihor-hello-world-card.js && cp www/cards/dihor-person-card.js dihor-person-card.js"
+    "build": "npx tsc && copy www\\cards\\dihor-hello-world-card.js dihor-hello-world-card.js && copy www\\cards\\dihor-person-card.js dihor-person-card.js && copy www\\cards\\dihor-minecraft-card.js dihor-minecraft-card.js"
   },
   "devDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.8.3"
   }
 }
