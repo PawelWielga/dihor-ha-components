@@ -110,4 +110,4 @@ npm run dev
 
 ## 📃 License
 
-MIT – use freely and contribute!
+MIT – use freely and contribute! See [LICENSE](LICENSE) for details.
