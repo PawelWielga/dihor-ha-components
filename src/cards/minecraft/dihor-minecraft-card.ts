@@ -1,5 +1,5 @@
-import html from "./dihor-minecraft-card.html?raw";
-import css from "./dihor-minecraft-card.css?raw";
+import html from "./dihor-minecraft-card.html";
+import css from "./dihor-minecraft-card.css";
 
 export interface MinecraftCardConfig {
   title?: string;
