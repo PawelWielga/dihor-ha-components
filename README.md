@@ -1,113 +1,38 @@
 # dihor-ha-components
 
-Custom UI components for Home Assistant.
+Custom UI components for Home Assistant bundled in `dihor-cards-bundle.js`.
 
-This repository uses a modular structure inspired by the [Mushroom Cards](https://github.com/piitaya/lovelace-mushroom) project.  
-The source files are written in TypeScript and live in the `src` directory.  
-All components are bundled into a single JavaScript file (`dihor-ha-bundle.js`) using [Rollup](https://rollupjs.org/), so no additional build steps are needed for users.
+## Installation via HACS
 
----
-
-## 📦 Included Cards
-
-- `dihor-hello-world-card` – displays "hello world!" inside an `ha-card`.
-- `dihor-person-card` – displays a person’s profile picture from a `person` entity.
-- `dihor-minecraft-card` – displays statistics from a Minecraft server using `sensor` entities.
-
----
-
-## 🚀 Installation
-
-### Using HACS
-
-1. Add this repository as a **custom repository of type _plugin_** in HACS.
-2. Install **dihor-ha-components** via HACS.
-3. After installation, go to **Settings → Dashboards → Resources** and make sure the following resource exists:
+1. Add this repository as a **Custom Repository** in HACS (type *plugin*).
+2. Install the **dihor-ha-components** package.
+3. In `Settings → Dashboards → Resources` make sure you have the following entry:
 
 ```yaml
-- url: /hacsfiles/dihor-ha-components/dihor-ha-bundle.js
+- url: /hacsfiles/dihor-ha-components/dihor-cards-bundle.js
   type: module
 ```
 
-> If it's missing, add it manually.
+If it is missing, add it manually and reload the UI.
 
-4. Reload your Lovelace dashboard (Ctrl+F5 or browser refresh).
+## dihor-minecraft-card
 
----
+This card displays information about a Minecraft server. It expects sensors (either `sensor` or `binary_sensor`) with the prefix defined in `entity_prefix`.
 
-### Manual
-
-1. Download the latest `dihor-ha-bundle.js` file from the [Releases](./releases) section or build it locally.
-2. Place it in `www/dihor-ha-components/` inside your Home Assistant config.
-3. Add the following to your Lovelace resources:
+### Example
 
 ```yaml
-- url: /local/dihor-ha-components/dihor-ha-bundle.js
-  type: module
+type: custom:dihor-minecraft-card
+title: My Minecraft Server
+entity_prefix: minecraft_server
 ```
 
-4. Reload Lovelace.
-
----
-
-## 🧱 Usage Examples
-
-### `dihor-hello-world-card`
-
-```yaml
-- type: custom:dihor-hello-world-card
-  entity: sensor.time
-```
-
----
-
-### `dihor-person-card`
-
-```yaml
-- type: custom:dihor-person-card
-  entity: person.your_name
-```
-
-The card displays the profile picture from the `entity_picture` attribute.
-
----
-
-### `dihor-minecraft-card`
-
-```yaml
-- type: custom:dihor-minecraft-card
-  title: My Minecraft Server
-  entity_prefix: sensor.minecraft_server
-```
-
-This card uses multiple `sensor` entities, such as:
+The card reads data from the following entities (you can change the `minecraft_server` prefix to your own):
 
 - `sensor.minecraft_server`
 - `sensor.minecraft_server_version`
 - `sensor.minecraft_server_status`
-- `sensor.minecraft_server_players_online`, etc.
-
-Make sure your Minecraft integration or MQTT sensor exposes those.
-
----
-
-## 🛠 Development
-
-To build the project locally:
-
-```bash
-npm install
-npm run build
-```
-
-To watch for changes during development:
-
-```bash
-npm run dev
-```
-
----
-
-## 📃 License
-
-MIT – use freely and contribute! See [LICENSE](LICENSE) for details.
+- `sensor.minecraft_server_players_online`
+- `sensor.minecraft_server_players_max`
+- `sensor.minecraft_server_latency`
+- `sensor.minecraft_server_world_message`
