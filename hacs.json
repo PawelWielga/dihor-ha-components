@@ -1,6 +1,6 @@
 {
   "name": "dihor-ha-components",
-  "filename": "dihor-ha-bundle.js",
+  "filename": "dihor-cards-bundle.js",
   "content_in_root": true,
   "type": "module",
   "render_readme": true,
