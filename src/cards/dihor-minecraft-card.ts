@@ -21,6 +21,7 @@ export class MinecraftCard extends HTMLElement {
 
     const getState = (suffix: string): string => {
       return (
+        hass.states[`${p}${suffix}`]?.state ??
         hass.states[`sensor.${p}${suffix}`]?.state ??
         hass.states[`binary_sensor.${p}${suffix}`]?.state ??
         'N/A'
@@ -61,7 +62,7 @@ export class MinecraftCard extends HTMLElement {
       if (el) el.textContent = value;
     };
 
-    setText('motd', getState(''));
+    setText('motd', getState('_world_message'));
     setText('version', getState('_version'));
     setText('status', getState('_status'));
     setText('protocol', getState('_protocol_version'));
