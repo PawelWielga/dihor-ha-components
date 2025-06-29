@@ -1,18 +1,22 @@
-import typescript from '@rollup/plugin-typescript';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import { terser } from 'rollup-plugin-terser';
+import typescript from "@rollup/plugin-typescript";
+import resolve from "@rollup/plugin-node-resolve";
+import { terser } from "@rollup-plugin-terser";
+import { string } from "@rollup/plugin-string";
 
 export default {
-  input: 'src/index.ts',
+  input: "src/index.ts",
   output: {
-    file: 'dihor-ha-bundle.js',
-    format: 'es',
+    file: "dihor-cards-bundle.js",
+    format: "es",
     sourcemap: false,
   },
   plugins: [
-    nodeResolve(),
+    resolve(),
+    string({
+      include: ["**/*.html", "**/*.css"],
+    }),
     typescript({
-      tsconfig: './tsconfig.json',
+      tsconfig: "./tsconfig.json",
     }),
     terser(),
   ],
