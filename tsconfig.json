@@ -3,10 +3,9 @@
     "target": "es2018",
     "module": "esnext",
     "moduleResolution": "node",
-    "outDir": "www",
     "strict": true,
     "lib": ["es2018", "dom"],
     "skipLibCheck": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "rollup.config.js"]
 }
