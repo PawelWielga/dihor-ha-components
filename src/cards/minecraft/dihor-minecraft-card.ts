@@ -61,7 +61,6 @@ export class MinecraftCard extends HTMLElement {
     updateText("motd", getState("_world_message"));
     updateText("version", getState("_version"));
     updateText("status", status);
-    updateText("protocol", getState("_protocol_version"));
     updateText(
       "players",
       `${getState("_players_online")} / ${getState("_players_max")}`
