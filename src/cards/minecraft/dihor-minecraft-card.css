@@ -1,6 +1,6 @@
 /* KARTA */
 .dihor-card {
-  margin: 0 4px;
+  margin: 0;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 16px;
