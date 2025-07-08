@@ -35,7 +35,7 @@ export class MinecraftCard extends HTMLElement {
         hass.states[`${p}${suffix}`]?.state ??
         hass.states[`sensor.${p}${suffix}`]?.state ??
         hass.states[`binary_sensor.${p}${suffix}`]?.state ??
-        "N/A"
+        "unavailable"
       );
     };
 
@@ -54,25 +54,30 @@ export class MinecraftCard extends HTMLElement {
       if (el) el.textContent = value;
     };
 
-    // Aktualizacja danych
-    const status = getState("_status");
-    const latency = getState("_latency");
+    // --- Dane ze stanów Home Assistanta ---
+    const status = getState("_status").toLowerCase();
+    const isOffline =
+      status === "unavailable" || status === "offline" || status === "0";
 
-    updateText("motd", getState("_world_message"));
-    updateText("version", getState("_version"));
-    updateText(
-      "players",
-      `${getState("_players_online")} / ${getState("_players_max")}`
-    );
-    updateText("latency", latency.split(".")[0]);
+    const worldMessage = isOffline ? "" : getState("_world_message");
+    const version = isOffline ? "0.0.0" : getState("_version");
+    const playersOnline = isOffline ? "0" : getState("_players_online");
+    const playersMax = isOffline ? "0" : getState("_players_max");
+    const latencyRaw = isOffline ? "0" : getState("_latency");
+    const latency = latencyRaw.split(".")[0];
 
-    // Aktualizacja klasy statusu
+    // --- Aktualizacja tekstu ---
+    updateText("motd", worldMessage);
+    updateText("version", version);
+    updateText("status", isOffline ? "Offline" : "Online");
+    updateText("players", `${playersOnline} / ${playersMax}`);
+    updateText("latency", latency);
+
+    // --- Aktualizacja koloru statusu ---
     const statusEl = this.querySelector("#status");
     if (statusEl) {
       statusEl.className = `badge ${
-        status.toLowerCase().includes("offline")
-          ? "badge-offline"
-          : "badge-online"
+        isOffline ? "badge-offline" : "badge-online"
       }`;
     }
   }
