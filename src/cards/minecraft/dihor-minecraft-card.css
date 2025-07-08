@@ -1,5 +1,5 @@
 /* KARTA */
-.card {
+.dihor-card {
   margin: 0 4px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
@@ -11,34 +11,34 @@
 }
 
 /* NAGŁÓWEK */
-.card-header {
+.dihor-card-header {
   margin-bottom: 16px;
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-.header-row {
+.dihor-header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 4px;
 }
 
-.card-title {
+.dihor-card-title {
   font-size: 20px;
   font-weight: 700;
   color: #1d1d1f;
   margin: 0;
 }
 
-.card-subtitle {
+.dihor-card-subtitle {
   font-size: 14px;
   color: #666;
   font-weight: 500;
 }
 
 /* SIATKA STATYSTYK */
-.grid-3 {
+.dihor-grid-3 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 12px;
@@ -48,7 +48,7 @@
 }
 
 /* POJEDYNCZA STATYSTYKA */
-.stat {
+.dihor-stat {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,11 +58,11 @@
   text-align: center;
 }
 
-.stat-icon {
+.dihor-stat-icon {
   font-size: 18px;
 }
 
-.stat-label {
+.dihor-stat-label {
   font-size: 11px;
   color: #666;
   font-weight: 500;
@@ -71,7 +71,7 @@
   letter-spacing: 0.5px;
 }
 
-.stat-value {
+.dihor-stat-value {
   font-size: 14px;
   color: #1d1d1f;
   font-weight: 600;
@@ -79,7 +79,7 @@
 }
 
 /* BADGES */
-.badge {
+.dihor-badge {
   font-size: 12px;
   padding: 4px 8px;
   border-radius: 12px;
@@ -87,22 +87,22 @@
   color: white;
 }
 
-.badge-online {
+.dihor-badge-online {
   background: #4caf50;
 }
 
-.badge-offline {
+.dihor-badge-offline {
   background: #ff3b30;
 }
 
-.badge-players {
+.dihor-badge-players {
   background: #9c27b0;
 }
 
-.badge-version {
+.dihor-badge-version {
   background: #007aff;
 }
 
-.badge-latency {
+.dihor-badge-latency {
   background: #ff9500;
 }
