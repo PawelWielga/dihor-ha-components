@@ -2,16 +2,16 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>Podgląd Minecraft Card</title>
-  <link rel="stylesheet" href="../src/cards/minecraft/dihor-minecraft-card.css">
+  <title>Podgląd kart</title>
+  <link rel="stylesheet" href="dihor-minecraft-card.css">
 </head>
-<body background="red">
+<body style="background: red; font-family: sans-serif;">
   <h1>Podgląd</h1>
 
   <div id="preview"></div>
 
   <script>
-    fetch("../src/cards/minecraft/dihor-minecraft-card.html")
+    fetch("dihor-minecraft-card.html")
       .then(res => res.text())
       .then(html => {
         document.getElementById("preview").innerHTML = html;
