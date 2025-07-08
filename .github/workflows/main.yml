@@ -38,8 +38,6 @@ jobs:
           cp dihor-cards-bundle.js preview/ || true
           cp src/cards/minecraft/*.html preview/
           cp src/cards/minecraft/*.css preview/
-          cp src/cards/person/*.html preview/
-          cp src/cards/person/*.css preview/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
