@@ -41,7 +41,7 @@ export class MinecraftCard extends HTMLElement {
 
     if (!this._contentCreated) {
       this.innerHTML = `
-        <ha-card class="minecraft-card">
+        <ha-card>
           ${html}
           <style>${css}</style>
         </ha-card>
@@ -54,26 +54,25 @@ export class MinecraftCard extends HTMLElement {
       if (el) el.textContent = value;
     };
 
-    // --- Aktualizacja danych ---
+    // Aktualizacja danych
     const status = getState("_status");
     const latency = getState("_latency");
 
     updateText("motd", getState("_world_message"));
     updateText("version", getState("_version"));
-    updateText("status", status);
     updateText(
       "players",
       `${getState("_players_online")} / ${getState("_players_max")}`
     );
     updateText("latency", latency.split(".")[0]);
 
-    // --- Zmiana klasy statusu (online/offline) ---
+    // Aktualizacja klasy statusu
     const statusEl = this.querySelector("#status");
     if (statusEl) {
-      statusEl.className = `stat-value ${
+      statusEl.className = `badge ${
         status.toLowerCase().includes("offline")
-          ? "status-offline"
-          : "status-online"
+          ? "badge-offline"
+          : "badge-online"
       }`;
     }
   }

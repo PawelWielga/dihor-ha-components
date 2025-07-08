@@ -1,17 +1,17 @@
-.minecraft-card {
+/* KARTA */
+.card {
   margin: 0 4px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 16px;
-  padding-top: 18px;
-  padding-right: 18px;
-  padding-bottom: 4px;
-  padding-left: 18px;
+  padding: 18px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  font-family: sans-serif;
 }
 
-.header {
+/* NAGŁÓWEK */
+.card-header {
   margin-bottom: 16px;
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -24,40 +24,38 @@
   margin-bottom: 4px;
 }
 
-.header h1 {
+.card-title {
   font-size: 20px;
   font-weight: 700;
   color: #1d1d1f;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin: 0;
 }
 
-.motd {
+.card-subtitle {
   font-size: 14px;
   color: #666;
   font-weight: 500;
 }
 
-.stats-grid {
+/* SIATKA STATYSTYK */
+.grid-3 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 12px;
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.stat-item {
+/* POJEDYNCZA STATYSTYKA */
+.stat {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2px 0px 10px 0px;
-  background: rgba(248, 248, 248, 0.8);
+  padding: 10px 0;
+  background: rgba(200, 200, 200, 0.2);
   border-radius: 12px;
   text-align: center;
-}
-
-.stat-item.players {
-  background: rgba(248, 248, 248, 0.8);
 }
 
 .stat-icon {
@@ -80,44 +78,31 @@
   line-height: 1.2;
 }
 
-.stat-value .status-badge,
-.stat-value .players-badge,
-.stat-value .latency-badge,
-.stat-value .version-badge {
+/* BADGES */
+.badge {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 600;
   color: white;
 }
 
-.status-online {
-  color: #4caf50;
+.badge-online {
+  background: #4caf50;
 }
 
-.status-offline {
-  color: #ff3b30;
+.badge-offline {
+  background: #ff3b30;
 }
 
-.players-badge {
+.badge-players {
   background: #9c27b0;
-  color: white;
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-weight: 600;
 }
 
-.version-badge {
+.badge-version {
   background: #007aff;
-  color: white;
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-weight: 600;
 }
 
-.latency-badge {
+.badge-latency {
   background: #ff9500;
-  color: white;
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-weight: 600;
 }

@@ -1,33 +1,35 @@
-<div class="header">
-  <div class="header-row">
-    <h1>Minecraft Server</h1>
-    <span id="version" class="version-badge">?</span>
+<div class="card">
+  <div class="card-header">
+    <div class="header-row">
+      <h1 class="card-title">Minecraft Server</h1>
+      <span id="version" class="badge badge-version">?</span>
+    </div>
+    <div id="motd" class="card-subtitle">?</div>
   </div>
-  <div id="motd" class="motd">?</div>
+
+  <ul class="grid-3">
+    <li class="stat">
+      <div class="stat-icon">🔌</div>
+      <div class="stat-label">Status</div>
+      <div class="stat-value">
+        <span id="status" class="badge badge-online">?</span>
+      </div>
+    </li>
+
+    <li class="stat">
+      <div class="stat-icon">👥</div>
+      <div class="stat-label">Players</div>
+      <div class="stat-value">
+        <span id="players" class="badge badge-players">?/?</span>
+      </div>
+    </li>
+
+    <li class="stat">
+      <div class="stat-icon">⚡</div>
+      <div class="stat-label">Ping</div>
+      <div class="stat-value">
+        <span id="latency" class="badge badge-latency">?</span>
+      </div>
+    </li>
+  </ul>
 </div>
-
-<ul class="stats-grid">
-  <li class="stat-item">
-    <div class="stat-icon">🔌</div>
-    <div class="stat-label">Status</div>
-    <div class="stat-value">
-      <span id="status" class="status-badge online">?</span>
-    </div>
-  </li>
-
-  <li class="stat-item players">
-    <div class="stat-icon">👥</div>
-    <div class="stat-label">Players</div>
-    <div class="stat-value">
-      <span id="players" class="players-badge">?/?</span>
-    </div>
-  </li>
-
-  <li class="stat-item">
-    <div class="stat-icon">⚡</div>
-    <div class="stat-label">Ping</div>
-    <div class="stat-value">
-      <span id="latency" class="latency-badge">?</span>
-    </div>
-  </li>
-</ul>
