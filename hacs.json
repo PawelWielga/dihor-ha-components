@@ -4,5 +4,6 @@
   "content_in_root": true,
   "type": "module",
   "render_readme": true,
-  "description": "Custom UI components for Home Assistant"
+  "description": "Custom UI components for Home Assistant",
+  "version": "1.0.4"
 }
