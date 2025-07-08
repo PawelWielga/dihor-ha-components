@@ -76,8 +76,8 @@ export class MinecraftCard extends HTMLElement {
     // --- Aktualizacja koloru statusu ---
     const statusEl = this.querySelector("#status");
     if (statusEl) {
-      statusEl.className = `badge ${
-        isOffline ? "badge-offline" : "badge-online"
+      statusEl.className = `dihor-badge ${
+        isOffline ? "dihor-badge-offline" : "dihor-badge-online"
       }`;
     }
   }
