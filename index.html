@@ -2,7 +2,10 @@
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
-    <title>Podgląd kart</title>
+    <title>Custome cards preview</title>
+
+    <link rel="stylesheet" href="index.css" />
+
     <script>
       const isGitHubPages = location.hostname.includes("github.io");
       const basePath = isGitHubPages ? "." : "src/cards/minecraft";
@@ -14,11 +17,24 @@
       document.head.appendChild(css);
     </script>
   </head>
-  <body style="font-family: sans-serif">
+
+  <body>
     <h1>Custome cards preview</h1>
 
-    <h3>dihor-minecraft-card</h3>
-    <div id="minecraft-card-preview"></div>
+    <div class="card-container">
+      <h3 class="card-name">dihor-minecraft-card</h3>
+      <div id="minecraft-card-preview"></div>
+      <div class="card-usage">
+        <!-- nice styled text below -->
+        <!-- type: custom:dihor-minecraft-card
+title: My Minecraft Server
+entity_prefix: server_minecraft -->
+      </div>
+    </div>
+
+    <div>
+      <!-- another card -->
+    </div>
 
     <script>
       fetch(`${basePath}/dihor-minecraft-card.html`)
