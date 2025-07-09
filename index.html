@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html lang="pl">
-<head>
-  <meta charset="UTF-8" />
-  <title>Podgląd kart</title>
-  <link rel="stylesheet" href="dihor-minecraft-card.css">
-</head>
-<body style="background: red; font-family: sans-serif;">
-  <h1>Podgląd</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Podgląd kart</title>
+    <script>
+      const isGitHubPages = location.hostname.includes("github.io");
+      const basePath = isGitHubPages ? "." : "src/cards/minecraft";
 
-  <div id="preview"></div>
+      // Dynamiczne dołączenie CSS
+      const css = document.createElement("link");
+      css.rel = "stylesheet";
+      css.href = `${basePath}/dihor-minecraft-card.css`;
+      document.head.appendChild(css);
+    </script>
+  </head>
+  <body style="font-family: sans-serif">
+    <h1>Custome cards preview</h1>
 
-  <script>
-    fetch("dihor-minecraft-card.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("preview").innerHTML = html;
-      });
-  </script>
-</body>
+    <h3>dihor-minecraft-card</h3>
+    <div id="minecraft-card-preview"></div>
+
+    <script>
+      fetch(`${basePath}/dihor-minecraft-card.html`)
+        .then((res) => res.text())
+        .then((html) => {
+          document.getElementById("minecraft-card-preview").innerHTML = html;
+        });
+    </script>
+  </body>
 </html>
