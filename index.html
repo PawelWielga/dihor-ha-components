@@ -2,8 +2,9 @@
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
+    <title>Custom cards preview</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Custome cards preview</title>
 
     <link rel="stylesheet" href="index.css" />
 
@@ -20,16 +21,15 @@
   </head>
 
   <body>
-    <h1>Custome cards preview</h1>
+    <h1>Custom cards preview</h1>
 
     <div class="card-container">
       <h3 class="card-name">dihor-minecraft-card</h3>
       <div id="minecraft-card-preview"></div>
       <div class="card-usage">
-        <!-- nice styled text below -->
-        <!-- type: custom:dihor-minecraft-card
-title: My Minecraft Server
-entity_prefix: server_minecraft -->
+        <span class="label">type:</span> custom:dihor-minecraft-card<br />
+        <span class="label">title:</span> My Minecraft Server<br />
+        <span class="label">entity_prefix:</span> server_minecraft
       </div>
     </div>
 
@@ -38,11 +38,15 @@ entity_prefix: server_minecraft -->
     </div>
 
     <script>
-      fetch(`${basePath}/dihor-minecraft-card.html`)
-        .then((res) => res.text())
-        .then((html) => {
-          document.getElementById("minecraft-card-preview").innerHTML = html;
-        });
+        fetch(`${basePath}/dihor-minecraft-card.html`)
+          .then((res) => res.text())
+          .then((html) => {
+            document.getElementById("minecraft-card-preview").innerHTML = html;
+          })
+          .catch(() => {
+            const el = document.getElementById("minecraft-card-preview");
+            el.textContent = "Failed to load preview.";
+          });
     </script>
   </body>
 </html>
