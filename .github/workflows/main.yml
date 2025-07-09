@@ -2,9 +2,9 @@ name: Build & Deploy Preview
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -35,6 +35,7 @@ jobs:
         run: |
           mkdir -p preview
           cp index.html preview/
+          cp index.css preview/
           cp dihor-cards-bundle.js preview/ || true
           cp src/cards/minecraft/*.html preview/
           cp src/cards/minecraft/*.css preview/
