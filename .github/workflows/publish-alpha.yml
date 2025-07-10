@@ -1,0 +1,30 @@
+name: Publish to Alpha
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build
+
+      - name: Push bundle to alpha branch
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git fetch origin alpha
+          git switch -C alpha origin/alpha || git switch --orphan alpha
+
+          cp dihor-cards-bundle.js ./
+          git add dihor-cards-bundle.js
+          git commit -m "Auto-publish from develop"
+          git push origin alpha --force
