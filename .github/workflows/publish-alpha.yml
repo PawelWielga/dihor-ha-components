@@ -27,9 +27,29 @@ jobs:
         run: |
           mkdir dist-alpha
           cp dihor-cards-bundle.js dist-alpha/
+          cp icon.png dist-alpha/
           cp hacs.json dist-alpha/
           cp README.md dist-alpha/ || true
           cp LICENSE dist-alpha/ || true
+
+      - name: Generate manifest.json
+        run: |
+          echo '{
+            "name": "Dihor Cards",
+            "version": "${{ github.run_number }}",
+            "resources": [
+              {
+                "url": "dihor-cards-bundle.js",
+                "type": "module"
+              }
+            ],
+            "description": "Custom UI components for Home Assistant.",
+            "domain": "dihor_ha_components",
+            "documentation": "https://github.com/${{ github.repository }}",
+            "repository": "https://github.com/${{ github.repository }}",
+            "requirements": [],
+            "codeowners": ["@${{ github.actor }}"]
+          }' > dist-alpha/manifest.json
 
       - name: Publish to alpha branch
         run: |
