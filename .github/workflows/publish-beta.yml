@@ -3,7 +3,7 @@ name: Publish to Beta (HACS test bundle)
 on:
   pull_request:
     types: [closed]
-    branches: [master]
+    branches: [main]
 
 jobs:
   publish:
