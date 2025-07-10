@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="src/theme.css" />
 
     <script>
       const isGitHubPages = location.hostname.includes("github.io");
@@ -23,6 +24,11 @@
   <body>
     <div class="container">
       <h1>Custom Cards Preview</h1>
+      <div class="theme-toggle">
+        <label>
+          <input type="checkbox" id="theme-toggle" /> Tryb ciemny
+        </label>
+      </div>
 
       <div class="cards-grid">
         <div class="card-showcase">
@@ -74,6 +80,16 @@
     </div>
 
     <script>
+      // Funkcja ustawia motyw na podstawie pola wyboru
+      function applyTheme() {
+        const preview = document.getElementById("minecraft-card-preview");
+        const dark = document.getElementById("theme-toggle").checked;
+        if (preview) {
+          preview.classList.toggle("dihor-theme-dark", dark);
+          preview.classList.toggle("dihor-theme-light", !dark);
+        }
+      }
+
       // Funkcja do ładowania podglądu karty
       function loadCardPreview() {
         const previewElement = document.getElementById(
@@ -87,6 +103,7 @@
           })
           .then((html) => {
             previewElement.innerHTML = html;
+            applyTheme();
           })
           .catch((error) => {
             console.error("Błąd ładowania podglądu:", error);
@@ -96,7 +113,12 @@
       }
 
       // Ładowanie podglądu po załadowaniu strony
-      document.addEventListener("DOMContentLoaded", loadCardPreview);
+      document.addEventListener("DOMContentLoaded", () => {
+        loadCardPreview();
+        const toggle = document.getElementById("theme-toggle");
+        toggle.addEventListener("change", applyTheme);
+        applyTheme();
+      });
     </script>
   </body>
 </html>
