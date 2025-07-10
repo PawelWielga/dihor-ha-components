@@ -1,3 +1,5 @@
+import themeCss from "../../theme.css";
+
 export interface PersonCardConfig {
   entity: string;
 }
@@ -25,6 +27,7 @@ export class PersonCard extends HTMLElement {
 
     if (!this._contentCreated) {
       this.innerHTML = `
+        <style>${themeCss}</style>
         <ha-card header="${name}">
           <div class="card-content">
             <img style="width:100%;border-radius:50%" />
@@ -37,6 +40,12 @@ export class PersonCard extends HTMLElement {
       if (haCard) {
         haCard.setAttribute('header', name);
       }
+    }
+    const haCard = this.querySelector('ha-card');
+    const dark = hass.themes?.darkMode;
+    if (haCard) {
+      haCard.classList.toggle('dihor-theme-dark', !!dark);
+      haCard.classList.toggle('dihor-theme-light', !dark);
     }
 
     const img = this.querySelector('img');
