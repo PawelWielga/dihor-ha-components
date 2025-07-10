@@ -1,12 +1,12 @@
 /* KARTA */
 .dihor-card {
   margin: 0;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--dihor-card-bg);
   backdrop-filter: blur(20px);
-  border-radius: 12px;
+  border-radius: var(--dihor-card-border-radius);
   padding: 18px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--dihor-card-shadow);
+  border: var(--dihor-card-border-size) solid var(--dihor-card-border-color);
   font-family: sans-serif;
 }
 
@@ -14,7 +14,7 @@
 .dihor-card-header {
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--dihor-divider-color);
 }
 
 .dihor-header-row {
@@ -27,13 +27,13 @@
 .dihor-card-title {
   font-size: 20px;
   font-weight: 700;
-  color: #1d1d1f;
+  color: var(--dihor-title-color);
   margin: 0;
 }
 
 .dihor-card-subtitle {
   font-size: 14px;
-  color: #666;
+  color: var(--dihor-subtitle-color);
   font-weight: 500;
 }
 
@@ -53,8 +53,8 @@
   flex-direction: column;
   align-items: center;
   padding: 10px 0;
-  background: rgba(200, 200, 200, 0.2);
-  border-radius: 12px;
+  background: var(--dihor-stat-bg);
+  border-radius: var(--dihor-card-border-radius);
   text-align: center;
 }
 
@@ -64,7 +64,7 @@
 
 .dihor-stat-label {
   font-size: 11px;
-  color: #666;
+  color: var(--dihor-subtitle-color);
   font-weight: 500;
   margin-bottom: 4px;
   text-transform: uppercase;
@@ -73,7 +73,7 @@
 
 .dihor-stat-value {
   font-size: 14px;
-  color: #1d1d1f;
+  color: var(--dihor-title-color);
   font-weight: 600;
   line-height: 1.2;
 }
@@ -88,21 +88,21 @@
 }
 
 .dihor-badge-online {
-  background: #4caf50;
+  background: var(--dihor-badge-online-bg);
 }
 
 .dihor-badge-offline {
-  background: #ff3b30;
+  background: var(--dihor-badge-offline-bg);
 }
 
 .dihor-badge-players {
-  background: #9c27b0;
+  background: var(--dihor-badge-players-bg);
 }
 
 .dihor-badge-version {
-  background: #007aff;
+  background: var(--dihor-badge-version-bg);
 }
 
 .dihor-badge-latency {
-  background: #ff9500;
+  background: var(--dihor-badge-latency-bg);
 }
