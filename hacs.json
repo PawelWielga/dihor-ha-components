@@ -1,9 +1,10 @@
 {
-  "name": "dihor-ha-components",
+  "name": "Dihor Cards",
   "filename": "dihor-cards-bundle.js",
   "content_in_root": true,
-  "type": "module",
+  "type": "lovelace",
   "render_readme": true,
   "description": "Custom UI components for Home Assistant",
-  "version": "1.0.4"
+  "authors": ["PawelWielga"],
+  "zip_release": false
 }
