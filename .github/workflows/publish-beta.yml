@@ -1,4 +1,4 @@
-name: Publish to Beta
+name: Publish to Beta (HACS test bundle)
 
 on:
   push:
@@ -9,22 +9,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
-      - run: npm run build
 
-      - name: Push bundle to beta branch
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build bundle
+        run: npm run build
+
+      - name: Prepare build artifacts
         run: |
+          mkdir dist-beta
+          cp dihor-cards-bundle.js dist-beta/
+          cp hacs.json dist-beta/
+          cp README.md dist-beta/ || true
+          cp LICENSE dist-beta/ || true
+
+      - name: Publish to beta branch
+        run: |
+          mkdir publish-dir
+          cd publish-dir
+
+          git init
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git fetch origin beta
           git switch -C beta origin/beta || git switch --orphan beta
 
-          cp dihor-cards-bundle.js ./
-          git add dihor-cards-bundle.js
-          git commit -m "Auto-publish from master"
+          rm -rf *
+          cp -r ../dist-beta/* ./
+
+          git add .
+          git commit -m "Auto-publish HACS bundle from master" || echo "Nothing to commit"
           git push origin beta --force
