@@ -1,38 +1,30 @@
 # dihor-ha-components
 
-Custom UI components for Home Assistant bundled in `dihor-cards-bundle.js`.
+---
 
-## Installation via HACS
+## 🇬🇧 English
 
-1. Add this repository as a **Custom Repository** in HACS (type *plugin*).
-2. Install the **dihor-ha-components** package.
-3. In `Settings → Dashboards → Resources` make sure you have the following entry:
+> ⚠️ This README is still under construction. Like, serious construction. We’re talking virtual scaffolding and YAML cones.
 
-```yaml
-- url: /hacsfiles/dihor-ha-components/dihor-cards-bundle.js
-  type: module
-```
+Soon, you’ll find proper documentation here — with examples, explanations, and maybe even a few ferret jokes 🐾
 
-If it is missing, add it manually and reload the UI.
+### Until then:
 
-## dihor-minecraft-card
+This is a bundle of custom UI components for Home Assistant.  
+They're still in development, but they already do magical things. Probably.
 
-This card displays information about a Minecraft server. It expects sensors (either `sensor` or `binary_sensor`) with the prefix defined in `entity_prefix`.
+In the meantime, go grab a coffee and trust the process.  
+The README is coming. Eventually.
 
-### Example
+---
 
-```yaml
-type: custom:dihor-minecraft-card
-title: My Minecraft Server
-entity_prefix: minecraft_server
-```
+## 🇵🇱 Polski
 
-The card reads data from the following entities (you can change the `minecraft_server` prefix to your own):
+> ⚠️ Ten README jeszcze się nie wykluł. Trwa inkubacja. Prawdopodobnie przez fretkę.
 
-- `sensor.minecraft_server`
-- `sensor.minecraft_server_version`
-- `sensor.minecraft_server_status`
-- `sensor.minecraft_server_players_online`
-- `sensor.minecraft_server_players_max`
-- `sensor.minecraft_server_latency`
-- `sensor.minecraft_server_world_message`
+Już wkrótce znajdziesz tu dokumentację, przykłady, a może nawet jakiś żart z pogranicza YAML-a i świata zwierząt 🦡
+
+### A teraz?
+
+Zrób sobie kawę, zaktualizuj HACS, a README pojawi się szybciej, niż myślisz.  
+Albo później. Ale na pewno się pojawi.
