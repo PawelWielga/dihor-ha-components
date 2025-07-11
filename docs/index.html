@@ -3,14 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <title>Custom cards preview</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <link rel="stylesheet" href="index.css" />
 
     <script>
-      const isGitHubPages = location.hostname.includes("github.io");
-      const basePath = isGitHubPages ? "." : "./src/cards";
+      const isLocal =
+        location.hostname === "localhost" || location.protocol === "file:";
+      const basePath = isLocal ? "./src/cards" : ".";
 
       // Dynamiczne dołączenie CSS
       const css = document.createElement("link");
@@ -110,7 +109,6 @@
     </div>
 
     <script>
-      // Funkcja do ładowania podglądu karty
       function loadCardPreview() {
         const mcPreview = document.getElementById("minecraft-card-preview");
         fetch(`${basePath}/minecraft/dihor-minecraft-card.html`)
@@ -145,7 +143,6 @@
           });
       }
 
-      // Ładowanie podglądu po załadowaniu strony
       document.addEventListener("DOMContentLoaded", loadCardPreview);
     </script>
   </body>
