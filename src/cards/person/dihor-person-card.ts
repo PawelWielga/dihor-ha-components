@@ -1,4 +1,5 @@
 import { BaseDihorCard } from "../base";
+import type { HomeAssistant } from "../../../types/home-assistant";
 
 export interface PersonCardConfig {
   entity: string;
@@ -21,7 +22,7 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
     `;
   }
 
-  protected update(hass: any) {
+  protected update(hass: HomeAssistant) {
     const state = hass.states[this._config.entity];
     if (!state) {
       return;
