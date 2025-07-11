@@ -1,6 +1,6 @@
 import html from "./dihor-clock-card.html";
 import css from "./dihor-clock-card.css";
-import themeCss from "../../theme.css";
+import themeCss from "../theme.css";
 
 export interface ClockCardConfig {
   size?: number;
