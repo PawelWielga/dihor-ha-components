@@ -11,6 +11,7 @@ body {
   min-height: 100vh;
   padding: 2rem 1rem;
   color: #333;
+  overflow-x: hidden;
 }
 
 .container {
@@ -172,7 +173,7 @@ body.dark .card-showcase {
   font-size: 1rem;
 } */
 
-/* .card-preview {
+.card-preview {
   background: white;
   border-radius: 8px;
   padding: 1rem;
@@ -185,9 +186,11 @@ body.dark .card-showcase {
   font-style: italic;
   position: relative;
   overflow: hidden;
-} */
+  max-width: 100%;
+  overflow-x: auto;
+}
 
-/* .card-preview::before {
+.card-preview::before {
   content: "";
   position: absolute;
   top: 0;
@@ -195,7 +198,7 @@ body.dark .card-showcase {
   right: 0;
   height: 3px;
   background: linear-gradient(90deg, #667eea, #764ba2);
-} */
+}
 
 .usage-section {
   background: #1e293b;
