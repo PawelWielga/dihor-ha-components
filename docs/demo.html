@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Custom cards preview</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="index.css" />
+
+    <script>
+      const isGitHubPages = location.hostname.includes("github.io");
+      const basePath = isGitHubPages ? "." : "src/cards/minecraft";
+
+      // Dynamiczne dołączenie CSS
+      const css = document.createElement("link");
+      css.rel = "stylesheet";
+      css.href = `${basePath}/dihor-minecraft-card.css`;
+      document.head.appendChild(css);
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Custom Cards Preview</h1>
+
+      <div class="cards-grid">
+        <div class="card-showcase">
+          <div class="card-header">
+            <div class="card-icon">🎮</div>
+            <div>
+              <h3 class="card-title">dihor-minecraft-card</h3>
+              <p class="card-subtitle">
+                Karta do monitorowania serwera Minecraft
+              </p>
+            </div>
+          </div>
+
+          <div class="preview-section">
+            <div class="preview-label">Podgląd karty</div>
+            <div class="card-preview" id="minecraft-card-preview">
+              <div class="loading-placeholder">Ładowanie podglądu...</div>
+            </div>
+          </div>
+
+          <div class="usage-section">
+            <div class="usage-header">Konfiguracja YAML</div>
+            <div class="config-line">
+              <span class="config-key">type</span>
+              <span class="config-separator">:</span>
+              <span class="config-value">custom:dihor-minecraft-card</span>
+            </div>
+            <div class="config-line">
+              <span class="config-key">title</span>
+              <span class="config-separator">:</span>
+              <span class="config-value">My Minecraft Server</span>
+            </div>
+            <div class="config-line">
+              <span class="config-key">entity_prefix</span>
+              <span class="config-separator">:</span>
+              <span class="config-value">server_minecraft</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="coming-soon-section">
+          <div class="coming-soon-icon">🚀</div>
+          <div class="coming-soon-text">Kolejne komponenty wkrótce!</div>
+          <div class="coming-soon-subtitle">
+            Pracujemy nad nowymi kartami dla Home Assistant
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Funkcja do ładowania podglądu karty
+      function loadCardPreview() {
+        const previewElement = document.getElementById(
+          "minecraft-card-preview"
+        );
+
+        fetch(`${basePath}/dihor-minecraft-card.html`)
+          .then((res) => {
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.text();
+          })
+          .then((html) => {
+            previewElement.innerHTML = html;
+          })
+          .catch((error) => {
+            console.error("Błąd ładowania podglądu:", error);
+            previewElement.innerHTML =
+              '<div class="error-placeholder">Nie udało się załadować podglądu</div>';
+          });
+      }
+
+      // Ładowanie podglądu po załadowaniu strony
+      document.addEventListener("DOMContentLoaded", loadCardPreview);
+    </script>
+  </body>
+</html>

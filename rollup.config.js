@@ -10,7 +10,7 @@ const terserPlugin =
 export default {
   input: "src/index.ts",
   output: {
-    file: "dihor-cards-bundle.js",
+    file: "dist/dihor-ha-components.js",
     format: "es",
     sourcemap: false,
   },

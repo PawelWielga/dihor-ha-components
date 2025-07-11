@@ -29,14 +29,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dihor-cards-bundle
-          path: dihor-cards-bundle.js
+          path: dist/dihor-ha-components.js
 
       - name: Prepare preview directory
         run: |
           mkdir -p preview
-          cp index.html preview/
-          cp index.css preview/
-          cp dihor-cards-bundle.js preview/ || true
+          cp docs/demo.html preview/
+          cp docs/demo.css preview/
+          cp dist/dihor-ha-components.js preview/ || true
           cp src/cards/minecraft/*.html preview/
           cp src/cards/minecraft/*.css preview/
 

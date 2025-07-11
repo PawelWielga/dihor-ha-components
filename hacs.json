@@ -1,7 +1,7 @@
 {
   "name": "dihor-ha-components",
-  "filename": "dihor-cards-bundle.js",
-  "content_in_root": true,
+  "filename": "dist/dihor-ha-components.js",
+  "content_in_root": false,
   "type": "module",
   "render_readme": true,
   "description": "Custom UI components for Home Assistant",
