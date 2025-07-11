@@ -9,6 +9,22 @@ const docsDir = path.join(__dirname, "docs");
 // Upewnij się, że katalog docs/cards istnieje
 fs.mkdirSync(cardsTargetDir, { recursive: true });
 
+// Skopiuj theme.css jeśli istnieje
+const themeCssPath = path.join(cardsSourceDir, "theme.css");
+if (fs.existsSync(themeCssPath)) {
+  const destThemePath = path.join(cardsTargetDir, "theme.css");
+  fs.copyFileSync(themeCssPath, destThemePath);
+  console.log("✅ Copied theme.css to docs/cards/");
+}
+
+// Skopiuj theme.css jeśli istnieje
+const coreCssPath = path.join(cardsSourceDir, "core.css");
+if (fs.existsSync(coreCssPath)) {
+  const destThemePath = path.join(cardsTargetDir, "core.css");
+  fs.copyFileSync(coreCssPath, destThemePath);
+  console.log("✅ Copied core.css to docs/cards/");
+}
+
 // Kopiuj każdy komponent z src/cards/ do docs/cards/
 fs.readdirSync(cardsSourceDir, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())

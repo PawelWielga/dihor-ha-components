@@ -1,6 +1,8 @@
 import html from "./dihor-minecraft-card.html";
+
+import themeCss from "../theme.css";
+import coreCss from "../core.css";
 import css from "./dihor-minecraft-card.css";
-import themeCss from "../../theme.css";
 
 export interface MinecraftCardConfig {
   title?: string;
@@ -43,18 +45,19 @@ export class MinecraftCard extends HTMLElement {
     if (!this._contentCreated) {
       this.innerHTML = `
         <style>${themeCss}</style>
+        <style>${coreCss}</style>
         <ha-card>
-          ${html}
           <style>${css}</style>
+          ${html}
         </ha-card>
       `;
       this._contentCreated = true;
     }
-    const haCard = this.querySelector('ha-card');
+    const haCard = this.querySelector("ha-card");
     const dark = hass.themes?.darkMode;
     if (haCard) {
-      haCard.classList.toggle('dihor-theme-dark', !!dark);
-      haCard.classList.toggle('dihor-theme-light', !dark);
+      haCard.classList.toggle("dihor-theme-dark", !!dark);
+      haCard.classList.toggle("dihor-theme-light", !dark);
     }
 
     const updateText = (id: string, value: string) => {

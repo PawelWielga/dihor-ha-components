@@ -36,13 +36,30 @@ jobs:
       - name: Prepare docs directory for GitHub Pages
         run: |
           mkdir -p docs/cards
+
+          # Kopiowanie theme.css (jeśli istnieje)
+          if [ -f src/cards/theme.css ]; then
+            cp src/cards/theme.css docs/cards/
+            echo "✅ Copied theme.css to docs/cards/"
+          fi
+
+          # Kopiowanie core.css (jeśli istnieje)
+          if [ -f src/cards/core.css ]; then
+            cp src/cards/core.css docs/cards/
+            echo "✅ Copied core.css to docs/cards/"
+          fi
+
+          # Kopiowanie komponentów HTML/CSS
           for dir in src/cards/*; do
             if [ -d "$dir" ]; then
               name=$(basename "$dir")
               mkdir -p docs/cards/$name
               find "$dir" -maxdepth 1 -type f \( -name "*.html" -o -name "*.css" \) -exec cp {} docs/cards/$name/ \;
+              echo "✅ Copied files from $dir to docs/cards/$name/"
             fi
           done
+
+          # Inne pliki
           cp dist/dihor-ha-components.js docs/
           test -f index.html && cp index.html docs/ || echo "index.html already in docs/"
           test -f index.css && cp index.css docs/ || echo "index.css already in docs/"
