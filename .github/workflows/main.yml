@@ -34,8 +34,6 @@ jobs:
       - name: Prepare docs directory for GitHub Pages
         run: |
           mkdir -p docs
-          cp docs/demo.html docs/
-          cp docs/demo.css docs/
           cp dist/dihor-ha-components.js docs/
           cp src/cards/minecraft/*.html docs/
           cp src/cards/minecraft/*.css docs/
