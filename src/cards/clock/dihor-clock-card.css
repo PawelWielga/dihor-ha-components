@@ -1,0 +1,49 @@
+.dihor-clock-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.dihor-clock {
+  position: relative;
+  width: 100%;
+  max-width: 200px;
+  padding-top: 100%;
+}
+
+.dihor-clock-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: var(--dihor-card-bg);
+  border: 2px solid var(--dihor-divider-color);
+}
+
+.dihor-hand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: 100% 50%;
+  transform: rotate(90deg);
+  background: var(--dihor-title-color);
+}
+
+.dihor-hand-hour {
+  width: 35%;
+  height: 4px;
+}
+
+.dihor-hand-minute {
+  width: 45%;
+  height: 3px;
+}
+
+.dihor-hand-second {
+  width: 48%;
+  height: 2px;
+  background: #ff3b30;
+}

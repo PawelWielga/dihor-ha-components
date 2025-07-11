@@ -12,8 +12,14 @@ Projekt jest nadal w fazie rozwoju, a ten plik README jest w trakcie przygotowyw
 
 ## 🌐 Live Demo
 
-Check out the preview of available cards here:  
+Check out the preview of available cards here:
 🔗 [DEMO](https://pawelwielga.github.io/dihor-ha-components/)
+
+### Available cards
+
+- **dihor-minecraft-card** – monitor your Minecraft server
+- **dihor-person-card** – display Home Assistant person entity
+- **dihor-clock-card** – simple iOS-style clock with adjustable size
 
 ---
 
