@@ -46,6 +46,7 @@ jobs:
           cp dist/dihor-ha-components.js docs/
           test -f index.html && cp index.html docs/ || echo "index.html already in docs/"
           test -f index.css && cp index.css docs/ || echo "index.css already in docs/"
+          test -f preview.js && cp preview.js docs/ || echo "preview.js already in docs/"
           touch docs/.nojekyll
 
       - name: Deploy to GitHub Pages

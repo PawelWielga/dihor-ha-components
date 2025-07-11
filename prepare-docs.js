@@ -1,18 +1,21 @@
 const fs = require("fs");
 const path = require("path");
 
-const sourceDir = path.join(__dirname, "src", "cards");
-const targetDir = path.join(__dirname, "docs", "cards");
+// Ścieżki źródłowe i docelowe
+const cardsSourceDir = path.join(__dirname, "src", "cards");
+const cardsTargetDir = path.join(__dirname, "docs", "cards");
+const docsDir = path.join(__dirname, "docs");
 
-fs.readdirSync(sourceDir, { withFileTypes: true })
+// Upewnij się, że katalog docs/cards istnieje
+fs.mkdirSync(cardsTargetDir, { recursive: true });
+
+// Kopiuj każdy komponent z src/cards/ do docs/cards/
+fs.readdirSync(cardsSourceDir, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .forEach((dir) => {
-    const srcPath = path.join(sourceDir, dir.name);
-    const destPath = path.join(targetDir, dir.name);
-
-    if (!fs.existsSync(destPath)) {
-      fs.mkdirSync(destPath, { recursive: true });
-    }
+    const srcPath = path.join(cardsSourceDir, dir.name);
+    const destPath = path.join(cardsTargetDir, dir.name);
+    fs.mkdirSync(destPath, { recursive: true });
 
     fs.readdirSync(srcPath)
       .filter((file) => file.endsWith(".html") || file.endsWith(".css"))
@@ -20,6 +23,9 @@ fs.readdirSync(sourceDir, { withFileTypes: true })
         const srcFile = path.join(srcPath, file);
         const destFile = path.join(destPath, file);
         fs.copyFileSync(srcFile, destFile);
-        console.log(`✅ Copied to docs/cards/${dir.name}/${file}`);
+        console.log(`✅ Copied ${file} to docs/cards/${dir.name}/`);
       });
   });
+
+// Dodaj .nojekyll
+fs.writeFileSync(path.join(docsDir, ".nojekyll"), "");
