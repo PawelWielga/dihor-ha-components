@@ -149,29 +149,42 @@ body.dark .card-showcase {
 }
 
 .preview-section {
-  background: #f8f9fa;
+  background: #1e293b;
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  border: 1px solid #e9ecef;
+  color: #e2e8f0;
+  font-family: "Fira Code", "Courier New", monospace;
+  position: relative;
+  overflow: hidden;
+}
+
+.preview-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
 }
 
 .preview-label {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  color: #495057;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 0.75rem;
+  color: #94a3b8;
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* .preview-label::before {
+.preview-label::before {
   content: "👀";
   font-size: 1rem;
-} */
+}
 
 .card-preview {
   background: white;
@@ -190,15 +203,6 @@ body.dark .card-showcase {
   overflow-x: auto;
 }
 
-.card-preview::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
-}
 
 .usage-section {
   background: #1e293b;
