@@ -19,7 +19,7 @@ Check out the preview of available cards here:
 
 - **dihor-minecraft-card** – monitor your Minecraft server
 - **dihor-person-card** – display Home Assistant person entity
-- **dihor-clock-card** – simple iOS-style clock with adjustable size
+- **dihor-clock-card** – simple digital clock with adjustable size
 
 ---
 
