@@ -1,7 +1,8 @@
 import themeCss from "./theme.css";
+import type { HomeAssistant } from "../../types/home-assistant";
 
 export abstract class BaseDihorCard<ConfigType> extends HTMLElement {
-  protected _hass: any;
+  protected _hass!: HomeAssistant;
   protected _config!: ConfigType;
   private _contentCreated = false;
 
@@ -9,7 +10,7 @@ export abstract class BaseDihorCard<ConfigType> extends HTMLElement {
     this._config = config;
   }
 
-  set hass(hass: any) {
+  set hass(hass: HomeAssistant) {
     this._hass = hass;
     if (!this._contentCreated) {
       this.innerHTML = `
@@ -27,7 +28,7 @@ export abstract class BaseDihorCard<ConfigType> extends HTMLElement {
     this.update(hass);
   }
 
-  private applyTheme(hass: any) {
+  private applyTheme(hass: HomeAssistant) {
     const haCard = this.querySelector("ha-card");
     const dark = hass.themes?.darkMode;
     if (haCard) {
@@ -47,5 +48,5 @@ export abstract class BaseDihorCard<ConfigType> extends HTMLElement {
 
   protected onCardCreated(): void {}
 
-  protected update(_hass: any): void {}
+  protected update(_hass: HomeAssistant): void {}
 }

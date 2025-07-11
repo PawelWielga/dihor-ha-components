@@ -7,5 +7,5 @@
     "lib": ["es2018", "dom"],
     "skipLibCheck": true
   },
-  "include": ["src/**/*", "rollup.config.js", "types/raw.d.ts"]
+  "include": ["src/**/*", "rollup.config.js", "types/raw.d.ts", "types/home-assistant.d.ts"]
 }

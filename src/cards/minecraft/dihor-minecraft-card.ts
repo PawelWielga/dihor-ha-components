@@ -3,6 +3,7 @@ import html from "./dihor-minecraft-card.html";
 import coreCss from "../core.css";
 import css from "./dihor-minecraft-card.css";
 import { BaseDihorCard } from "../base";
+import type { HomeAssistant } from "../../../types/home-assistant";
 
 export interface MinecraftCardConfig {
   title?: string;
@@ -38,7 +39,7 @@ export class MinecraftCard extends BaseDihorCard<MinecraftCardConfig> {
     return css;
   }
 
-  protected update(hass: any) {
+  protected update(hass: HomeAssistant) {
     const p = this._config.entity_prefix;
 
     const getState = (suffix: string): string => {
