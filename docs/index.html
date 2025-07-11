@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="cards/core.css" />
 
     <!-- Dodanie czcionki ROBOTO -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Dołączenie CSS komponentów -->
     <script>
@@ -141,11 +144,22 @@
         },
       };
 
+      function applyThemeToCards() {
+        const isDark = document.body.classList.contains('dark');
+        document
+          .querySelectorAll('.card-preview .dihor-card')
+          .forEach((card) => {
+            card.classList.toggle('dihor-theme-dark', isDark);
+            card.classList.toggle('dihor-theme-light', !isDark);
+          });
+      }
+
       function setupThemeToggle() {
         const themeButton = document.getElementById('toggle-theme');
         const currentTheme = localStorage.getItem('theme') || 'light';
         document.body.classList.add(currentTheme);
         themeButton.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        applyThemeToCards();
         themeButton.addEventListener('click', () => {
           const newTheme = document.body.classList.contains('dark')
             ? 'light'
@@ -154,6 +168,7 @@
           document.body.classList.add(newTheme);
           localStorage.setItem('theme', newTheme);
           themeButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+          applyThemeToCards();
         });
       }
 
@@ -209,6 +224,7 @@
             })
             .then((html) => {
               if (el) el.innerHTML = html;
+              applyThemeToCards();
             })
             .catch((err) => {
               if (el)
