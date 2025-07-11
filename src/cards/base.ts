@@ -24,13 +24,16 @@ export abstract class BaseDihorCard<ConfigType> extends HTMLElement {
       this._contentCreated = true;
       this.onCardCreated();
     }
-    this.applyTheme(hass);
+    this.applyTheme();
     this.update(hass);
   }
 
-  private applyTheme(hass: HomeAssistant) {
+  private applyTheme() {
     const haCard = this.querySelector("ha-card");
-    const dark = hass.themes?.darkMode;
+    const haElement = document.querySelector("home-assistant") as
+      | { hass?: HomeAssistant }
+      | null;
+    const dark = haElement?.hass?.themes?.darkMode;
     if (haCard) {
       haCard.classList.toggle("dihor-theme-dark", !!dark);
       haCard.classList.toggle("dihor-theme-light", !dark);
