@@ -40,6 +40,9 @@ jobs:
           cp src/cards/minecraft/*.html preview/
           cp src/cards/minecraft/*.css preview/
 
+      - name: Disable Jekyll
+        run: touch preview/.nojekyll
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
