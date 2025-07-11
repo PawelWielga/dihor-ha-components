@@ -10,18 +10,17 @@
 
     <script>
       const isGitHubPages = location.hostname.includes("github.io");
-      const basePath = isGitHubPages ? "." : "src/cards/minecraft";
-      const clockPath = isGitHubPages ? "." : "src/cards/clock";
+      const basePath = isGitHubPages ? "." : "./src/cards";
 
       // Dynamiczne dołączenie CSS
       const css = document.createElement("link");
       css.rel = "stylesheet";
-      css.href = `${basePath}/dihor-minecraft-card.css`;
+      css.href = `${basePath}/minecraft/dihor-minecraft-card.css`;
       document.head.appendChild(css);
 
       const cssClock = document.createElement("link");
       cssClock.rel = "stylesheet";
-      cssClock.href = `${clockPath}/dihor-clock-card.css`;
+      cssClock.href = `${basePath}/clock/dihor-clock-card.css`;
       document.head.appendChild(cssClock);
     </script>
   </head>
@@ -114,7 +113,7 @@
       // Funkcja do ładowania podglądu karty
       function loadCardPreview() {
         const mcPreview = document.getElementById("minecraft-card-preview");
-        fetch(`${basePath}/dihor-minecraft-card.html`)
+        fetch(`${basePath}/minecraft/dihor-minecraft-card.html`)
           .then((res) => {
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             return res.text();
@@ -130,7 +129,7 @@
           });
 
         const clockPreview = document.getElementById("clock-card-preview");
-        fetch(`${clockPath}/dihor-clock-card.html`)
+        fetch(`${basePath}/clock/dihor-clock-card.html`)
           .then((res) => {
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             return res.text();
