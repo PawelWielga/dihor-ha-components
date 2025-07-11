@@ -31,22 +31,20 @@ jobs:
           name: dihor-cards-bundle
           path: dist/dihor-ha-components.js
 
-      - name: Prepare preview directory
+      - name: Prepare docs directory for GitHub Pages
         run: |
-          mkdir -p preview
-          cp docs/demo.html preview/
-          cp docs/demo.css preview/
-          cp dist/dihor-ha-components.js preview/ || true
-          cp src/cards/minecraft/*.html preview/
-          cp src/cards/minecraft/*.css preview/
-
-      - name: Disable Jekyll
-        run: touch preview/.nojekyll
+          mkdir -p docs
+          cp docs/demo.html docs/
+          cp docs/demo.css docs/
+          cp dist/dihor-ha-components.js docs/
+          cp src/cards/minecraft/*.html docs/
+          cp src/cards/minecraft/*.css docs/
+          touch docs/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./preview
+          publish_dir: ./docs
           publish_branch: gh-pages
           force_orphan: true
