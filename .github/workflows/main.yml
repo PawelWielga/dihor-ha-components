@@ -40,12 +40,12 @@ jobs:
             if [ -d "$dir" ]; then
               name=$(basename "$dir")
               mkdir -p docs/cards/$name
-              cp "$dir"/*.html "$dir"/*.css docs/cards/$name/ || true
+              find "$dir" -maxdepth 1 -type f \( -name "*.html" -o -name "*.css" \) -exec cp {} docs/cards/$name/ \;
             fi
           done
           cp dist/dihor-ha-components.js docs/
-          cp index.html docs/
-          cp index.css docs/
+          cp docs/index.html docs/
+          cp docs/index.css docs/
           touch docs/.nojekyll
 
       - name: Deploy to GitHub Pages
