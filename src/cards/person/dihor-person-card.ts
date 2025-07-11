@@ -1,4 +1,4 @@
-import themeCss from "../../theme.css";
+import themeCss from "../theme.css";
 
 export interface PersonCardConfig {
   entity: string;
