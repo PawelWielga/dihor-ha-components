@@ -1,23 +1,27 @@
-import themeCss from "../theme.css";
+import { BaseDihorCard } from "../base";
 
 export interface PersonCardConfig {
   entity: string;
 }
 
-export class PersonCard extends HTMLElement {
-  private _hass: any;
-  private _config!: PersonCardConfig;
-  private _contentCreated = false;
+export class PersonCard extends BaseDihorCard<PersonCardConfig> {
 
   setConfig(config: PersonCardConfig) {
     if (!config.entity) {
       throw new Error('Entity is required');
     }
-    this._config = config;
+    super.setConfig(config);
   }
 
-  set hass(hass: any) {
-    this._hass = hass;
+  protected cardHtml() {
+    return `
+      <div class="card-content">
+        <img style="width:100%;border-radius:50%" />
+      </div>
+    `;
+  }
+
+  protected update(hass: any) {
     const state = hass.states[this._config.entity];
     if (!state) {
       return;
@@ -25,27 +29,9 @@ export class PersonCard extends HTMLElement {
     const name = state.attributes.friendly_name || this._config.entity;
     const picture = state.attributes.entity_picture;
 
-    if (!this._contentCreated) {
-      this.innerHTML = `
-        <style>${themeCss}</style>
-        <ha-card header="${name}">
-          <div class="card-content">
-            <img style="width:100%;border-radius:50%" />
-          </div>
-        </ha-card>
-      `;
-      this._contentCreated = true;
-    } else {
-      const haCard = this.querySelector('ha-card');
-      if (haCard) {
-        haCard.setAttribute('header', name);
-      }
-    }
     const haCard = this.querySelector('ha-card');
-    const dark = hass.themes?.darkMode;
     if (haCard) {
-      haCard.classList.toggle('dihor-theme-dark', !!dark);
-      haCard.classList.toggle('dihor-theme-light', !dark);
+      haCard.setAttribute('header', name);
     }
 
     const img = this.querySelector('img');

@@ -1,20 +1,13 @@
 import html from "./dihor-clock-card.html";
 import css from "./dihor-clock-card.css";
-import themeCss from "../theme.css";
+import { BaseDihorCard } from "../base";
 
 export interface ClockCardConfig {
   size?: number;
 }
 
-export class ClockCard extends HTMLElement {
-  private _hass: any;
-  private _config: ClockCardConfig = {};
-  private _contentCreated = false;
+export class ClockCard extends BaseDihorCard<ClockCardConfig> {
   private _interval?: number;
-
-  setConfig(config: ClockCardConfig) {
-    this._config = config;
-  }
 
   connectedCallback() {
     this.startClock();
@@ -24,25 +17,16 @@ export class ClockCard extends HTMLElement {
     if (this._interval) window.clearInterval(this._interval);
   }
 
-  set hass(hass: any) {
-    this._hass = hass;
-    if (!this._contentCreated) {
-      this.innerHTML = `
-        <style>${themeCss}</style>
-        <ha-card>
-          ${html}
-          <style>${css}</style>
-        </ha-card>
-      `;
-      this._contentCreated = true;
-      this.startClock();
-    }
-    const haCard = this.querySelector('ha-card');
-    const dark = hass.themes?.darkMode;
-    if (haCard) {
-      haCard.classList.toggle('dihor-theme-dark', !!dark);
-      haCard.classList.toggle('dihor-theme-light', !dark);
-    }
+  protected cardHtml() {
+    return html;
+  }
+
+  protected cardCss() {
+    return css;
+  }
+
+  protected onCardCreated() {
+    this.startClock();
   }
 
   private startClock() {
