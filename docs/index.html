@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
@@ -10,12 +10,12 @@
     <!-- Dołączenie CSS komponentów -->
     <script>
       const isLocal =
-        location.hostname === "localhost" || location.protocol === "file:";
-      const basePath = isLocal ? "/cards" : "./cards";
+        location.hostname === 'localhost' || location.protocol === 'file:';
+      const basePath = isLocal ? '/cards' : './cards';
 
-      ["minecraft", "clock"].forEach((card) => {
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
+      ['minecraft', 'clock'].forEach((card) => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
         link.href = `${basePath}/${card}/dihor-${card}-card.css`;
         document.head.appendChild(link);
       });
@@ -116,75 +116,75 @@
     <script>
       const translations = {
         pl: {
-          minecraftSubtitle: "Karta do monitorowania serwera Minecraft",
-          clockSubtitle: "Prosty zegar w stylu iOS",
-          comingSoon: "Kolejne komponenty wkrótce!",
-          comingSoonSub: "Pracujemy nad nowymi kartami dla Home Assistant",
-          previewLabel: "Podgląd karty",
-          yamlHeader: "Konfiguracja YAML",
-          loading: "Ładowanie podglądu...",
-          error: "Nie udało się załadować podglądu",
+          minecraftSubtitle: 'Karta do monitorowania serwera Minecraft',
+          clockSubtitle: 'Prosty zegar w stylu iOS',
+          comingSoon: 'Kolejne komponenty wkrótce!',
+          comingSoonSub: 'Pracujemy nad nowymi kartami dla Home Assistant',
+          previewLabel: 'Podgląd karty',
+          yamlHeader: 'Konfiguracja YAML',
+          loading: 'Ładowanie podglądu...',
+          error: 'Nie udało się załadować podglądu',
         },
         en: {
-          minecraftSubtitle: "Card for monitoring Minecraft server",
-          clockSubtitle: "Simple iOS-style clock",
-          comingSoon: "More components coming soon!",
+          minecraftSubtitle: 'Card for monitoring Minecraft server',
+          clockSubtitle: 'Simple iOS-style clock',
+          comingSoon: 'More components coming soon!',
           comingSoonSub: "We're working on new Home Assistant cards",
-          previewLabel: "Card preview",
-          yamlHeader: "YAML Configuration",
-          loading: "Loading preview...",
-          error: "Failed to load preview",
+          previewLabel: 'Card preview',
+          yamlHeader: 'YAML Configuration',
+          loading: 'Loading preview...',
+          error: 'Failed to load preview',
         },
       };
 
       function setupThemeToggle() {
-        const themeButton = document.getElementById("toggle-theme");
-        const currentTheme = localStorage.getItem("theme") || "light";
+        const themeButton = document.getElementById('toggle-theme');
+        const currentTheme = localStorage.getItem('theme') || 'light';
         document.body.classList.add(currentTheme);
-        themeButton.textContent = currentTheme === "dark" ? "☀️" : "🌙";
-        themeButton.addEventListener("click", () => {
-          const newTheme = document.body.classList.contains("dark")
-            ? "light"
-            : "dark";
-          document.body.classList.remove("light", "dark");
+        themeButton.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        themeButton.addEventListener('click', () => {
+          const newTheme = document.body.classList.contains('dark')
+            ? 'light'
+            : 'dark';
+          document.body.classList.remove('light', 'dark');
           document.body.classList.add(newTheme);
-          localStorage.setItem("theme", newTheme);
-          themeButton.textContent = newTheme === "dark" ? "☀️" : "🌙";
+          localStorage.setItem('theme', newTheme);
+          themeButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         });
       }
 
       function setupLanguageToggle() {
-        const langButton = document.getElementById("toggle-language");
-        let lang = localStorage.getItem("lang") || "pl";
-        langButton.textContent = lang === "pl" ? "🇵🇱" : "🇬🇧";
+        const langButton = document.getElementById('toggle-language');
+        let lang = localStorage.getItem('lang') || 'pl';
+        langButton.textContent = lang === 'pl' ? '🇵🇱' : '🇬🇧';
 
         function applyTranslations() {
           const t = translations[lang];
           document.querySelector(
-            ".card-showcase:nth-child(1) .card-subtitle"
+            '.card-showcase:nth-child(1) .card-subtitle'
           ).textContent = t.minecraftSubtitle;
           document.querySelector(
-            ".card-showcase:nth-child(2) .card-subtitle"
+            '.card-showcase:nth-child(2) .card-subtitle'
           ).textContent = t.clockSubtitle;
           document
-            .querySelectorAll(".preview-label")
+            .querySelectorAll('.preview-label')
             .forEach((el) => (el.textContent = t.previewLabel));
           document
-            .querySelectorAll(".usage-header")
+            .querySelectorAll('.usage-header')
             .forEach((el) => (el.textContent = t.yamlHeader));
-          document.querySelector(".coming-soon-text").textContent =
+          document.querySelector('.coming-soon-text').textContent =
             t.comingSoon;
-          document.querySelector(".coming-soon-subtitle").textContent =
+          document.querySelector('.coming-soon-subtitle').textContent =
             t.comingSoonSub;
           document
-            .querySelectorAll(".loading-placeholder")
-            .forEach((el) => (el.textContent = "⏳ " + t.loading));
+            .querySelectorAll('.loading-placeholder')
+            .forEach((el) => (el.textContent = '⏳ ' + t.loading));
         }
 
-        langButton.addEventListener("click", () => {
-          lang = lang === "pl" ? "en" : "pl";
-          localStorage.setItem("lang", lang);
-          langButton.textContent = lang === "pl" ? "🇵🇱" : "🇬🇧";
+        langButton.addEventListener('click', () => {
+          lang = lang === 'pl' ? 'en' : 'pl';
+          localStorage.setItem('lang', lang);
+          langButton.textContent = lang === 'pl' ? '🇵🇱' : '🇬🇧';
           applyTranslations();
         });
 
@@ -193,14 +193,14 @@
 
       function loadCardPreview() {
         const cards = [
-          { id: "minecraft", name: "dihor-minecraft-card" },
-          { id: "clock", name: "dihor-clock-card" },
+          { id: 'minecraft', name: 'dihor-minecraft-card' },
+          { id: 'clock', name: 'dihor-clock-card' },
         ];
         cards.forEach(({ id, name }) => {
           const el = document.getElementById(`${id}-card-preview`);
           fetch(`${basePath}/${id}/${name}.html`)
             .then((res) => {
-              if (!res.ok) throw new Error("Błąd HTTP");
+              if (!res.ok) throw new Error('Błąd HTTP');
               return res.text();
             })
             .then((html) => {
@@ -213,7 +213,7 @@
         });
       }
 
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener('DOMContentLoaded', () => {
         setupThemeToggle();
         setupLanguageToggle();
         loadCardPreview();
