@@ -1,38 +1,37 @@
-# dihor-ha-components
+# Dihor HA Components
 
-Custom UI components for Home Assistant bundled in `dihor-cards-bundle.js`.
+**EN 🇬🇧**  
+This repository contains custom UI components for Home Assistant, designed to make your dashboard more functional – and just a little more fun.  
+The project is still under development, and this README is currently being written. Stay tuned for full documentation, usage examples, and setup instructions.
 
-## Installation via HACS
+**PL 🇵🇱**  
+To repozytorium zawiera niestandardowe komponenty UI do Home Assistanta, stworzone po to, by Twój dashboard był bardziej funkcjonalny – i trochę przyjemniejszy w użyciu.  
+Projekt jest nadal w fazie rozwoju, a ten plik README jest w trakcie przygotowywania. Wkrótce pojawi się pełna dokumentacja, przykłady użycia i instrukcja instalacji.
 
-1. Add this repository as a **Custom Repository** in HACS (type *plugin*).
-2. Install the **dihor-ha-components** package.
-3. In `Settings → Dashboards → Resources` make sure you have the following entry:
+---
 
-```yaml
-- url: /hacsfiles/dihor-ha-components/dihor-cards-bundle.js
-  type: module
-```
+## 🌐 Live Demo
 
-If it is missing, add it manually and reload the UI.
+Check out the preview of available cards here:  
+🔗 [DEMO](https://pawelwielga.github.io/dihor-ha-components/)
 
-## dihor-minecraft-card
+---
 
-This card displays information about a Minecraft server. It expects sensors (either `sensor` or `binary_sensor`) with the prefix defined in `entity_prefix`.
+## 📦 Status
 
-### Example
+- Work in progress 🛠️
+- Ready for experimentation 🧪
+- Not quite production-ready (yet) 🚧
 
-```yaml
-type: custom:dihor-minecraft-card
-title: My Minecraft Server
-entity_prefix: minecraft_server
-```
+---
 
-The card reads data from the following entities (you can change the `minecraft_server` prefix to your own):
+## 🧭 What to expect (soon)
 
-- `sensor.minecraft_server`
-- `sensor.minecraft_server_version`
-- `sensor.minecraft_server_status`
-- `sensor.minecraft_server_players_online`
-- `sensor.minecraft_server_players_max`
-- `sensor.minecraft_server_latency`
-- `sensor.minecraft_server_world_message`
+- Installation instructions via HACS or manual method
+- Component demos and screenshots
+- YAML examples for each card
+- Versioning and changelog
+
+---
+
+Made with care and curiosity by [Pawel Wielga](https://github.com/PawelWielga)
