@@ -1,18 +1,15 @@
 import html from "./dihor-minecraft-card.html";
 
-import themeCss from "../theme.css";
 import coreCss from "../core.css";
 import css from "./dihor-minecraft-card.css";
+import { BaseDihorCard } from "../base";
 
 export interface MinecraftCardConfig {
   title?: string;
   entity_prefix: string;
 }
 
-export class MinecraftCard extends HTMLElement {
-  private _hass: any;
-  private _config!: MinecraftCardConfig;
-  private _contentCreated = false;
+export class MinecraftCard extends BaseDihorCard<MinecraftCardConfig> {
 
   setConfig(config: MinecraftCardConfig) {
     if (!config.entity_prefix) {
@@ -26,11 +23,22 @@ export class MinecraftCard extends HTMLElement {
         '[dihor-minecraft-card] entity_prefix should not include "sensor." or "binary_sensor."'
       );
     }
-    this._config = config;
+    super.setConfig(config);
   }
 
-  set hass(hass: any) {
-    this._hass = hass;
+  protected additionalCss() {
+    return `<style>${coreCss}</style>`;
+  }
+
+  protected cardHtml() {
+    return html;
+  }
+
+  protected cardCss() {
+    return css;
+  }
+
+  protected update(hass: any) {
     const p = this._config.entity_prefix;
 
     const getState = (suffix: string): string => {
@@ -41,24 +49,6 @@ export class MinecraftCard extends HTMLElement {
         "unavailable"
       );
     };
-
-    if (!this._contentCreated) {
-      this.innerHTML = `
-        <style>${themeCss}</style>
-        <style>${coreCss}</style>
-        <ha-card>
-          <style>${css}</style>
-          ${html}
-        </ha-card>
-      `;
-      this._contentCreated = true;
-    }
-    const haCard = this.querySelector("ha-card");
-    const dark = hass.themes?.darkMode;
-    if (haCard) {
-      haCard.classList.toggle("dihor-theme-dark", !!dark);
-      haCard.classList.toggle("dihor-theme-light", !dark);
-    }
 
     const updateText = (id: string, value: string) => {
       const el = this.querySelector(`#${id}`);
