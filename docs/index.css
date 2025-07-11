@@ -27,6 +27,69 @@ h1 {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2c3e50;
+  color: #ecf0f1;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-buttons button {
+  background: transparent;
+  border: none;
+  color: #ecf0f1;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.navbar-buttons button:hover {
+  transform: scale(1.2);
+}
+
+/* Motywy */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #2c3e50;
+  --card-bg: #f9f9f9;
+}
+
+body.light {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.card-showcase {
+  background-color: var(--card-bg);
+  color: inherit;
+}
+
+body.dark {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark .card-showcase {
+  background-color: #1e1e1e;
+  color: inherit;
+}
+
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
