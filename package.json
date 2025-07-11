@@ -5,13 +5,15 @@
     "build": "rollup -c",
     "prepare-docs": "node prepare-docs.js",
     "preview": "npx serve docs",
-    "dev": "npm run prepare-docs && npm run preview"
+    "dev": "npm run prepare-docs && npm run preview",
+    "format": "prettier --write \"src/**/*.{ts,css,html}\" \"docs/**/*.{html,css,md}\""
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.4",
     "glob": "^11.0.3",
+    "prettier": "^3.6.2",
     "rollup": "^2.79.2",
     "rollup-plugin-string": "^3.0.0",
     "shx": "^0.4.0",
