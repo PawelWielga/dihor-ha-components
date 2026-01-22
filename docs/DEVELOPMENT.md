@@ -32,12 +32,12 @@ This command copies each card's static HTML and CSS from `src/cards/` into `docs
    Additionally, to enable the Lovelace card picker and HACS previews, register card metadata by pushing to `window.customCards`. Example:
 
    ```ts
-   ;(window as any).customCards = (window as any).customCards || [];
-   ;(window as any).customCards.push({
+   (window as any).customCards = (window as any).customCards || [];
+   (window as any).customCards.push({
      type: 'dihor-example-card',
      name: 'Dihor Example Card',
      preview: true,
-     description: 'Short card description'
+     description: 'Short card description',
    });
    ```
 
