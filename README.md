@@ -121,46 +121,9 @@ entity: person.my_account
 
 ---
 
-## 📣 Publishing to HACS
-
-- Before creating a release, update `hacs.json` -> `version` to the new release version (semantic versioning recommended).
-- Create a GitHub release and tag it with the same version. HACS will pick up new releases automatically.
-- After release, confirm the new version appears in HACS and that `dist/dihor-ha-components.js` is available under the release assets or the repository's `hacsfiles` path.
-
 ---
 
-## 🔁 CI / Auto-release
-
-This repository includes multiple GitHub Actions to fully automate builds, releases and documentation deploys.
-
-- `CI` (`.github/workflows/ci.yml`) — builds the project on pull requests and pushes to `main` (sanity build + docs generation).
-- `Semantic Release` (`.github/workflows/semantic-release.yml`) — runs on `push` to `main`, analyzes commits and automatically creates a GitHub Release with a semantic version (tags, changelog). It also updates `package.json`, `hacs.json` and `CHANGELOG.md` using the configured plugins.
-- `Attach Build Asset on Release` (`.github/workflows/release.yml`) — runs on `release: published`, builds `dist/` and uploads `dist/dihor-ha-components.js` as an asset to the release so HACS can detect the new release.
-- `Deploy docs to GitHub Pages` (`.github/workflows/pages.yml`) — publishes `docs/` to the `gh-pages` branch on every push to `main`.
-
-How to trigger an automated release using semantic-release:
-
-1. Follow conventional commit messages in your PRs (feat/fix/chore with proper scopes) so `semantic-release` can determine the next version automatically.
-2. Merge commits to `main`. The `semantic-release` job will:
-   - Create a new release tag (`vX.Y.Z`) and release notes.
-   - Update `package.json` and `hacs.json` with the new version and commit that change.
-   - Generate/update `CHANGELOG.md`.
-3. When the release is published, the `Attach Build Asset on Release` workflow will build and upload `dist/dihor-ha-components.js` to the release.
-
-If you prefer `build number` as the version (e.g., `0.0.<build_number>`), there is a workflow (`.github/workflows/build-number-release.yml`) that can be triggered manually from the Actions UI (`Run workflow`) and will:
-
-- set the version to `0.0.<github.run_number>`
-- update `package.json` and `hacs.json`
-- commit and push the change to `main`
-- create a GitHub release `v0.0.<build_number>` (which triggers the asset upload workflow)
-
-Use this workflow when you prefer to use CI build number as the release version rather than semantic versioning.
-
-Notes:
-- `semantic-release` uses the `GITHUB_TOKEN` to push commits and create releases. Ensure that merges to `main` include conventional commit messages for proper versioning.
-- If you need `npm` publishing in the future, we can add npm auth tokens and enable `@semantic-release/npm` publishing.
-
-
+For development, CI, release and publishing details see `DEVELOPMENT.md`.
 
 ---
 
