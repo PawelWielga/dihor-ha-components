@@ -28,6 +28,21 @@ This command copies each card's static HTML and CSS from `src/cards/` into `docs
 2. Implement a custom element class that extends `HTMLElement` (see existing cards for reference).
 3. Import shared styles from `src/cards/theme.css` and `src/cards/core.css` in your TypeScript file.
 4. Register the element with `customElements.define` and export it from `src/index.ts`.
-5. If you provide accompanying HTML/CSS files, they will be included in `docs/cards/` when running `npm run prepare-docs`.
+
+   Additionally, to enable the Lovelace card picker and HACS previews, register card metadata by pushing to `window.customCards`. Example:
+
+   ```ts
+   ;(window as any).customCards = (window as any).customCards || [];
+   ;(window as any).customCards.push({
+     type: 'dihor-example-card',
+     name: 'Dihor Example Card',
+     preview: true,
+     description: 'Short card description'
+   });
+   ```
+
+5. If you provide accompanying HTML/CSS files, they will be included in `docs/cards/` when running `npm run prepare-docs`.  
+6. Ensure your class implements `LovelaceCard` and validates configuration in `setConfig`.
+
 
 Following this pattern allows the card to be compiled into the main bundle and showcased in the documentation.

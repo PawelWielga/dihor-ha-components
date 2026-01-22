@@ -7,3 +7,10 @@ export interface HomeAssistant {
     darkMode?: boolean;
   };
 }
+
+export interface LovelaceCard {
+  readonly card: HTMLElement;
+  readonly hass: HomeAssistant;
+  setConfig(config: any): void;
+  getCardSize(): number;
+}

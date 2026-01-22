@@ -50,3 +50,12 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
 if (!customElements.get('dihor-person-card')) {
   customElements.define('dihor-person-card', PersonCard);
 }
+
+// Register for Lovelace editor preview and HACS UI
+;(window as any).customCards = (window as any).customCards || [];
+;(window as any).customCards.push({
+  type: 'dihor-person-card',
+  name: 'Dihor Person Card',
+  preview: true,
+  description: 'Displays Home Assistant person entity'
+});

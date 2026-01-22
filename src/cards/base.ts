@@ -1,16 +1,17 @@
 import themeCss from "./theme.css";
-import type { HomeAssistant } from "../../types/home-assistant";
+import type { HomeAssistant, LovelaceCard } from "../../types/home-assistant";
 
-export abstract class BaseDihorCard<ConfigType> extends HTMLElement {
+export abstract class BaseDihorCard<ConfigType> extends HTMLElement implements LovelaceCard {
   protected _hass!: HomeAssistant;
   protected _config!: ConfigType;
   private _contentCreated = false;
+  protected _card?: HTMLElement;
 
-  setConfig(config: ConfigType) {
+  public setConfig(config: ConfigType): void {
     this._config = config;
   }
 
-  set hass(hass: HomeAssistant) {
+  public set hass(hass: HomeAssistant) {
     this._hass = hass;
     if (!this._contentCreated) {
       this.innerHTML = `
@@ -21,11 +22,21 @@ export abstract class BaseDihorCard<ConfigType> extends HTMLElement {
           ${this.cardCss() ? `<style>${this.cardCss()}</style>` : ""}
         </ha-card>
       `;
+      // querySelector can return null — normalize to undefined to satisfy types
+      this._card = this.querySelector("ha-card") || undefined;
       this._contentCreated = true;
       this.onCardCreated();
     }
     this.applyTheme();
     this.update(hass);
+  }
+
+  public get hass(): HomeAssistant {
+    return this._hass;
+  }
+
+  public get card(): HTMLElement {
+    return this._card || this;
   }
 
   private applyTheme() {
@@ -52,4 +63,6 @@ export abstract class BaseDihorCard<ConfigType> extends HTMLElement {
   protected onCardCreated(): void {}
 
   protected update(_hass: HomeAssistant): void {}
+
+  abstract getCardSize(): number;
 }

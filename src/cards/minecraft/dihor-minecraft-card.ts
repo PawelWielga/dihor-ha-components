@@ -92,3 +92,12 @@ export class MinecraftCard extends BaseDihorCard<MinecraftCardConfig> {
 if (!customElements.get("dihor-minecraft-card")) {
   customElements.define("dihor-minecraft-card", MinecraftCard);
 }
+
+// Register for Lovelace editor preview and HACS UI
+;(window as any).customCards = (window as any).customCards || [];
+;(window as any).customCards.push({
+  type: 'dihor-minecraft-card',
+  name: 'Dihor Minecraft Card',
+  preview: true,
+  description: 'Monitor a Minecraft server via sensor entities'
+});

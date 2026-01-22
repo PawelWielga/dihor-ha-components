@@ -55,3 +55,12 @@ export class ClockCard extends BaseDihorCard<ClockCardConfig> {
 if (!customElements.get('dihor-clock-card')) {
   customElements.define('dihor-clock-card', ClockCard);
 }
+
+// Register for Lovelace editor preview and HACS UI
+;(window as any).customCards = (window as any).customCards || [];
+;(window as any).customCards.push({
+  type: 'dihor-clock-card',
+  name: 'Dihor Clock Card',
+  preview: true,
+  description: 'Minimal digital clock card with configurable size'
+});
