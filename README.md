@@ -20,8 +20,9 @@ size: 2  # 1 = small, 2 = medium, 3 = "I need to see this from the other room!"
 Got a Minecraft server? Want to show off how many players are online without opening the game? This card is perfect for you! It's like having a mini-server monitor right on your dashboard.
 
 ```yaml
-type: 'custom:dihor-clock-card'
-size: 2  # 1 = small, 2 = medium, 3 = "I need to see this from the other room!"
+type: 'custom:dihor-minecraft-card'
+title: My Minecraft Server
+entity_prefix: server_minecraft
 ```
 
 ### 3. 👤 Dihor Person Card - The Social Network of Your Smart Home
