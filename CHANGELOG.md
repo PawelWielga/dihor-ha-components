@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/PawelWielga/dihor-ha-components/compare/v1.0.0...v1.0.1) (2026-01-22)
+
+
+### Bug Fixes
+
+* popraw generowanie paczki wydania dla HACS ([2ed488a](https://github.com/PawelWielga/dihor-ha-components/commit/2ed488a19c943b3f569feecbaddb2d4c777e83ff))
+
 # 1.0.0 (2026-01-22)
 
 
