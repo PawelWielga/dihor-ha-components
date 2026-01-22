@@ -147,7 +147,14 @@ How to trigger an automated release using semantic-release:
    - Generate/update `CHANGELOG.md`.
 3. When the release is published, the `Attach Build Asset on Release` workflow will build and upload `dist/dihor-ha-components.js` to the release.
 
-If you prefer `build number` as the version (e.g., `0.0.<build_number>`), we can add an alternate release strategy; say so and I will add it (examples: use `github.run_number` or set a custom environment variable to force build-number versions).
+If you prefer `build number` as the version (e.g., `0.0.<build_number>`), there is a workflow (`.github/workflows/build-number-release.yml`) that can be triggered manually from the Actions UI (`Run workflow`) and will:
+
+- set the version to `0.0.<github.run_number>`
+- update `package.json` and `hacs.json`
+- commit and push the change to `main`
+- create a GitHub release `v0.0.<build_number>` (which triggers the asset upload workflow)
+
+Use this workflow when you prefer to use CI build number as the release version rather than semantic versioning.
 
 Notes:
 - `semantic-release` uses the `GITHUB_TOKEN` to push commits and create releases. Ensure that merges to `main` include conventional commit messages for proper versioning.
