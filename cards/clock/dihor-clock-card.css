@@ -1,0 +1,9 @@
+.dihor-digital-clock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  padding: 1rem 0;
+  color: var(--dihor-title-color);
+}

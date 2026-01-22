@@ -1,0 +1,12 @@
+/* KARTA */
+.dihor-card {
+  margin: 0;
+  width: 100%;
+  background: var(--dihor-card-bg);
+  backdrop-filter: blur(20px);
+  border-radius: var(--dihor-card-border-radius);
+  padding: 18px;
+  box-shadow: var(--dihor-card-shadow);
+  border: var(--dihor-card-border-size) solid var(--dihor-card-border-color);
+  font-family: sans-serif;
+}

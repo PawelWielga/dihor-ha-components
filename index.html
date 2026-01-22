@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Custom cards preview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="cards/theme.css" />
+    <link rel="stylesheet" href="cards/core.css" />
+
+    <!-- Dodanie czcionki ROBOTO -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Dołączenie CSS komponentów -->
+    <script>
+      const isLocal =
+        location.hostname === 'localhost' || location.protocol === 'file:';
+      const basePath = isLocal ? '/cards' : './cards';
+
+      ['minecraft', 'clock'].forEach((card) => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = `${basePath}/${card}/dihor-${card}-card.css`;
+        document.head.appendChild(link);
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <nav class="navbar">
+        <div class="navbar-title">📦 Custom Cards Preview</div>
+        <div class="navbar-buttons">
+          <button id="toggle-language" title="Zmień język">🇵🇱</button>
+          <button id="toggle-theme" title="Zmień motyw">🌙</button>
+        </div>
+      </nav>
+
+      <div class="cards-grid">
+        <div class="card-showcase">
+          <div class="card-header">
+            <div class="card-icon">🎮</div>
+            <div>
+              <h3 class="card-title">dihor-minecraft-card</h3>
+              <p class="card-subtitle">
+                Karta do monitorowania serwera Minecraft
+              </p>
+            </div>
+          </div>
+
+          <div class="preview-section">
+            <div class="preview-label">Podgląd karty</div>
+            <div class="card-preview" id="minecraft-card-preview">
+              <div class="loading-placeholder">Ładowanie podglądu...</div>
+            </div>
+          </div>
+
+          <div class="usage-section">
+            <div class="usage-header">Konfiguracja YAML</div>
+            <div class="config-line">
+              <span class="config-key">type</span>
+              <span class="config-separator">:</span>
+              <span class="config-value">custom:dihor-minecraft-card</span>
+            </div>
+            <div class="config-line">
+              <span class="config-key">title</span>
+              <span class="config-separator">:</span>
+              <span class="config-value">My Minecraft Server</span>
+            </div>
+            <div class="config-line">
+              <span class="config-key">entity_prefix</span>
+              <span class="config-separator">:</span>
+              <span class="config-value">server_minecraft</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-showcase">
+          <div class="card-header">
+            <div class="card-icon">🕒</div>
+            <div>
+              <h3 class="card-title">dihor-clock-card</h3>
+              <p class="card-subtitle">Cyfrowy zegar</p>
+            </div>
+          </div>
+
+          <div class="preview-section">
+            <div class="preview-label">Podgląd karty</div>
+            <div class="card-preview" id="clock-card-preview">
+              <div class="loading-placeholder">Ładowanie podglądu...</div>
+            </div>
+          </div>
+
+          <div class="usage-section">
+            <div class="usage-header">Konfiguracja YAML</div>
+            <div class="config-line">
+              <span class="config-key">type</span>
+              <span class="config-separator">:</span>
+              <span class="config-value">custom:dihor-clock-card</span>
+            </div>
+            <div class="config-line">
+              <span class="config-key">size</span>
+              <span class="config-separator">:</span>
+              <span class="config-value">2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="coming-soon-section">
+          <div class="coming-soon-icon">🚀</div>
+          <div class="coming-soon-text">Kolejne komponenty wkrótce!</div>
+          <div class="coming-soon-subtitle">
+            Pracujemy nad nowymi kartami dla Home Assistant
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wszystko działa tutaj -->
+    <script>
+      const translations = {
+        pl: {
+          minecraftSubtitle: 'Karta do monitorowania serwera Minecraft',
+          clockSubtitle: 'Cyfrowy zegar',
+          comingSoon: 'Kolejne komponenty wkrótce!',
+          comingSoonSub: 'Pracujemy nad nowymi kartami dla Home Assistant',
+          previewLabel: 'Podgląd karty',
+          yamlHeader: 'Konfiguracja YAML',
+          loading: 'Ładowanie podglądu...',
+          error: 'Nie udało się załadować podglądu',
+        },
+        en: {
+          minecraftSubtitle: 'Card for monitoring Minecraft server',
+          clockSubtitle: 'Simple digital clock',
+          comingSoon: 'More components coming soon!',
+          comingSoonSub: "We're working on new Home Assistant cards",
+          previewLabel: 'Card preview',
+          yamlHeader: 'YAML Configuration',
+          loading: 'Loading preview...',
+          error: 'Failed to load preview',
+        },
+      };
+
+      function applyThemeToCards() {
+        const isDark = localStorage.getItem('theme') === 'dark';
+        document
+          .querySelectorAll('.card-preview .dihor-card')
+          .forEach((card) => {
+            card.classList.toggle('dihor-theme-dark', isDark);
+            card.classList.toggle('dihor-theme-light', !isDark);
+          });
+      }
+
+      function setupThemeToggle() {
+        const themeButton = document.getElementById('toggle-theme');
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        themeButton.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        applyThemeToCards();
+        themeButton.addEventListener('click', () => {
+          currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          localStorage.setItem('theme', currentTheme);
+          themeButton.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+          applyThemeToCards();
+        });
+      }
+
+      function setupLanguageToggle() {
+        const langButton = document.getElementById('toggle-language');
+        let lang = localStorage.getItem('lang') || 'pl';
+        langButton.textContent = lang === 'pl' ? '🇵🇱' : '🇬🇧';
+
+        function applyTranslations() {
+          const t = translations[lang];
+          document.querySelector(
+            '.card-showcase:nth-child(1) .card-subtitle'
+          ).textContent = t.minecraftSubtitle;
+          document.querySelector(
+            '.card-showcase:nth-child(2) .card-subtitle'
+          ).textContent = t.clockSubtitle;
+          document
+            .querySelectorAll('.preview-label')
+            .forEach((el) => (el.textContent = t.previewLabel));
+          document
+            .querySelectorAll('.usage-header')
+            .forEach((el) => (el.textContent = t.yamlHeader));
+          document.querySelector('.coming-soon-text').textContent =
+            t.comingSoon;
+          document.querySelector('.coming-soon-subtitle').textContent =
+            t.comingSoonSub;
+          document
+            .querySelectorAll('.loading-placeholder')
+            .forEach((el) => (el.textContent = '⏳ ' + t.loading));
+        }
+
+        langButton.addEventListener('click', () => {
+          lang = lang === 'pl' ? 'en' : 'pl';
+          localStorage.setItem('lang', lang);
+          langButton.textContent = lang === 'pl' ? '🇵🇱' : '🇬🇧';
+          applyTranslations();
+        });
+
+        applyTranslations();
+      }
+
+      function loadCardPreview() {
+        const cards = [
+          { id: 'minecraft', name: 'dihor-minecraft-card' },
+          { id: 'clock', name: 'dihor-clock-card' },
+        ];
+        cards.forEach(({ id, name }) => {
+          const el = document.getElementById(`${id}-card-preview`);
+          fetch(`${basePath}/${id}/${name}.html`)
+            .then((res) => {
+              if (!res.ok) throw new Error('Błąd HTTP');
+              return res.text();
+            })
+            .then((html) => {
+              if (el) el.innerHTML = html;
+              applyThemeToCards();
+            })
+            .catch((err) => {
+              if (el)
+                el.innerHTML = `<div class="error-placeholder">❌ Błąd: ${err.message}</div>`;
+            });
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        setupThemeToggle();
+        setupLanguageToggle();
+        loadCardPreview();
+      });
+    </script>
+    <script src="clock.js"></script>
+  </body>
+</html>
