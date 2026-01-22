@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.1.0...v1.2.0) (2026-01-22)
+
+
+### Features
+
+* **release:** re-enable semantic-release for automatic versioning ([bd71cf4](https://github.com/PawelWielga/dihor-ha-components/commit/bd71cf4d7fa84a83a4c0ba6aa00a79fa05daf8a6))
+
 # [1.1.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.0.0...v1.1.0) (2026-01-22)
 
 
