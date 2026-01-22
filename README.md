@@ -46,6 +46,7 @@ Check out the preview of available cards here:
 
 - Add this repository to HACS (Community > Frontend) or search for "Dihor HA Components" and install.
 - After installation, HACS will add `dist/dihor-ha-components.js` to your installation. In Lovelace Resources (Settings → Dashboards → Resources) add the file if HACS did not add it automatically: `/hacsfiles/dihor-ha-components/dihor-ha-components.js` (type: module).
+- **Troubleshooting:** If you only see build files like `prepare-docs.js` or `rollup.config.js` in `/config/www/community/dihor-ha-components/` and the `dist/` folder is missing, reinstall the repository in HACS as a **Dashboard** and ensure the resource points to `/hacsfiles/dihor-ha-components/dihor-ha-components.js`.
 
 **Manual installation**
 
@@ -86,6 +87,7 @@ entity: person.my_account
 **Instalacja przez HACS (zalecane)**
 
 - Zainstaluj repozytorium z poziomu HACS (Frontend). Po instalacji HACS powinien dodać `dist/dihor-ha-components.js` do Twojej instancji. Jeśli to nie nastąpi, dodaj zasób: `/hacsfiles/dihor-ha-components/dihor-ha-components.js` (typ: module).
+- **Rozwiązywanie problemów:** Jeśli w `/config/www/community/dihor-ha-components/` widzisz tylko pliki budowania (np. `prepare-docs.js`, `rollup.config.js`), a folder `dist/` jest pusty lub nie ma go wcale, usuń repozytorium z HACS i dodaj je ponownie jako **Dashboard**, a następnie upewnij się, że zasób wskazuje na `/hacsfiles/dihor-ha-components/dihor-ha-components.js`.
 
 **Instalacja ręczna**
 

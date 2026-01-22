@@ -2,6 +2,7 @@
   "name": "dihor-ha-components",
   "filename": "dist/dihor-ha-components.js",
   "content_in_root": false,
+  "zip_release": true,
   "type": "module",
   "render_readme": true,
   "description": "Custom UI components for Home Assistant",
