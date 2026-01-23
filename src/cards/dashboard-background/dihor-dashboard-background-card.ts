@@ -47,6 +47,11 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
   }
 
   private async waitForViewAndApply() {
+    // Jeśli już mamy referencję do view, nie sprawdzaj ponownie
+    if (this._viewElement) {
+      return;
+    }
+
     const view = await this.waitForView();
     if (!view) {
       console.warn("dihor-dashboard-background-card: Nie znaleziono hui-view po wielu próbach");
@@ -55,6 +60,8 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
 
     this._viewElement = view;
     console.log("dihor-dashboard-background-card: Znalazłem hui-view");
+    // Dodaj styl testowy
+    this._viewElement.style.backgroundColor = "pink";
     this.observeView(view);
     await this.applyBackgroundToView();
     this.renderConfigSummary();
