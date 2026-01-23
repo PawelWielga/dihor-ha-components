@@ -61,16 +61,40 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
   }
 
   private async waitForView(): Promise<HTMLElement | null> {
-    const maxAttempts = 20;
-    const delay = 200;
+    const maxAttempts = 50;
+    const delay = 300;
 
     for (let i = 0; i < maxAttempts; i++) {
-      const view = document.querySelector("hui-view");
-      if (view) {
-        return view as HTMLElement;
+      // Sposób 1: Bezpośrednie wyszukiwanie hui-view
+      const view1 = document.querySelector("hui-view");
+      if (view1) {
+        return view1 as HTMLElement;
       }
+
+      // Sposób 2: Przeszukiwanie drzewa DOM od elementu karty w górę
+      let current = this.parentElement;
+      while (current) {
+        if (current.tagName && current.tagName.toLowerCase().includes("hui-view")) {
+          return current as HTMLElement;
+        }
+        current = current.parentElement;
+      }
+
+      // Sposób 3: Wyszukiwanie innych elementów związanych z dashboardem
+      const possibleViews = document.querySelectorAll("[data-panel='lovelace'] hui-view, hui-dashboard, ha-dashboard");
+      if (possibleViews.length > 0) {
+        return possibleViews[0] as HTMLElement;
+      }
+
       await new Promise(resolve => setTimeout(resolve, delay));
     }
+
+    console.debug("dihor-dashboard-background-card: Próbowano znaleźć widok w następujących miejscach:", {
+      "document.querySelector('hui-view')": !!document.querySelector("hui-view"),
+      "document.querySelectorAll('hui-view')": document.querySelectorAll("hui-view").length,
+      "document.querySelector('[data-panel=\"lovelace\"]')": !!document.querySelector("[data-panel='lovelace']"),
+      "card parent chain": this.parentElement ? Array.from(this.parentElement.children).map(el => el.tagName) : "brak parenta"
+    });
 
     return null;
   }
