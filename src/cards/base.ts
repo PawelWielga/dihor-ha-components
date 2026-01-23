@@ -1,4 +1,5 @@
 import themeCss from "./theme.css";
+import coreCss from "./core.css";
 import type { HomeAssistant, LovelaceCard } from "../../types/home-assistant";
 
 export abstract class BaseDihorCard<ConfigType> extends HTMLElement implements LovelaceCard {
@@ -15,7 +16,7 @@ export abstract class BaseDihorCard<ConfigType> extends HTMLElement implements L
     this._hass = hass;
     if (!this._contentCreated) {
       this.innerHTML = `
-        <style>${themeCss}</style>
+        <style>${themeCss}${coreCss}</style>
         ${this.additionalCss()}
         <ha-card>
           ${this.cardHtml()}
