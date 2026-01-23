@@ -8,6 +8,7 @@ export interface DashboardBackgroundCardConfig {
   color?: string;
   image?: string;
   image_url?: string;
+  debug_background_color?: string;
   gradient?: string;
   transition?: string;
   size?: string;
@@ -161,6 +162,9 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     }
 
     if (config.color) style.backgroundColor = config.color;
+    if (config.debug_background_color) {
+      style.backgroundColor = config.debug_background_color;
+    }
     if (config.position) style.backgroundPosition = config.position;
     if (config.size) style.backgroundSize = config.size;
     if (config.repeat) style.backgroundRepeat = config.repeat;
