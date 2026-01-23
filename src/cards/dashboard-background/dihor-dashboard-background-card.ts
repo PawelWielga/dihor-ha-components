@@ -60,15 +60,35 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     this.renderConfigSummary();
   }
 
+  private queryDeep(selector: string, root: Node = document): HTMLElement | null {
+    // 1) Spróbuj bezpośrednio w tym root
+    if ('querySelector' in root) {
+      const hit = (root as Document | Element).querySelector(selector);
+      if (hit) return hit as HTMLElement;
+    }
+
+    // 2) Przejdź po wszystkich elementach i wejdź w ich shadowRoot (jeśli jest)
+    const all = 'querySelectorAll' in root ? Array.from((root as Document | Element).querySelectorAll("*")) : [];
+    for (const el of all) {
+      if (el.shadowRoot) {
+        const hit = this.queryDeep(selector, el.shadowRoot);
+        if (hit) return hit;
+      }
+    }
+
+    return null;
+  }
+
   private async waitForView(): Promise<HTMLElement | null> {
     const maxAttempts = 50;
     const delay = 300;
 
     for (let i = 0; i < maxAttempts; i++) {
-      // Sposób 1: Bezpośrednie wyszukiwanie hui-view
-      const view1 = document.querySelector("hui-view");
-      if (view1) {
-        return view1 as HTMLElement;
+      // Sposób 1: Przeszukiwanie głębokie z uwzględnieniem shadow DOM
+      const view = this.queryDeep("hui-view");
+      if (view) {
+        console.log("dihor-dashboard-background-card: Znalazłem hui-view w shadow DOM:", view.tagName);
+        return view;
       }
 
       // Sposób 2: Przeszukiwanie drzewa DOM od elementu karty w górę
@@ -80,17 +100,11 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
         current = current.parentElement;
       }
 
-      // Sposób 3: Wyszukiwanie innych elementów związanych z dashboardem
-      const possibleViews = document.querySelectorAll("[data-panel='lovelace'] hui-view, hui-dashboard, ha-dashboard");
-      if (possibleViews.length > 0) {
-        return possibleViews[0] as HTMLElement;
-      }
-
       await new Promise(resolve => setTimeout(resolve, delay));
     }
 
     console.debug("dihor-dashboard-background-card: Próbowano znaleźć widok w następujących miejscach:", {
-      "document.querySelector('hui-view')": !!document.querySelector("hui-view"),
+      "queryDeep('hui-view')": !!this.queryDeep("hui-view"),
       "document.querySelectorAll('hui-view')": document.querySelectorAll("hui-view").length,
       "document.querySelector('[data-panel=\"lovelace\"]')": !!document.querySelector("[data-panel='lovelace']"),
       "card parent chain": this.parentElement ? Array.from(this.parentElement.children).map(el => el.tagName) : "brak parenta"
