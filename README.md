@@ -34,19 +34,42 @@ entity: person.my_account  # Replace with your actual person entity
 ```
 
 ### 4. 🖼️ Dihor Dashboard Background Card - Repaint Whole Views
-When you add this card to a view, it takes over the `hui-view` background and can drive it using static colors, gradients or fresh Unsplash imagery (with caching), giving each dashboard its own mood.
+When you add this card to a view, it takes over the `hui-view` background and can drive it using static colors, gradients or custom images, giving each dashboard its own mood.
 
 ```yaml
 type: 'custom:dihor-dashboard-background-card'
-transition: 'background 0.5s ease'
-gradient: 'linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.25))'
-unsplash:
-  api_key: !secret unsplash_api   # optional unless your account requires it
-  category: nature               # you can use either category or query
-  orientation: landscape         # helps keep the photo stretched wide
+# Podstawowe ustawienia
+color: '#2c3e50'                # Statyczny kolor tła
+image: '/local/background.jpg'   # Obraz z lokalnego folderu www
+image_url: 'https://example.com/background.png' # Obraz z zewnętrznego URL
+gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' # Gradient
+
+# Ustawienia wyglądu
+size: 'cover'                   # Rozmiar tła (cover, contain, auto, %)
+position: 'center'              # Pozycja tła (center, top, bottom, left, right)
+repeat: 'no-repeat'             # Powtarzanie tła (repeat, repeat-x, repeat-y, no-repeat)
+attachment: 'fixed'             # Przesunięcie tła (fixed, scroll, local)
+blend_mode: 'overlay'           # Tryb mieszania warstw (overlay, multiply, screen, etc.)
+
+# Animacja i debugowanie
+transition: 'background 0.5s ease' # Animacja przejścia
+debug_background_color: '#ff0000' # Kolor debugowania (nadpisuje inne ustawienia tła)
 ```
 
-The card caches the last successful Unsplash download in `localStorage`. If the API is unreachable it reuses the cached image so the view never loses its background. Direct `image` values still override the Unsplash workflow.
+### Dostępne parametry
+| Parametr                | Opis                                                                 |
+|-------------------------|----------------------------------------------------------------------|
+| `color`                 | Statyczny kolor tła (np. `#ff0000` lub `red`)                        |
+| `image`                 | Ścieżka do lokalnego obrazu (np. `/local/background.jpg`)            |
+| `image_url`             | URL do zewnętrznego obrazu                                           |
+| `gradient`              | Składnia gradientu CSS (np. `linear-gradient(135deg, #a, #b)`)       |
+| `size`                  | Rozmiar tła (cover, contain, auto, lub wartości procentowe)          |
+| `position`              | Pozycja tła (np. `center center`, `top left`)                        |
+| `repeat`                | Tryb powtarzania tła                                                 |
+| `attachment`            | Przesunięcie tła wraz z przewijaniem                                  |
+| `blend_mode`            | Tryb mieszania warstw tła                                           |
+| `transition`            | Animacja przejścia między zmianami tła                               |
+| `debug_background_color`| Kolor debugowania - nadpisuje wszystkie inne ustawienia tła          |
 
 ## 🛠️ Installation - It's Easier Than Baking Bread!
 

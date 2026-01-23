@@ -58,11 +58,6 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     }
 
     this._viewElement = view;
-    console.log("dihor-dashboard-background-card: Znalazłem hui-view");
-    this._viewElement.style.backgroundImage = "url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80')";
-    this._viewElement.style.backgroundSize = "cover";
-    this._viewElement.style.backgroundPosition = "center";
-    this._viewElement.style.backgroundRepeat = "no-repeat";
     this.observeView(view);
     await this.applyBackgroundToView();
   }
@@ -91,7 +86,6 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     for (let i = 0; i < maxAttempts; i++) {
       const view = this.queryDeep("hui-view");
       if (view) {
-        console.log("dihor-dashboard-background-card: Znalazłem hui-view w shadow DOM:", view.tagName);
         return view;
       }
 
