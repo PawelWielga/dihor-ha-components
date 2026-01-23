@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.0...v1.3.1) (2026-01-23)
+
+
+### Bug Fixes
+
+* **dashboard-background:** keep view style ([4aa480a](https://github.com/PawelWielga/dihor-ha-components/commit/4aa480a3c8c23e5757e1b42f9cfb6110bd990242))
+
 # [1.3.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.2.1...v1.3.0) (2026-01-23)
 
 
