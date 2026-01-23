@@ -47,7 +47,6 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
   }
 
   private async waitForViewAndApply() {
-    // Jeśli już mamy referencję do view, nie sprawdzaj ponownie
     if (this._viewElement) {
       return;
     }
@@ -60,21 +59,20 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
 
     this._viewElement = view;
     console.log("dihor-dashboard-background-card: Znalazłem hui-view");
-    // Dodaj styl testowy
-    this._viewElement.style.backgroundColor = "pink";
+    this._viewElement.style.backgroundImage = "url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80')";
+    this._viewElement.style.backgroundSize = "cover";
+    this._viewElement.style.backgroundPosition = "center";
+    this._viewElement.style.backgroundRepeat = "no-repeat";
     this.observeView(view);
     await this.applyBackgroundToView();
-    this.renderConfigSummary();
   }
 
   private queryDeep(selector: string, root: Node = document): HTMLElement | null {
-    // 1) Spróbuj bezpośrednio w tym root
     if ('querySelector' in root) {
       const hit = (root as Document | Element).querySelector(selector);
       if (hit) return hit as HTMLElement;
     }
 
-    // 2) Przejdź po wszystkich elementach i wejdź w ich shadowRoot (jeśli jest)
     const all = 'querySelectorAll' in root ? Array.from((root as Document | Element).querySelectorAll("*")) : [];
     for (const el of all) {
       if (el.shadowRoot) {
@@ -91,14 +89,12 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     const delay = 300;
 
     for (let i = 0; i < maxAttempts; i++) {
-      // Sposób 1: Przeszukiwanie głębokie z uwzględnieniem shadow DOM
       const view = this.queryDeep("hui-view");
       if (view) {
         console.log("dihor-dashboard-background-card: Znalazłem hui-view w shadow DOM:", view.tagName);
         return view;
       }
 
-      // Sposób 2: Przeszukiwanie drzewa DOM od elementu karty w górę
       let current = this.parentElement;
       while (current) {
         if (current.tagName && current.tagName.toLowerCase().includes("hui-view")) {
@@ -109,13 +105,6 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
 
       await new Promise(resolve => setTimeout(resolve, delay));
     }
-
-    console.debug("dihor-dashboard-background-card: Próbowano znaleźć widok w następujących miejscach:", {
-      "queryDeep('hui-view')": !!this.queryDeep("hui-view"),
-      "document.querySelectorAll('hui-view')": document.querySelectorAll("hui-view").length,
-      "document.querySelector('[data-panel=\"lovelace\"]')": !!document.querySelector("[data-panel='lovelace']"),
-      "card parent chain": this.parentElement ? Array.from(this.parentElement.children).map(el => el.tagName) : "brak parenta"
-    });
 
     return null;
   }
@@ -222,23 +211,8 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     return trimmed.replace(/"/g, '\\"');
   }
 
-  private renderConfigSummary() {
-    const updateValue = (selector: string, value?: string) => {
-      const el = this.querySelector(selector);
-      if (el) el.textContent = value || "brak";
-    };
-    updateValue("[data-config-color]", this._config?.color);
-    updateValue(
-      "[data-config-image]",
-      this._config?.image || this._config?.image_url
-    );
-    updateValue("[data-config-gradient]", this._config?.gradient);
-    updateValue("[data-config-unsplash]", "brak");
-    updateValue("[data-config-unsplash-status]", "brak");
-  }
-
   getCardSize() {
-    return 2;
+    return 1;
   }
 }
 
