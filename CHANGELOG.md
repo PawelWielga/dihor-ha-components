@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/PawelWielga/dihor-ha-components/compare/v1.0.1...v1.0.2) (2026-01-23)
+
+
+### Bug Fixes
+
+* **card:** contain card width ([8c4629b](https://github.com/PawelWielga/dihor-ha-components/commit/8c4629b940cbdc326790b7c9d3c1b50d4f79fb15))
+
 ## [1.0.1](https://github.com/PawelWielga/dihor-ha-components/compare/v1.0.0...v1.0.1) (2026-01-22)
 
 
