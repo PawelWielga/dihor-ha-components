@@ -7,6 +7,7 @@ type UnsplashOrientation = "landscape" | "portrait" | "squarish";
 export interface DashboardBackgroundCardConfig {
   color?: string;
   image?: string;
+  image_url?: string;
   gradient?: string;
   transition?: string;
   size?: string;
@@ -23,6 +24,8 @@ export interface DashboardBackgroundCardConfig {
 }
 
 const UNSPLASH_CACHE_KEY = "dihor-dashboard-background-last-unsplash";
+const UNSPLASH_LAST_FETCH_KEY = "dihor-dashboard-background-last-unsplash-fetch";
+const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
 export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCardConfig> {
   private _viewElement?: HTMLElement;
@@ -64,7 +67,10 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
       if (el) el.textContent = value || "brak";
     };
     updateValue("[data-config-color]", this._config?.color);
-    updateValue("[data-config-image]", this._config?.image);
+    updateValue(
+      "[data-config-image]",
+      this._config?.image || this._config?.image_url
+    );
     updateValue("[data-config-gradient]", this._config?.gradient);
     updateValue(
       "[data-config-unsplash]",
@@ -167,9 +173,10 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
   private async resolveBackgroundImage(): Promise<string | undefined> {
     if (!this._config) return undefined;
 
-    if (this._config.image) {
+    const directImage = this._config.image || this._config.image_url;
+    if (directImage) {
       this._unsplashStatus = "nadpisane";
-      return this._config.image;
+      return directImage;
     }
 
     const unsplash = this._config.unsplash;
@@ -178,14 +185,23 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
       return undefined;
     }
 
+    const cached = this.loadCachedUnsplashImage();
+    const lastFetch = this.loadUnsplashLastFetchTimestamp();
+    const recentlyFetched = lastFetch !== undefined && Date.now() - lastFetch < ONE_DAY_MS;
+
+    if (cached && recentlyFetched) {
+      this._unsplashStatus = "ostatnie";
+      return cached;
+    }
+
     const remote = await this.fetchUnsplashImage(unsplash);
+    this.saveLastUnsplashFetchTimestamp(Date.now());
     if (remote) {
       this._unsplashStatus = "pobrano";
       this.saveCachedUnsplashImage(remote);
       return remote;
     }
 
-    const cached = this.loadCachedUnsplashImage();
     if (cached) {
       this._unsplashStatus = "ostatnie";
       return cached;
@@ -236,7 +252,10 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
 
   private saveCachedUnsplashImage(url: string) {
     try {
-      window.localStorage.setItem(UNSPLASH_CACHE_KEY, url);
+      window.localStorage.setItem(
+        UNSPLASH_CACHE_KEY,
+        JSON.stringify({ url })
+      );
     } catch {
       // ignore storage failures
     }
@@ -244,10 +263,38 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
 
   private loadCachedUnsplashImage(): string | undefined {
     try {
-      return window.localStorage.getItem(UNSPLASH_CACHE_KEY) || undefined;
+      const raw = window.localStorage.getItem(UNSPLASH_CACHE_KEY);
+      if (!raw) return undefined;
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed.url === "string") {
+        return parsed.url;
+      }
     } catch {
-      return undefined;
+      // ignore parsing/storage failures
     }
+    return undefined;
+  }
+
+  private saveLastUnsplashFetchTimestamp(value: number) {
+    try {
+      window.localStorage.setItem(UNSPLASH_LAST_FETCH_KEY, value.toString());
+    } catch {
+      // ignore storage failures
+    }
+  }
+
+  private loadUnsplashLastFetchTimestamp(): number | undefined {
+    try {
+      const raw = window.localStorage.getItem(UNSPLASH_LAST_FETCH_KEY);
+      if (!raw) return undefined;
+      const parsed = Number(raw);
+      if (!Number.isNaN(parsed)) {
+        return parsed;
+      }
+    } catch {
+      // ignore parsing/storage failures
+    }
+    return undefined;
   }
 
   private safeUrl(value: string): string {

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  color: var(--dihor-title-color);
 }
 .dashboard-background-card .intro {
   display: flex;
@@ -15,19 +16,29 @@
 }
 .dashboard-background-card .description {
   margin: 0;
-  color: rgba(0, 0, 0, 0.65);
+  color: var(--dihor-subtitle-color);
+  line-height: 1.4;
 }
 .dashboard-background-card .values {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 4px 8px;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  gap: 6px 12px;
   font-size: 0.9rem;
 }
+.dashboard-background-card .values p {
+  margin: 0;
+  display: contents;
+}
 .dashboard-background-card .label {
+  color: var(--dihor-subtitle-color);
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 .dashboard-background-card .value {
   text-align: right;
-  color: rgba(0, 0, 0, 0.8);
+  color: var(--dihor-title-color);
+  font-weight: 600;
+  min-width: 0;
+  word-break: break-word;
 }
