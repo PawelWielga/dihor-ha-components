@@ -1,3 +1,10 @@
+## [1.3.4](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.3...v1.3.4) (2026-01-23)
+
+
+### Bug Fixes
+
+* elo mordo ([7ed8632](https://github.com/PawelWielga/dihor-ha-components/commit/7ed8632b6ce43f56bef8538e78096f0d7929294a))
+
 ## [1.3.3](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.2...v1.3.3) (2026-01-23)
 
 
