@@ -84,8 +84,21 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
   }
 
   private async applyBackground() {
-    const view = this.findView();
-    if (!view) return;
+    let view = this.findView();
+    let retries = 0;
+    const maxRetries = 5;
+    const retryDelay = 100;
+
+    while (!view && retries < maxRetries) {
+      await new Promise(resolve => setTimeout(resolve, retryDelay));
+      view = this.findView();
+      retries++;
+    }
+
+    if (!view) {
+      console.warn("dihor-dashboard-background-card: Nie znaleziono elementu hui-view");
+      return;
+    }
 
     if (this._viewElement && this._viewElement !== view) {
       this.restoreView();
@@ -350,7 +363,7 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
         node = node.parentNode;
       }
     }
-    return null;
+    return document.querySelector("hui-view");
   }
 
   getCardSize() {
