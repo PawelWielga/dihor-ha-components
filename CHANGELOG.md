@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.1.0...v1.2.0) (2026-01-23)
+
+
+### Features
+
+* **dashboard-background:** cache unsplash image ([d8d985e](https://github.com/PawelWielga/dihor-ha-components/commit/d8d985e6c885b5d6372de5dcb13148b488a1afaa))
+
 # [1.1.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.0.2...v1.1.0) (2026-01-23)
 
 
