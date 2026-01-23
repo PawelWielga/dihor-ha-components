@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.1...v1.3.2) (2026-01-23)
+
+
+### Bug Fixes
+
+* empty dev test xd ([3d4e403](https://github.com/PawelWielga/dihor-ha-components/commit/3d4e403fea01d845da3302777f12cee79227ec97))
+
 ## [1.3.1](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.0...v1.3.1) (2026-01-23)
 
 
