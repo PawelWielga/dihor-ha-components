@@ -1,3 +1,10 @@
+## [1.3.7](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.6...v1.3.7) (2026-01-23)
+
+
+### Bug Fixes
+
+* backgoung card v1 static img ([0180064](https://github.com/PawelWielga/dihor-ha-components/commit/0180064ca33965ac5e0a59b5c78832af6e105272))
+
 ## [1.3.6](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.5...v1.3.6) (2026-01-23)
 
 
