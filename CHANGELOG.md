@@ -1,3 +1,10 @@
+## [1.3.8](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.7...v1.3.8) (2026-01-23)
+
+
+### Bug Fixes
+
+* another background fixes ([84e9b45](https://github.com/PawelWielga/dihor-ha-components/commit/84e9b4513ae90c15a8c11b8e7c26f4d6c80701b3))
+
 ## [1.3.7](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.6...v1.3.7) (2026-01-23)
 
 
