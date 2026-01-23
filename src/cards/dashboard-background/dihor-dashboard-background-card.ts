@@ -150,12 +150,12 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     const style: Record<string, string> = {};
     if (config.transition) style.transition = config.transition;
     const layers: string[] = [];
-    if (config.gradient) layers.push(config.gradient);
     const backgroundImage = await this.resolveBackgroundImage();
 
     if (backgroundImage) {
       layers.push(`url("${this.safeUrl(backgroundImage)}")`);
     }
+    if (config.gradient) layers.push(config.gradient);
     if (layers.length) {
       style.backgroundImage = layers.join(", ");
     }
