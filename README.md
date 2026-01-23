@@ -33,6 +33,21 @@ type: 'custom:dihor-person-card'
 entity: person.my_account  # Replace with your actual person entity
 ```
 
+### 4. 🖼️ Dihor Dashboard Background Card - Repaint Whole Views
+When you add this card to a view, it takes over the `hui-view` background and can drive it using static colors, gradients or fresh Unsplash imagery (with caching), giving each dashboard its own mood.
+
+```yaml
+type: 'custom:dihor-dashboard-background-card'
+transition: 'background 0.5s ease'
+gradient: 'linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.25))'
+unsplash:
+  api_key: !secret unsplash_api   # optional unless your account requires it
+  category: nature               # you can use either category or query
+  orientation: landscape         # helps keep the photo stretched wide
+```
+
+The card caches the last successful Unsplash download in `localStorage`. If the API is unreachable it reuses the cached image so the view never loses its background. Direct `image` values still override the Unsplash workflow.
+
 ## 🛠️ Installation - It's Easier Than Baking Bread!
 
 ### Method 1: HACS (Recommended - Like Shopping Online!)
