@@ -1,3 +1,10 @@
+## [1.3.5](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.4...v1.3.5) (2026-01-23)
+
+
+### Bug Fixes
+
+* queryDeep :D ([d9482b4](https://github.com/PawelWielga/dihor-ha-components/commit/d9482b454765010fad409b95457502e0c805c2fa))
+
 ## [1.3.4](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.3...v1.3.4) (2026-01-23)
 
 
