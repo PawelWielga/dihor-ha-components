@@ -33,6 +33,9 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
   private _appliedProps = new Set<string>();
   private _prevStyles = new Map<string, string>();
   private _unsplashStatus = "brak";
+  private _lastStyle?: Record<string, string>;
+  private _observedView?: HTMLElement;
+  private _viewObserver?: MutationObserver;
 
   public setConfig(config: DashboardBackgroundCardConfig): void {
     super.setConfig(config);
@@ -89,12 +92,15 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     }
 
     this._viewElement = view;
+    this.observeView(view);
     const style = await this.buildBackgroundStyle();
     if (!style) {
+      this._lastStyle = undefined;
       this.clearAppliedStyles();
       this.renderConfigSummary();
       return;
     }
+    this._lastStyle = { ...style };
 
     this.syncStyle(style);
     this.renderConfigSummary();
@@ -142,6 +148,7 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
   private restoreView() {
     this.clearAppliedStyles();
     this._viewElement = undefined;
+    this.disconnectViewObserver();
   }
 
   private async buildBackgroundStyle(): Promise<Record<string, string> | null> {
@@ -172,6 +179,30 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     if (config.attachment) style.backgroundAttachment = config.attachment;
 
     return Object.keys(style).length ? style : null;
+  }
+
+  private observeView(view: HTMLElement) {
+    if (this._observedView === view) return;
+    this.disconnectViewObserver();
+
+    this._observedView = view;
+    this._viewObserver = new MutationObserver(() => {
+      if (this._lastStyle) {
+        this.syncStyle({ ...this._lastStyle });
+      }
+    });
+    this._viewObserver.observe(view, {
+      attributes: true,
+      attributeFilter: ["style", "class"],
+    });
+  }
+
+  private disconnectViewObserver() {
+    if (this._viewObserver) {
+      this._viewObserver.disconnect();
+      this._viewObserver = undefined;
+    }
+    this._observedView = undefined;
   }
 
   private async resolveBackgroundImage(): Promise<string | undefined> {
