@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/PawelWielga/dihor-ha-components/compare/v1.2.0...v1.2.1) (2026-01-23)
+
+
+### Bug Fixes
+
+* **dashboard-background:** keep gradient under image ([8cf55d1](https://github.com/PawelWielga/dihor-ha-components/commit/8cf55d14d97eda02bb2dfe6bfeb725f2c8b6cee0))
+
 # [1.2.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.1.0...v1.2.0) (2026-01-23)
 
 
