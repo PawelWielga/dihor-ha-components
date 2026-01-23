@@ -5,6 +5,7 @@
   background: var(--dihor-card-bg);
   backdrop-filter: blur(20px);
   border-radius: var(--dihor-card-border-radius);
+  box-sizing: border-box;
   padding: 18px;
   box-shadow: var(--dihor-card-shadow);
   border: var(--dihor-card-border-size) solid var(--dihor-card-border-color);
