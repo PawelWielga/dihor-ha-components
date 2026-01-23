@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.2.1...v1.3.0) (2026-01-23)
+
+
+### Features
+
+* **dashboard-background:** add debug background ([1066df2](https://github.com/PawelWielga/dihor-ha-components/commit/1066df2d4780af2e47eef2851f6e9ce1585812e0))
+
 ## [1.2.1](https://github.com/PawelWielga/dihor-ha-components/compare/v1.2.0...v1.2.1) (2026-01-23)
 
 
