@@ -39,6 +39,47 @@ export class MinecraftCard extends BaseDihorCard<MinecraftCardConfig> {
     super.setConfig(config);
   }
 
+  static getStubConfig() {
+    return {
+      entity_prefix: "minecraft_server",
+      title: "Minecraft Server"
+    };
+  }
+
+  static getConfigForm() {
+    return {
+      schema: [
+        {
+          name: "entity_prefix",
+          required: true,
+          selector: {
+            text: {}
+          }
+        },
+        {
+          name: "title",
+          selector: {
+            text: {}
+          }
+        }
+      ],
+      computeLabel: (schema: any) => {
+        if (schema.name === "entity_prefix") return "Entity Prefix";
+        if (schema.name === "title") return "Card Title";
+        return undefined;
+      },
+      computeHelper: (schema: any) => {
+        if (schema.name === "entity_prefix") {
+          return "Prefix for Minecraft sensor entities (e.g., 'minecraft_server' for sensor.minecraft_server_status)";
+        }
+        if (schema.name === "title") {
+          return "Optional title for the card (defaults to 'Minecraft Server')";
+        }
+        return undefined;
+      }
+    };
+  }
+
   protected renderCard() {
     if (!this.hass || !this._config) return html``;
 

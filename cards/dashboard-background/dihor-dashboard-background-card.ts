@@ -33,6 +33,142 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     };
   }
 
+  static getConfigForm() {
+    return {
+      schema: [
+        {
+          name: "image_url",
+          selector: {
+            text: {
+              type: "url"
+            }
+          }
+        },
+        {
+          name: "color",
+          selector: {
+            ui_color: {}
+          }
+        },
+        {
+          name: "gradient",
+          selector: {
+            text: {
+              multiline: true
+            }
+          }
+        },
+        {
+          type: "expandable",
+          name: "",
+          title: "Advanced Options",
+          schema: [
+            {
+              name: "transition",
+              selector: {
+                text: {}
+              }
+            },
+            {
+              type: "grid",
+              name: "",
+              schema: [
+                {
+                  name: "size",
+                  selector: {
+                    select: {
+                      options: [
+                        { value: "auto", label: "Auto" },
+                        { value: "cover", label: "Cover" },
+                        { value: "contain", label: "Contain" },
+                        { value: "100%", label: "100%" }
+                      ],
+                      custom_value: true
+                    }
+                  }
+                },
+                {
+                  name: "position",
+                  selector: {
+                    select: {
+                      options: [
+                        { value: "center", label: "Center" },
+                        { value: "top", label: "Top" },
+                        { value: "bottom", label: "Bottom" },
+                        { value: "left", label: "Left" },
+                        { value: "right", label: "Right" }
+                      ],
+                      custom_value: true
+                    }
+                  }
+                },
+                {
+                  name: "repeat",
+                  selector: {
+                    select: {
+                      options: [
+                        { value: "no-repeat", label: "No Repeat" },
+                        { value: "repeat", label: "Repeat" },
+                        { value: "repeat-x", label: "Repeat X" },
+                        { value: "repeat-y", label: "Repeat Y" }
+                      ]
+                    }
+                  }
+                },
+                {
+                  name: "attachment",
+                  selector: {
+                    select: {
+                      options: [
+                        { value: "scroll", label: "Scroll" },
+                        { value: "fixed", label: "Fixed" },
+                        { value: "local", label: "Local" }
+                      ]
+                    }
+                  }
+                },
+                {
+                  name: "blend_mode",
+                  selector: {
+                    text: {}
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      computeLabel: (schema: any) => {
+        switch (schema.name) {
+          case "image_url": return "Background Image URL";
+          case "color": return "Background Color";
+          case "gradient": return "CSS Gradient";
+          case "transition": return "Transition";
+          case "size": return "Background Size";
+          case "position": return "Background Position";
+          case "repeat": return "Background Repeat";
+          case "attachment": return "Background Attachment";
+          case "blend_mode": return "Blend Mode";
+        }
+        return undefined;
+      },
+      computeHelper: (schema: any) => {
+        switch (schema.name) {
+          case "image_url": return "URL of the background image";
+          case "color": return "Solid background color";
+          case "gradient": return "CSS gradient (e.g., 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)')";
+          case "transition": return "CSS transition for smooth background changes (e.g., 'background 0.3s ease')";
+          case "size": return "How the background image is sized";
+          case "position": return "Position of the background image";
+          case "repeat": return "How the background image repeats";
+          case "attachment": return "Whether background scrolls with content";
+          case "blend_mode": return "CSS background blend mode (e.g., 'overlay', 'multiply')";
+        }
+        return undefined;
+      }
+    };
+  }
+
   public setConfig(config: DashboardBackgroundCardConfig): void {
     super.setConfig(config);
     // Trigger update not needed as super calls requestUpdate
