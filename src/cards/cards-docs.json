@@ -78,5 +78,33 @@
         "value": "overlay"
       }
     ]
+  },
+  {
+    "id": "toggle-button",
+    "folder": "toggle-button",
+    "name": "dihor-toggle-button-card",
+    "icon": "🔘",
+    "preview": {
+      "html": "dihor-toggle-button-card.html",
+      "css": "dihor-toggle-button-card.css"
+    },
+    "subtitle": {
+      "pl": "Przycisk w trybie toggle dla pojedynczej encji",
+      "en": "Toggle button for a single entity"
+    },
+    "usage": [
+      {
+        "key": "type",
+        "value": "custom:dihor-toggle-button-card"
+      },
+      {
+        "key": "entity",
+        "value": "switch.living_room"
+      },
+      {
+        "key": "icon",
+        "value": "mdi:lightbulb-on-outline"
+      }
+    ]
   }
 ]
