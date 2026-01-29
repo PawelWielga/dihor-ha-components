@@ -1,3 +1,20 @@
+## [2.0.1](https://github.com/PawelWielga/dihor-ha-components/compare/v2.0.0...v2.0.1) (2026-01-29)
+
+
+### Bug Fixes
+
+* **build:** remove unused [@ts-expect-error](https://github.com/ts-expect-error) directives ([#43](https://github.com/PawelWielga/dihor-ha-components/issues/43)) ([91b4a5b](https://github.com/PawelWielga/dihor-ha-components/commit/91b4a5b90bf1c29583343c176271824e49ba9d36))
+
+# [2.0.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.7.1...v2.0.0) (2026-01-29)
+
+
+* feat!: migrate project to LitElement and modernize tooling ([2ff1733](https://github.com/PawelWielga/dihor-ha-components/commit/2ff173362e368f5e2e2c12560f188e238b73ecfa))
+
+
+### BREAKING CHANGES
+
+* This release completely refactors the project structure and dependencies. All custom cards now use LitElement. Build process has changed. Pre-existing HTML/CSS imports are removed in favor of bundled assets.
+
 ## [1.7.1](https://github.com/PawelWielga/dihor-ha-components/compare/v1.7.0...v1.7.1) (2026-01-29)
 
 
