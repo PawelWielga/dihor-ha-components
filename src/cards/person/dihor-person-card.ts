@@ -14,6 +14,36 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
     super.setConfig(config);
   }
 
+  static getStubConfig() {
+    return {
+      entity: "person.example"
+    };
+  }
+
+  static getConfigForm() {
+    return {
+      schema: [
+        {
+          name: "entity",
+          required: true,
+          selector: {
+            entity: {
+              domain: "person"
+            }
+          }
+        }
+      ],
+      computeLabel: (schema: any) => {
+        if (schema.name === "entity") return "Person Entity";
+        return undefined;
+      },
+      computeHelper: (schema: any) => {
+        if (schema.name === "entity") return "Select the person entity to display";
+        return undefined;
+      }
+    };
+  }
+
   protected renderCard() {
     if (!this.hass || !this._config) {
       return nothing;

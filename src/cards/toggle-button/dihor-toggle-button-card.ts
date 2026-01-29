@@ -22,6 +22,80 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
     ];
   }
 
+  static getStubConfig() {
+    return {
+      entity: "switch.example"
+    };
+  }
+
+  static getConfigForm() {
+    return {
+      schema: [
+        {
+          name: "entity",
+          required: true,
+          selector: {
+            entity: {}
+          }
+        },
+        {
+          name: "label",
+          selector: {
+            text: {}
+          }
+        },
+        {
+          name: "icon",
+          selector: {
+            icon: {}
+          },
+          context: {
+            icon_entity: "entity"
+          }
+        },
+        {
+          type: "expandable",
+          name: "",
+          title: "Colors",
+          schema: [
+            {
+              name: "active_color",
+              selector: {
+                ui_color: {}
+              }
+            },
+            {
+              name: "inactive_color",
+              selector: {
+                ui_color: {}
+              }
+            }
+          ]
+        }
+      ],
+      computeLabel: (schema: any) => {
+        switch (schema.name) {
+          case "entity": return "Entity";
+          case "label": return "Custom Label";
+          case "icon": return "Custom Icon";
+          case "active_color": return "Active Color";
+          case "inactive_color": return "Inactive Color";
+        }
+        return undefined;
+      },
+      computeHelper: (schema: any) => {
+        switch (schema.name) {
+          case "entity": return "Entity to control (toggle on/off)";
+          case "label": return "Optional custom label (defaults to entity friendly name)";
+          case "icon": return "Optional custom icon";
+          case "active_color": return "Background color when entity is on";
+          case "inactive_color": return "Background color when entity is off";
+        }
+        return undefined;
+      }
+    };
+  }
+
   private async toggleEntity() {
     if (!this._config?.entity) return;
     try {
