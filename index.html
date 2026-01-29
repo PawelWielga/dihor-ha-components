@@ -247,18 +247,8 @@
           cardElement.className = 'phone-card';
           cardElement.setAttribute('data-card-id', card.id);
           cardElement.innerHTML = `
-            <div class="phone-card-header">
-              <span class="phone-card-icon">${card.icon || 'đź“¦'}</span>
-              <div>
-                <strong>${card.name}</strong>
-                <span class="card-subtitle" data-card-id="${card.id}"></span>
-              </div>
-            </div>
-            <div class="preview-section">
-              <div class="preview-label">Podgląd karty</div>
-              <div class="card-preview" id="${card.id}-card-preview">
-                <div class="loading-placeholder">Ładowanie podglądu...</div>
-              </div>
+            <div class="phone-card-preview" id="${card.id}-card-preview">
+              <div class="loading-placeholder">${translations[currentLang].loading}</div>
             </div>
           `;
           cardElement.addEventListener('click', () => selectCard(card));
@@ -271,7 +261,7 @@
         applyThemeToCards();
       }
 
-      function applyTranslations(cards) {
+      function applyTranslations() {
         const t = translations[currentLang];
         if (hacsTitleEl) {
           hacsTitleEl.textContent = t.hacsHeader;
@@ -299,9 +289,6 @@
             hacsStepsEl.appendChild(li);
           });
         }
-        document
-          .querySelectorAll('.preview-label')
-          .forEach((el) => (el.textContent = t.previewLabel));
         const comingText = document.querySelector('.coming-soon-text');
         if (comingText) {
           comingText.textContent = t.comingSoon;
@@ -315,24 +302,13 @@
         document
           .querySelectorAll('.loading-placeholder')
           .forEach((el) => (el.textContent = '⏳ ' + t.loading));
-        cards.forEach((card) => {
-          const subtitleEl = document.querySelector(
-            `.card-subtitle[data-card-id="${card.id}"]`
-          );
-          if (subtitleEl) {
-            subtitleEl.textContent =
-              (card.subtitle && card.subtitle[currentLang]) ||
-              (card.subtitle && card.subtitle.pl) ||
-              '';
-          }
-        });
         updateYamlOutput(activeCard);
       }
 
-      function setupLanguageToggle(cards = []) {
+      function setupLanguageToggle() {
         const langButton = document.getElementById('toggle-language');
         if (!langButton) return;
-        const render = () => applyTranslations(cards);
+        const render = () => applyTranslations();
         langButton.textContent = currentLang === 'pl' ? 'đź‡µđź‡±' : 'đź‡¬đź‡§';
         langButton.addEventListener('click', () => {
           currentLang = currentLang === 'pl' ? 'en' : 'pl';
@@ -425,7 +401,7 @@
             loadCardPreview(cards);
             selectCard(cards[0]);
           }
-          setupLanguageToggle(latestCards);
+          setupLanguageToggle();
         });
       });
     </script>
