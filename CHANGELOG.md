@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/PawelWielga/dihor-ha-components/compare/v2.2.0...v3.0.0) (2026-01-29)
+
+
+### Features
+
+* add visual editors to all custom cards ([733c7d2](https://github.com/PawelWielga/dihor-ha-components/commit/733c7d2fbe2619c6e7e52fc7ac77a4f1eb4cd6da))
+
+
+### BREAKING CHANGES
+
+* none - this is purely additive functionality
+
 # [2.2.0](https://github.com/PawelWielga/dihor-ha-components/compare/v2.1.0...v2.2.0) (2026-01-29)
 
 
