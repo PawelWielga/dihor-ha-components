@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/PawelWielga/dihor-ha-components/compare/v2.1.0...v2.2.0) (2026-01-29)
+
+
+### Features
+
+* set default background URL for dashboard-background card ([3415806](https://github.com/PawelWielga/dihor-ha-components/commit/34158067827cf3fd64283a6d7efc15a804d88ac8))
+
 # [2.1.0](https://github.com/PawelWielga/dihor-ha-components/compare/v2.0.2...v2.1.0) (2026-01-29)
 
 
