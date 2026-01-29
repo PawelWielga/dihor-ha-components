@@ -6,6 +6,7 @@ export interface ToggleButtonCardConfig {
   entity: string;
   label?: string;
   icon?: string;
+  show_label_under?: boolean;
   active_color?: string;
   inactive_color?: string;
 }
@@ -54,6 +55,12 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
           }
         },
         {
+          name: "show_label_under",
+          selector: {
+            boolean: {}
+          }
+        },
+        {
           type: "expandable",
           name: "",
           title: "Colors",
@@ -78,6 +85,7 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
           case "entity": return "Entity";
           case "label": return "Custom Label";
           case "icon": return "Custom Icon";
+          case "show_label_under": return "Show Label Under Button";
           case "active_color": return "Active Color";
           case "inactive_color": return "Inactive Color";
         }
@@ -88,6 +96,7 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
           case "entity": return "Entity to control (toggle on/off)";
           case "label": return "Optional custom label (defaults to entity friendly name)";
           case "icon": return "Optional custom icon";
+          case "show_label_under": return "Display label below the button instead of inside";
           case "active_color": return "Background color when entity is on";
           case "inactive_color": return "Background color when entity is off";
         }
@@ -116,45 +125,48 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
       stateObj?.attributes?.friendly_name ||
       entityId.replace(/^.*\./, "");
 
-    const stateText = stateObj?.state ? stateObj.state.toUpperCase() : "UNKNOWN";
-
     const icon = this._config.icon ||
       (stateObj?.attributes?.icon as string | undefined) ||
       "mdi:toggle-switch";
 
     const isOn = stateObj?.state === "on";
-    const buttonText = isOn ? "Turn off" : "Turn on";
+    const showLabelUnder = this._config.show_label_under ?? false;
 
-    // Dynamic styles
+    // Dynamic color styles (optional override)
     const activeColor = this._config.active_color;
     const inactiveColor = this._config.inactive_color;
 
-    let btnStyle = "";
+    let customBgStyle = "";
     if (isOn && activeColor) {
-      btnStyle = `background:${activeColor};color:#0f172a;`;
+      customBgStyle = `background:${activeColor};`;
     } else if (!isOn && inactiveColor) {
-      btnStyle = `background:${inactiveColor};`;
+      customBgStyle = `background:${inactiveColor};`;
     }
 
     return html`
-      <ha-card class="toggle-card">
-         <div class="toggle-content">
-             <div class="toggle-icon-container">
-                 <ha-icon icon="${icon}" class="toggle-icon"></ha-icon>
-             </div>
-             <div class="toggle-info">
-                 <div class="toggle-label">${label}</div>
-                 <div class="toggle-state">${stateText}</div>
-             </div>
-             <div class="toggle-control">
-                 <button
-                    class="toggle-action ${isOn ? 'active' : ''}"
-                    style="${btnStyle}"
-                    @click=${this.toggleEntity}>
-                    ${buttonText}
-                 </button>
-             </div>
-         </div>
+      <ha-card class="glass-button-container">
+        <div class="glass-button-wrapper">
+          <button 
+            class="glass-button ${isOn ? 'pressed' : ''}"
+            style="${customBgStyle}"
+            @click=${this.toggleEntity}
+          >
+            <!-- Gradient overlay for glass effect -->
+            <div class="glass-shine"></div>
+            
+            <!-- Active glow effect -->
+            ${isOn ? html`<div class="glass-glow"></div>` : ''}
+            
+            <!-- Icon -->
+            ${icon ? html`<ha-icon icon="${icon}" class="glass-icon"></ha-icon>` : ''}
+            
+            <!-- Label inside button (if not showing under) -->
+            ${!showLabelUnder && label && !icon ? html`<span class="glass-label-inside">${label}</span>` : ''}
+          </button>
+
+          <!-- Label under button -->
+          ${showLabelUnder && label ? html`<span class="glass-label-under">${label}</span>` : ''}
+        </div>
       </ha-card>
     `;
   }

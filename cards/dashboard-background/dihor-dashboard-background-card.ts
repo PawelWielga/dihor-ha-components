@@ -170,6 +170,7 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
   }
 
   public setConfig(config: DashboardBackgroundCardConfig): void {
+    console.log('[dihor-dashboard-background] setConfig called with:', config);
     super.setConfig(config);
     // Trigger update not needed as super calls requestUpdate
   }
@@ -200,10 +201,11 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
 
     const view = await this.waitForView();
     if (!view) {
-      console.warn("dihor-dashboard-background-card: Nie znaleziono hui-view po wielu próbach");
+      console.warn("[dihor-dashboard-background] Nie znaleziono hui-view po wielu próbach");
       return;
     }
 
+    console.log('[dihor-dashboard-background] Found hui-view element:', view);
     this._viewElement = view;
     this.observeView(view);
     await this.applyBackgroundToView();
@@ -231,10 +233,12 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     const delay = 300;
 
     for (let i = 0; i < maxAttempts; i++) {
+      console.log(`[dihor-dashboard-background] Searching for hui-view, attempt ${i + 1}/${maxAttempts}`);
       // Try to find the view from the root (document) or relative to this element
       // Since we are inside shadow DOM now, calling queryDeep from document is preferred for HA structure
       const view = this.queryDeep("hui-view");
       if (view) {
+        console.log('[dihor-dashboard-background] hui-view found on attempt', i + 1);
         return view;
       }
 
@@ -258,7 +262,9 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     if (!this._viewElement) return;
 
     const style = await this.buildBackgroundStyle();
+    console.log('[dihor-dashboard-background] Built style object:', style);
     if (!style) {
+      console.log('[dihor-dashboard-background] No style to apply, clearing view styles');
       this.clearViewStyles();
       return;
     }
@@ -296,14 +302,24 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
       if (config.blend_mode) style.backgroundBlendMode = config.blend_mode;
       if (config.attachment) style.backgroundAttachment = config.attachment;
 
+      console.log('[dihor-dashboard-background] Config values:', {
+        directImage,
+        gradient: config.gradient,
+        color: config.color,
+        debug_background_color: config.debug_background_color,
+        layers
+      });
+
       resolve(Object.keys(style).length ? style : null);
     });
   }
 
   private applyStyle(style: Record<string, string>) {
     if (!this._viewElement) return;
+    console.log('[dihor-dashboard-background] Applying styles to view element:', style);
     Object.entries(style).forEach(([prop, value]) => {
       this._viewElement!.style.setProperty(prop, value);
+      console.log(`[dihor-dashboard-background] Set ${prop} = ${value}`);
     });
   }
 
@@ -332,6 +348,7 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     }
 
     this._viewObserver = new MutationObserver(() => {
+      console.log('[dihor-dashboard-background] MutationObserver detected change, re-applying styles');
       if (this._lastStyle) {
         this.applyStyle({ ...this._lastStyle });
       }
