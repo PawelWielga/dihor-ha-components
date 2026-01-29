@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.4.0...v1.5.0) (2026-01-29)
+
+
+### Features
+
+* simplify phone mock preview ([f18187f](https://github.com/PawelWielga/dihor-ha-components/commit/f18187fa0e7e735e22fb88de8bbbb421cdb8ae40))
+
 # [1.4.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.8...v1.4.0) (2026-01-29)
 
 
