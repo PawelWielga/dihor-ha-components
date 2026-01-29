@@ -427,10 +427,9 @@
     }
 
     function displayDocsVersion() {
-      // ... same as before
       const versionEl = document.getElementById('docs-version');
       if (!versionEl) return;
-      const versionPath = `${window.__cardsBasePath || '.'}/version.json`;
+      const versionPath = 'version.json';
       fetch(versionPath)
         .then((res) => {
           if (!res.ok) throw new Error('Failed');

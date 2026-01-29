@@ -21,19 +21,35 @@ if (fs.existsSync(distFile)) {
   console.warn("⚠️  dist/dihor-ha-components.js not found. Run 'npm run build' first.");
 }
 
-// Copy cards-docs.json
+// Copy all cards files (CSS, manifest, etc.)
 const cardsSourceDir = path.join(__dirname, "src", "cards");
 const cardsTargetDir = path.join(docsDir, "cards");
 if (!fs.existsSync(cardsTargetDir)) {
   fs.mkdirSync(cardsTargetDir, { recursive: true });
 }
 
-const manifestPath = path.join(cardsSourceDir, "cards-docs.json");
-if (fs.existsSync(manifestPath)) {
-  const destManifestPath = path.join(cardsTargetDir, "cards-docs.json");
-  fs.copyFileSync(manifestPath, destManifestPath);
-  console.log("✅ Copied cards-docs.json to docs/cards/");
+// Copy all files from src/cards to docs/cards recursively
+function copyDirectory(source, target) {
+  if (!fs.existsSync(target)) {
+    fs.mkdirSync(target, { recursive: true });
+  }
+  
+  const files = fs.readdirSync(source);
+  files.forEach(file => {
+    const sourcePath = path.join(source, file);
+    const targetPath = path.join(target, file);
+    
+    const stats = fs.statSync(sourcePath);
+    if (stats.isDirectory()) {
+      copyDirectory(sourcePath, targetPath);
+    } else {
+      fs.copyFileSync(sourcePath, targetPath);
+      console.log(`✅ Copied ${sourcePath} to ${targetPath}`);
+    }
+  });
 }
+
+copyDirectory(cardsSourceDir, cardsTargetDir);
 
 // Write version info
 const versionInfo = {
