@@ -242,7 +242,8 @@
       function displayDocsVersion() {
         const versionEl = document.getElementById('docs-version');
         if (!versionEl) return;
-        fetch('./version.json')
+        const versionPath = `${window.__cardsBasePath || '.'}/version.json`;
+        fetch(versionPath)
           .then((res) => {
             if (!res.ok) {
               throw new Error(res.statusText || 'Failed to load version');
