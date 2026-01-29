@@ -1,0 +1,40 @@
+/* Style variables for dihor cards */
+.dihor-theme-light {
+  --dihor-card-bg: rgba(255, 255, 255, 0.95);
+  --dihor-card-border-size: 1px;
+  --dihor-card-border-radius: 12px;
+  --dihor-card-border-color: rgba(255, 255, 255, 0.2);
+  --dihor-card-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+
+  --dihor-title-color: #1d1d1f;
+  --dihor-subtitle-color: #666;
+  --dihor-stat-bg: rgba(200, 200, 200, 0.2);
+
+  --dihor-badge-online-bg: #4caf50;
+  --dihor-badge-offline-bg: #ff3b30;
+  --dihor-badge-players-bg: #9c27b0;
+  --dihor-badge-version-bg: #007aff;
+  --dihor-badge-latency-bg: #ff9500;
+
+  --dihor-divider-color: rgba(0, 0, 0, 0.08);
+}
+
+.dihor-theme-dark {
+  --dihor-card-bg: rgba(48, 48, 48, 0.95);
+  --dihor-card-border-size: 1px;
+  --dihor-card-border-radius: 12px;
+  --dihor-card-border-color: rgba(255, 255, 255, 0.1);
+  --dihor-card-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+
+  --dihor-title-color: #f3f3f3;
+  --dihor-subtitle-color: #aaa;
+  --dihor-stat-bg: rgba(80, 80, 80, 0.5);
+
+  --dihor-badge-online-bg: #4caf50;
+  --dihor-badge-offline-bg: #ff3b30;
+  --dihor-badge-players-bg: #9c27b0;
+  --dihor-badge-version-bg: #007aff;
+  --dihor-badge-latency-bg: #ff9500;
+
+  --dihor-divider-color: rgba(255, 255, 255, 0.1);
+}

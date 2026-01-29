@@ -1,0 +1,96 @@
+/* NAGŁÓWEK */
+.dihor-card-header {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--dihor-divider-color);
+}
+
+.dihor-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.dihor-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dihor-title-color);
+  margin: 0;
+}
+
+.dihor-card-subtitle {
+  font-size: 14px;
+  color: var(--dihor-subtitle-color);
+  font-weight: 500;
+}
+
+/* SIATKA STATYSTYK */
+.dihor-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* POJEDYNCZA STATYSTYKA */
+.dihor-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  background: var(--dihor-stat-bg);
+  border-radius: var(--dihor-card-border-radius);
+  text-align: center;
+}
+
+.dihor-stat-icon {
+  font-size: 18px;
+}
+
+.dihor-stat-label {
+  font-size: 11px;
+  color: var(--dihor-subtitle-color);
+  font-weight: 500;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dihor-stat-value {
+  font-size: 14px;
+  color: var(--dihor-title-color);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* BADGES */
+.dihor-badge {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: white;
+}
+
+.dihor-badge-online {
+  background: var(--dihor-badge-online-bg);
+}
+
+.dihor-badge-offline {
+  background: var(--dihor-badge-offline-bg);
+}
+
+.dihor-badge-players {
+  background: var(--dihor-badge-players-bg);
+}
+
+.dihor-badge-version {
+  background: var(--dihor-badge-version-bg);
+}
+
+.dihor-badge-latency {
+  background: var(--dihor-badge-latency-bg);
+}
