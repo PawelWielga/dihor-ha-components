@@ -41,7 +41,19 @@
         }
       });
     });
+
+    // Custom element shim for hui-view if not defined
+    if (!customElements.get('hui-view')) {
+      class HuiView extends HTMLElement { }
+      customElements.define('hui-view', HuiView);
+    }
   </script>
+  <style>
+    hui-view {
+      display: block;
+      /* Inherit size from phone-screen class which it replaces/extends */
+    }
+  </style>
 </head>
 
 <body>
@@ -62,7 +74,7 @@
               <span class="privacy-dot"></span>
             </div>
           </div>
-          <div class="phone-screen" role="presentation">
+          <hui-view class="phone-screen" role="presentation">
             <div class="phone-inner">
               <div class="phone-app-bar">
                 <div class="phone-app-bar-left">
@@ -109,7 +121,7 @@
               </div>
               <div class="phone-home-indicator"></div>
             </div>
-          </div>
+          </hui-view>
         </div>
       </section>
 

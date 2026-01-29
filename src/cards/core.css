@@ -9,5 +9,5 @@
   padding: 18px;
   box-shadow: var(--dihor-card-shadow);
   border: var(--dihor-card-border-size) solid var(--dihor-card-border-color);
-  font-family: sans-serif;
+  font-family: 'Inter', sans-serif;
 }

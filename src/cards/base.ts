@@ -2,6 +2,7 @@ import { LitElement, html, CSSResultGroup, css, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import themeCss from "./theme.css";
 import coreCss from "./core.css";
+import fontCss from "./font.css";
 import type { HomeAssistant, LovelaceCard } from "../../types/home-assistant";
 
 export abstract class BaseDihorCard<ConfigType> extends LitElement implements LovelaceCard {
@@ -21,8 +22,9 @@ export abstract class BaseDihorCard<ConfigType> extends LitElement implements Lo
   // Lit element styles
   static get styles(): CSSResultGroup {
     return css`
-      unsafeCSS(themeCss)}
+      ${unsafeCSS(themeCss)}
       ${unsafeCSS(coreCss)}
+      ${unsafeCSS(fontCss)}
     `;
   }
 
