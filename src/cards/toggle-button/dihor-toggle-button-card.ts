@@ -8,7 +8,6 @@ export interface ToggleButtonCardConfig {
   icon?: string;
   show_label_under?: boolean;
   active_color?: string;
-  inactive_color?: string;
 }
 
 export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
@@ -70,12 +69,6 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
               selector: {
                 ui_color: {}
               }
-            },
-            {
-              name: "inactive_color",
-              selector: {
-                ui_color: {}
-              }
             }
           ]
         }
@@ -87,7 +80,6 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
           case "icon": return "Custom Icon";
           case "show_label_under": return "Show Label Under Button";
           case "active_color": return "Active Color";
-          case "inactive_color": return "Inactive Color";
         }
         return undefined;
       },
@@ -97,8 +89,7 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
           case "label": return "Optional custom label (defaults to entity friendly name)";
           case "icon": return "Optional custom icon";
           case "show_label_under": return "Display label below the button instead of inside";
-          case "active_color": return "Background color when entity is on";
-          case "inactive_color": return "Background color when entity is off";
+          case "active_color": return "Active Color (Background & Border)";
         }
         return undefined;
       }
@@ -134,21 +125,18 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
 
     // Dynamic color styles (optional override)
     const activeColor = this._config.active_color;
-    const inactiveColor = this._config.inactive_color;
 
-    let customBgStyle = "";
+    let customStyle = "";
     if (isOn && activeColor) {
-      customBgStyle = `background:${activeColor};`;
-    } else if (!isOn && inactiveColor) {
-      customBgStyle = `background:${inactiveColor};`;
+      customStyle = `background:${activeColor}; border-color:${activeColor}; box-shadow: 0 0 15px ${activeColor}66;`;
     }
 
     return html`
       <ha-card class="glass-button-container">
         <div class="glass-button-wrapper">
           <button 
-            class="glass-button ${isOn ? 'pressed' : ''}"
-            style="${customBgStyle}"
+            class="glass-card glass-button ${isOn ? 'pressed' : ''}"
+            style="${customStyle}"
             @click=${this.toggleEntity}
           >
             <!-- Gradient overlay for glass effect -->

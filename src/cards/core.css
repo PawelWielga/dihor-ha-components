@@ -1,4 +1,8 @@
 /* KARTA */
+:host {
+  font-family: 'Inter', sans-serif;
+}
+
 .dihor-card {
   margin: 0;
   width: 100%;
@@ -9,5 +13,59 @@
   padding: 18px;
   box-shadow: var(--dihor-card-shadow);
   border: var(--dihor-card-border-size) solid var(--dihor-card-border-color);
-  font-family: 'Inter', sans-serif;
+}
+
+/* Glassmorphism Design System */
+.glass-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.02);
+}
+
+.glass-card.pressed {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glass-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glass-glow {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 48px;
+  height: 48px;
+  background: rgba(34, 211, 238, 0.2);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
 }
