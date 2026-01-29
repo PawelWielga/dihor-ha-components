@@ -9,6 +9,20 @@
 ### Features
 
 * **docs:** dynamic manifest and version ([6532d28](https://github.com/PawelWielga/dihor-ha-components/commit/6532d2848ff02ba14ecfb77234062426f35568f3))
+* refresh docs landing ([2fd87d0](https://github.com/PawelWielga/dihor-ha-components/commit/2fd87d0be7dd7c5b24b6d2dbee2cbd9d17dd22ba))
+* **toggle-button:** add toggle helper card ([6ef09fe](https://github.com/PawelWielga/dihor-ha-components/commit/6ef09febc18341be07ee5979f668f88221114b8f))
+
+# [1.4.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.8...v1.4.0) (2026-01-29)
+
+
+### Bug Fixes
+
+* **gallery:** load version from published path ([adb2e0d](https://github.com/PawelWielga/dihor-ha-components/commit/adb2e0d5f42f0d15dfbc247b56af433c38480d57))
+
+
+### Features
+
+* **docs:** dynamic manifest and version ([6532d28](https://github.com/PawelWielga/dihor-ha-components/commit/6532d2848ff02ba14ecfb77234062426f35568f3))
 * **toggle-button:** add toggle helper card ([6ef09fe](https://github.com/PawelWielga/dihor-ha-components/commit/6ef09febc18341be07ee5979f668f88221114b8f))
 
 # [1.4.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.8...v1.4.0) (2026-01-29)
