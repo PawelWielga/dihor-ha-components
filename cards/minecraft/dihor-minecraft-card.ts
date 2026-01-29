@@ -111,7 +111,8 @@ export class MinecraftCard extends BaseDihorCard<MinecraftCardConfig> {
     const statusClass = isOffline ? "dihor-badge-offline" : "dihor-badge-online";
 
     return html`
-      <ha-card class="dihor-card">
+      <ha-card class="dihor-card glass-card">
+        <div class="glass-shine"></div>
         <div class="dihor-card-header">
           <div class="dihor-card-title">
              <span class="dihor-icon">🎮</span> ${this._config.title || "Minecraft Server"}

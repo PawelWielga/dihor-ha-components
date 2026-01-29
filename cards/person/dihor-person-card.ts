@@ -1,11 +1,19 @@
-import { html, nothing } from 'lit';
+import { html, nothing, css, unsafeCSS } from 'lit';
 import { BaseDihorCard } from "../base";
+import cardCssStr from "./dihor-person-card.css";
 
 export interface PersonCardConfig {
   entity: string;
 }
 
 export class PersonCard extends BaseDihorCard<PersonCardConfig> {
+
+  static get styles() {
+    return [
+      super.styles,
+      css`${unsafeCSS(cardCssStr)}`
+    ];
+  }
 
   setConfig(config: PersonCardConfig) {
     if (!config.entity) {
@@ -51,7 +59,8 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
     const state = this.hass.states[this._config.entity];
     if (!state) {
       return html`
-        <ha-card header="Person not found">
+        <ha-card class="glass-card" header="Person not found">
+            <div class="glass-shine"></div>
             <div class="card-content">
                 Entity ${this._config.entity} not found.
             </div>
@@ -63,9 +72,11 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
     const picture = state.attributes.entity_picture;
 
     return html`
-      <ha-card header="${name}">
-        <div class="card-content">
-            ${picture ? html`<img src="${picture}" alt="${name}" style="width:100%;border-radius:50%" />` : nothing}
+      <ha-card class="glass-card">
+        <div class="glass-shine"></div>
+        <div class="card-content person-card-content">
+            ${picture ? html`<img src="${picture}" alt="${name}" class="person-avatar" />` : nothing}
+            <div class="person-name">${name}</div>
         </div>
       </ha-card>
     `;

@@ -76,7 +76,8 @@ export class ClockCard extends BaseDihorCard<ClockCardConfig> {
 
   protected renderCard() {
     return html`
-      <ha-card class="clock-card" style="font-size: ${this.getCardSize() * 2}rem;">
+      <ha-card class="clock-card glass-card" style="font-size: ${this.getCardSize() * 2}rem;">
+        <div class="glass-shine"></div>
         <div class="card-content">
            <div class="clock-face">
              <span id="time" class="time-display">${this._timeString}</span>
