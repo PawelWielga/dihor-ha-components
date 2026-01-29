@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
@@ -47,28 +47,75 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="app-shell">
       <nav class="navbar">
-        <div class="navbar-title">📦 Custom Cards Preview</div>
+        <div class="navbar-title">đź“¦ Custom Cards Preview</div>
         <div class="navbar-buttons">
-          <button id="toggle-language" title="Zmień język">🇵🇱</button>
-          <button id="toggle-theme" title="Zmień motyw">🌙</button>
+          <button id="toggle-language" title="Zmień język">đź‡µđź‡±</button>
+          <button id="toggle-theme" title="Zmień motyw">đźŚ™</button>
         </div>
       </nav>
 
-      <div class="cards-grid" id="cards-grid">
-        <div class="coming-soon-section">
-          <div class="coming-soon-icon">🚀</div>
-          <div class="coming-soon-text">Kolejne komponenty wkrótce!</div>
-          <div class="coming-soon-subtitle">
-            Pracujemy nad nowymi kartami dla Home Assistant
+      <main class="split-layout">
+        <section class="mock-panel">
+          <div class="phone-mock">
+            <div class="phone-top">
+              <div class="phone-status">
+                <span class="phone-signal" aria-hidden="true"></span>
+                <span class="phone-time">18:32</span>
+                <span class="phone-battery" aria-hidden="true"></span>
+              </div>
+            </div>
+            <div class="phone-screen" role="presentation">
+              <div class="phone-cards" id="phone-cards">
+                <div class="coming-soon-section">
+                  <div class="coming-soon-icon">đźš€</div>
+                  <div class="coming-soon-text">Kolejne komponenty wkrótce!</div>
+                  <div class="coming-soon-subtitle">
+                    Pracujemy nad nowymi kartami dla Home Assistant
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </section>
+
+        <section class="info-panel">
+          <div class="info-card" id="hac-info">
+            <div class="info-card-header">
+              <h2 id="hacs-title">Zainstaluj przez HACS</h2>
+            </div>
+            <p id="hacs-description">
+              W HACS dodajemy repozytorium frontendu, aby zainstalować komponenty.
+            </p>
+            <ol id="hacs-steps">
+              <li>Otwórz HACS i przejdź do zakładki Frontend.</li>
+              <li>
+                Dodaj nowe repozytorium <code>https://github.com/dihor/dihor-ha-components</code>.
+              </li>
+              <li>Wybierz kategorię Frontend, zapisz i zainstaluj.</li>
+            </ol>
+            <p class="info-note" id="hacs-note">
+              Po zainstalowaniu odśwież widok, aby zobaczyć karty po lewej.
+            </p>
+          </div>
+
+          <div class="info-card yaml-card">
+            <div class="info-card-header">
+              <h3 id="yaml-title">Konfiguracja YAML</h3>
+              <p id="yaml-hint">
+                Kliknij kartę po lewej, aby zobaczyć przykładową konfigurację.
+              </p>
+            </div>
+            <pre id="yaml-output">Wybierz kartę, aby zobaczyć YAML.</pre>
+          </div>
+
+          <footer class="version-footer">
+            <span id="version-label">Wersja</span>: <span id="docs-version">?</span>
+          </footer>
+        </section>
+      </main>
     </div>
-    <footer class="version-footer">
-      <span id="version-label">Wersja</span>: <span id="docs-version">?</span>
-    </footer>
 
     <!-- Wszystko działa tutaj -->
     <script>
@@ -77,26 +124,62 @@
           comingSoon: 'Kolejne komponenty wkrótce!',
           comingSoonSub: 'Pracujemy nad nowymi kartami dla Home Assistant',
           previewLabel: 'Podgląd karty',
-          yamlHeader: 'Konfiguracja YAML',
           loading: 'Ładowanie podglądu...',
           error: 'Nie udało się załadować podglądu',
           versionLabel: 'Wersja',
+          hacsHeader: 'Zainstaluj przez HACS',
+          hacsDescription:
+            'W HACS dodaj repozytorium frontendu, aby zainstalować komponenty.',
+          hacsSteps: [
+            'Otwórz HACS i przejdź do zakładki Frontend.',
+            'Dodaj repozytorium https://github.com/dihor/dihor-ha-components jako Frontend.',
+            'Zainstaluj je i zrestartuj Home Assistanta.',
+          ],
+          hacsNote: 'Po instalacji odśwież widok, aby zobaczyć karty po lewej.',
+          yamlTitle: 'Konfiguracja YAML',
+          yamlHint: 'Kliknij kartę po lewej, aby zobaczyć przykładową konfigurację.',
+          yamlPlaceholder: 'Wybierz kartę, aby zobaczyć YAML.',
         },
         en: {
           comingSoon: 'More components coming soon!',
           comingSoonSub: "We're working on new Home Assistant cards",
           previewLabel: 'Card preview',
-          yamlHeader: 'YAML Configuration',
           loading: 'Loading preview...',
           error: 'Failed to load preview',
           versionLabel: 'Version',
+          hacsHeader: 'Install via HACS',
+          hacsDescription: 'Add the frontend repository in HACS to install our cards.',
+          hacsSteps: [
+            'Open HACS and switch to the Frontend section.',
+            'Add https://github.com/dihor/dihor-ha-components as a custom repository (Frontend).',
+            'Install it and refresh Home Assistant.',
+          ],
+          hacsNote: 'After installation the mock dashboard will show the cards on the left.',
+          yamlTitle: 'YAML configuration',
+          yamlHint: 'Select a card on the left to preview its sample YAML.',
+          yamlPlaceholder: 'Select a card to inspect the YAML.',
         },
       };
 
-      const cardsGrid = document.getElementById('cards-grid');
+      const phoneCardsContainer = document.getElementById('phone-cards');
+      const yamlOutputEl = document.getElementById('yaml-output');
+      const yamlHintEl = document.getElementById('yaml-hint');
+      const yamlTitleEl = document.getElementById('yaml-title');
+      const hacsTitleEl = document.getElementById('hacs-title');
+      const hacsDescriptionEl = document.getElementById('hacs-description');
+      const hacsStepsEl = document.getElementById('hacs-steps');
+      const hacsNoteEl = document.getElementById('hacs-note');
+      const versionLabelEl = document.getElementById('version-label');
+
+      let currentTheme = localStorage.getItem('theme') || 'light';
+      let currentLang = localStorage.getItem('lang') || 'pl';
+      let latestCards = [];
+      let activeCard = null;
 
       function applyThemeToCards() {
-        const isDark = localStorage.getItem('theme') === 'dark';
+        const isDark = currentTheme === 'dark';
+        document.body.classList.toggle('dark', isDark);
+        document.body.classList.toggle('light', !isDark);
         document
           .querySelectorAll('.card-preview .dihor-card')
           .forEach((card) => {
@@ -107,109 +190,157 @@
 
       function setupThemeToggle() {
         const themeButton = document.getElementById('toggle-theme');
-        let currentTheme = localStorage.getItem('theme') || 'light';
-        themeButton.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        if (!themeButton) return;
+        themeButton.textContent = currentTheme === 'dark' ? 'â€ď¸Ź' : 'đźŚ™';
         applyThemeToCards();
         themeButton.addEventListener('click', () => {
           currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
           localStorage.setItem('theme', currentTheme);
-          themeButton.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+          themeButton.textContent = currentTheme === 'dark' ? 'â€ď¸Ź' : 'đźŚ™';
           applyThemeToCards();
         });
       }
 
+      function formatYaml(card) {
+        if (!card || !card.usage || !card.usage.length) {
+          return translations[currentLang].yamlPlaceholder;
+        }
+        return card.usage
+          .map((line) => `${line.key}: ${line.value}`)
+          .join('\n');
+      }
+
+      function updateYamlOutput(card) {
+        if (!yamlOutputEl) return;
+        const text = formatYaml(card);
+        yamlOutputEl.textContent = text;
+      }
+
+      function selectCard(card) {
+        if (!card) return;
+        const previous = document.querySelector('.phone-card.is-active');
+        if (previous) {
+          previous.classList.remove('is-active');
+        }
+        const current = document.querySelector(
+          `.phone-card[data-card-id="${card.id}"]`
+        );
+        if (current) {
+          current.classList.add('is-active');
+          current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        activeCard = card;
+        updateYamlOutput(card);
+      }
+
       function renderCards(cards) {
-        if (!cardsGrid) return;
-        const comingSoon = cardsGrid.querySelector('.coming-soon-section');
+        if (!phoneCardsContainer) return;
+        latestCards = cards || [];
+        phoneCardsContainer
+          .querySelectorAll('.phone-card')
+          .forEach((node) => node.remove());
+        const comingSoon = phoneCardsContainer.querySelector(
+          '.coming-soon-section'
+        );
         cards.forEach((card) => {
-          const configLines = (card.usage || [])
-            .map(
-              (line) => `<div class="config-line">
-                <span class="config-key">${line.key}</span>
-                <span class="config-separator">:</span>
-                <span class="config-value">${line.value}</span>
-              </div>`
-            )
-            .join('');
-          const cardElement = document.createElement('div');
-          cardElement.className = 'card-showcase';
+          const cardElement = document.createElement('article');
+          cardElement.className = 'phone-card';
+          cardElement.setAttribute('data-card-id', card.id);
           cardElement.innerHTML = `
-            <div class="card-header">
-              <div class="card-icon">${card.icon || '📦'}</div>
+            <div class="phone-card-header">
+              <span class="phone-card-icon">${card.icon || 'đź“¦'}</span>
               <div>
-                <h3 class="card-title">${card.name}</h3>
-                <p class="card-subtitle" data-card-id="${card.id}"></p>
+                <strong>${card.name}</strong>
+                <span class="card-subtitle" data-card-id="${card.id}"></span>
               </div>
             </div>
-
             <div class="preview-section">
               <div class="preview-label">Podgląd karty</div>
               <div class="card-preview" id="${card.id}-card-preview">
                 <div class="loading-placeholder">Ładowanie podglądu...</div>
               </div>
             </div>
-
-            <div class="usage-section">
-              <div class="usage-header">Konfiguracja YAML</div>
-              <div class="config-lines">
-                ${configLines}
-              </div>
-            </div>
           `;
+          cardElement.addEventListener('click', () => selectCard(card));
           if (comingSoon) {
-            cardsGrid.insertBefore(cardElement, comingSoon);
+            phoneCardsContainer.insertBefore(cardElement, comingSoon);
           } else {
-            cardsGrid.appendChild(cardElement);
+            phoneCardsContainer.appendChild(cardElement);
           }
         });
         applyThemeToCards();
       }
 
+      function applyTranslations(cards) {
+        const t = translations[currentLang];
+        if (hacsTitleEl) {
+          hacsTitleEl.textContent = t.hacsHeader;
+        }
+        if (hacsDescriptionEl) {
+          hacsDescriptionEl.textContent = t.hacsDescription;
+        }
+        if (hacsNoteEl) {
+          hacsNoteEl.textContent = t.hacsNote;
+        }
+        if (yamlTitleEl) {
+          yamlTitleEl.textContent = t.yamlTitle;
+        }
+        if (yamlHintEl) {
+          yamlHintEl.textContent = t.yamlHint;
+        }
+        if (versionLabelEl) {
+          versionLabelEl.textContent = t.versionLabel;
+        }
+        if (hacsStepsEl) {
+          hacsStepsEl.innerHTML = '';
+          t.hacsSteps.forEach((step) => {
+            const li = document.createElement('li');
+            li.textContent = step;
+            hacsStepsEl.appendChild(li);
+          });
+        }
+        document
+          .querySelectorAll('.preview-label')
+          .forEach((el) => (el.textContent = t.previewLabel));
+        const comingText = document.querySelector('.coming-soon-text');
+        if (comingText) {
+          comingText.textContent = t.comingSoon;
+        }
+        const comingSubtitle = document.querySelector(
+          '.coming-soon-subtitle'
+        );
+        if (comingSubtitle) {
+          comingSubtitle.textContent = t.comingSoonSub;
+        }
+        document
+          .querySelectorAll('.loading-placeholder')
+          .forEach((el) => (el.textContent = '⏳ ' + t.loading));
+        cards.forEach((card) => {
+          const subtitleEl = document.querySelector(
+            `.card-subtitle[data-card-id="${card.id}"]`
+          );
+          if (subtitleEl) {
+            subtitleEl.textContent =
+              (card.subtitle && card.subtitle[currentLang]) ||
+              (card.subtitle && card.subtitle.pl) ||
+              '';
+          }
+        });
+        updateYamlOutput(activeCard);
+      }
+
       function setupLanguageToggle(cards = []) {
         const langButton = document.getElementById('toggle-language');
-        let lang = localStorage.getItem('lang') || 'pl';
-        langButton.textContent = lang === 'pl' ? '🇵🇱' : '🇬🇧';
-
-        function applyTranslations() {
-          const t = translations[lang];
-          cards.forEach((card) => {
-            const subtitleEl = document.querySelector(
-              `.card-subtitle[data-card-id="${card.id}"]`
-            );
-            if (subtitleEl) {
-              subtitleEl.textContent =
-                (card.subtitle && card.subtitle[lang]) ||
-                (card.subtitle && card.subtitle.pl) ||
-                '';
-            }
-          });
-          const versionLabelEl = document.getElementById('version-label');
-          if (versionLabelEl) {
-            versionLabelEl.textContent = t.versionLabel || 'Wersja';
-          }
-          document
-            .querySelectorAll('.preview-label')
-            .forEach((el) => (el.textContent = t.previewLabel));
-          document
-            .querySelectorAll('.usage-header')
-            .forEach((el) => (el.textContent = t.yamlHeader));
-          document.querySelector('.coming-soon-text').textContent =
-            t.comingSoon;
-          document.querySelector('.coming-soon-subtitle').textContent =
-            t.comingSoonSub;
-          document
-            .querySelectorAll('.loading-placeholder')
-            .forEach((el) => (el.textContent = '⏳ ' + t.loading));
-        }
-
+        if (!langButton) return;
+        const render = () => applyTranslations(cards);
+        langButton.textContent = currentLang === 'pl' ? 'đź‡µđź‡±' : 'đź‡¬đź‡§';
         langButton.addEventListener('click', () => {
-          lang = lang === 'pl' ? 'en' : 'pl';
-          localStorage.setItem('lang', lang);
-          langButton.textContent = lang === 'pl' ? '🇵🇱' : '🇬🇧';
-          applyTranslations();
+          currentLang = currentLang === 'pl' ? 'en' : 'pl';
+          localStorage.setItem('lang', currentLang);
+          langButton.textContent = currentLang === 'pl' ? 'đź‡µđź‡±' : 'đź‡¬đź‡§';
+          render();
         });
-
-        applyTranslations();
+        render();
       }
 
       function loadCardPreview(cards) {
@@ -234,7 +365,12 @@
               applyThemeToCards();
             })
             .catch((err) => {
-              el.innerHTML = `<div class="error-placeholder">❌ Błąd: ${err.message}</div>`;
+              const localizedError =
+                translations[currentLang] &&
+                translations[currentLang].error
+                  ? `${translations[currentLang].error}: ${err.message}`
+                  : err.message;
+              el.innerHTML = `<div class="error-placeholder">✖ ${localizedError}</div>`;
             });
         });
       }
@@ -284,10 +420,12 @@
         displayDocsVersion();
         resolveManifestPromise().then((cards) => {
           if (cards && cards.length) {
+            latestCards = cards;
             renderCards(cards);
             loadCardPreview(cards);
+            selectCard(cards[0]);
           }
-          setupLanguageToggle(cards);
+          setupLanguageToggle(latestCards);
         });
       });
     </script>
