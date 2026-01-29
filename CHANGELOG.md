@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.8...v1.4.0) (2026-01-29)
+
+
+### Features
+
+* **docs:** dynamic manifest and version ([6532d28](https://github.com/PawelWielga/dihor-ha-components/commit/6532d2848ff02ba14ecfb77234062426f35568f3))
+
 ## [1.3.8](https://github.com/PawelWielga/dihor-ha-components/compare/v1.3.7...v1.3.8) (2026-01-23)
 
 
