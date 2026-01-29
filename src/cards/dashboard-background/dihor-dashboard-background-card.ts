@@ -1,6 +1,6 @@
-import html from "./dihor-dashboard-background-card.html";
-import css from "./dihor-dashboard-background-card.css";
+import { html, css, unsafeCSS } from "lit";
 import { BaseDihorCard } from "../base";
+import cardCssStr from "./dihor-dashboard-background-card.css";
 
 export interface DashboardBackgroundCardConfig {
   color?: string;
@@ -21,33 +21,36 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
   private _lastStyle?: Record<string, string>;
   private _viewObserver?: MutationObserver;
 
+  static get styles() {
+    return [super.styles, css`${unsafeCSS(cardCssStr)}`];
+  }
+
   public setConfig(config: DashboardBackgroundCardConfig): void {
     super.setConfig(config);
+    // Trigger update not needed as super calls requestUpdate
+  }
+
+  protected updated(changedProperties: Map<string | number | symbol, unknown>) {
+    super.updated(changedProperties);
     void this.waitForViewAndApply();
   }
 
-  protected cardHtml() {
-    return html;
-  }
-
-  protected cardCss() {
-    return css;
-  }
-
-  protected onCardCreated() {
-    void this.waitForViewAndApply();
-  }
-
-  protected update() {
-    void this.waitForViewAndApply();
+  protected renderCard() {
+    // This card has no visual content of its own, it behaves as a controller
+    return html`
+      <ha-card style="display:none"></ha-card>
+    `;
   }
 
   disconnectedCallback() {
+    super.disconnectedCallback();
     this.disconnectViewObserver();
   }
 
   private async waitForViewAndApply() {
     if (this._viewElement) {
+      // Re-apply if config changed
+      await this.applyBackgroundToView();
       return;
     }
 
@@ -84,11 +87,15 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
     const delay = 300;
 
     for (let i = 0; i < maxAttempts; i++) {
+      // Try to find the view from the root (document) or relative to this element
+      // Since we are inside shadow DOM now, calling queryDeep from document is preferred for HA structure
       const view = this.queryDeep("hui-view");
       if (view) {
         return view;
       }
 
+      // Fallback: traverse up if we are deep
+      // LitElement host is 'this'
       let current = this.parentElement;
       while (current) {
         if (current.tagName && current.tagName.toLowerCase().includes("hui-view")) {
@@ -214,8 +221,8 @@ if (!customElements.get("dihor-dashboard-background-card")) {
   customElements.define("dihor-dashboard-background-card", DashboardBackgroundCard);
 }
 
-;(window as any).customCards = (window as any).customCards || [];
-;(window as any).customCards.push({
+; (window as any).customCards = (window as any).customCards || [];
+; (window as any).customCards.push({
   type: "dihor-dashboard-background-card",
   name: "Dihor Dashboard Background Card",
   preview: true,

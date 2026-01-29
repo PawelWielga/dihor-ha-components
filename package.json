@@ -6,7 +6,9 @@
     "prepare-docs": "node prepare-docs.js",
     "preview": "npx serve docs",
     "dev": "npm run prepare-docs && npm run preview",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "lint": "eslint \"src/**/*.{ts,js}\" --quiet",
+    "format": "prettier --write \"src/**/*.{ts,js,css,html}\""
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^16.0.1",
@@ -18,12 +20,21 @@
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^11.0.6",
     "@semantic-release/release-notes-generator": "^14.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.54.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-lit": "^2.1.1",
     "glob": "^11.0.3",
+    "prettier": "^3.8.1",
     "rollup": "^2.79.2",
     "rollup-plugin-string": "^3.0.0",
     "semantic-release": "^24.2.9",
     "shx": "^0.4.0",
     "tslib": "^2.8.1",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "lit": "^3.3.2"
   }
 }

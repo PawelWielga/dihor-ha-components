@@ -1,110 +1,145 @@
-# 🚀 Dihor HA Components - Super Custom Cards for Your Dashboard!
+# 🚀 Dihor HA Components
 
-Hey there, fellow Home Assistant enthusiast! 👋  
-Tired of boring old standard cards? Want to spice up your dashboard with some cool, unique components that will make your smart home look like it's from the future (or at least from 2024)? You've come to the right place! 🎉
+**Dihor HA Components** is a collection of modern, custom UI cards for Home Assistant, built with performance and aesthetics in mind.
 
-## 📦 What's This All About?
-Dihor HA Components is a collection of **super awesome, slightly quirky, and totally functional custom UI cards** for Home Assistant. They're designed to make your dashboard more fun, more informative, and definitely more "you"!
+> **Note for Users:** Installation instructions, configuration examples, and live previews are available on the **[Demo Page](docs/index.html)**.
 
-## 🎮 Available Cards (So Far...)
+## 📦 Components
 
-### 1. 🕐 Dihor Clock Card - A Clock That Doesn't Suck
-Tired of checking your phone for time when you have a giant dashboard? This clock is big, bold, and customizable! Adjust the size to match your mood (or the size of your screen).
+This library includes the following cards, now built with **Lit** for better performance and security:
 
-```yaml
-type: 'custom:dihor-clock-card'
-size: 2  # 1 = small, 2 = medium, 3 = "I need to see this from the other room!"
+1.  **🕐 Dihor Clock Card** - Customizable digital clock.
+2.  **🎮 Dihor Minecraft Card** - Server status monitor.
+3.  **👤 Dihor Person Card** - Elegant person entity display.
+4.  **🖼️ Dihor Dashboard Background Card** - Dynamic view backgrounds (colors, gradients, images).
+5.  **🔘 Dihor Toggle Button Card** - Friendly toggle switch.
+
+## 🛠️ Technology Stack
+
+*   **[Lit](https://lit.dev/)**: Lightweight web components library.
+*   **[TypeScript](https://www.typescriptlang.org/)**: Static typing for reliability.
+*   **[Rollup](https://rollupjs.org/)**: Efficient module bundling.
+*   **ESLint & Prettier**: Code quality and formatting.
+
+## �‍💻 Developer Guide
+
+This section is designed to be a future-proof reference for developers (including you, future-self! 👋).
+
+### 🏗️ Architecture & Technology Stack
+
+We chose specific tools to balance **performance**, **maintainability**, and **developer experience**.
+
+*   **[Lit](https://lit.dev/)**:
+    *   **Why?** It's a lightweight wrapper around standard Web Components. It provides a declarative reactive state system (like React/Vue) but outputs standard HTML Custom Elements that work natively in Home Assistant.
+    *   **Usage**: All cards extend `BaseDihorCard` (which extends `LitElement`). We use `@property` for inputs from HA and `@state` for internal logic.
+*   **[TypeScript](https://www.typescriptlang.org/)**:
+    *   **Why?** Home Assistant objects (`hass`, `config`) are complex. strict typing prevents "undefined is not a function" errors and provides excellent autocompletion.
+*   **[Rollup](https://rollupjs.org/)**:
+    *   **Why?** It creates very small, efficient ES module bundles perfect for modern browsers.
+    *   **Plugins**: We use `rollup-plugin-string` to import `.css` files as strings, which we then feed into Lit's `unsafeCSS`.
+
+### 🧩 Core Patterns
+
+1.  **BaseDihorCard (`src/cards/base.ts`)**:
+    *   The abstract base class for all cards.
+    *   **Handles**: `hass` property updates, `setConfig`, and attaching core styles (`theme.css`, `core.css`).
+    *   **You Implement**: `renderCard()` (returns `html`) and `getCardSize()`.
+
+2.  **Styling**:
+    *   Styles are written in separate `.css` files.
+    *   imported as strings: `import cardCssStr from "./my-card.css";`
+    *   Applied via Lit's static styles:
+        ```typescript
+        static get styles() {
+          return [
+            super.styles,
+            css`${unsafeCSS(cardCssStr)}`
+          ];
+        }
+        ```
+
+### 🆕 How to Add a New Card
+
+Want to add a new card? Follow this copy-pasteable recipe:
+
+1.  **Create Directory**: `src/cards/my-new-feature`
+2.  **Create Assets**:
+    *   `dihor-my-new-card.ts` (Logic)
+    *   `dihor-my-new-card.css` (Styles)
+    *   `dihor-my-new-card.html` (Optional preview template, if needed)
+3.  **Implement Class (`dihor-my-new-card.ts`)**:
+    ```typescript
+    import { html, css, unsafeCSS } from "lit";
+    import { state } from "lit/decorators.js";
+    import { BaseDihorCard } from "../base";
+    import cardCssStr from "./dihor-my-new-card.css";
+
+    export interface MyNewCardConfig {
+      header?: string;
+    }
+
+    export class MyNewCard extends BaseDihorCard<MyNewCardConfig> {
+      static get styles() {
+        return [super.styles, css`${unsafeCSS(cardCssStr)}`];
+      }
+
+      protected renderCard() {
+        return html`
+          <ha-card header=${this._config.header || "My New Card"}>
+            <div class="card-content">
+              Hello from Lit!
+            </div>
+          </ha-card>
+        `;
+      }
+    }
+
+    customElements.define("dihor-my-new-card", MyNewCard);
+    
+    // Register for HACS/Lovelace Picker
+    (window as any).customCards = (window as any).customCards || [];
+    (window as any).customCards.push({
+      type: "dihor-my-new-card",
+      name: "Dihor My New Card",
+      description: "A fresh new card",
+      preview: true
+    });
+    ```
+4.  **Register Export**: Add `export * from "./cards/my-new-feature/dihor-my-new-card";` to `src/index.ts`.
+5.  **Build**: Run `npm run build`.
+
+### 🛠️ Build & Commands
+
+*   `npm install`: Install dependencies.
+*   `npm run build`: Compiles everything to `dist/dihor-ha-components.js`. Use this before releasing.
+*   `npm run dev`: Builds, prepares the demo documentation, and serves it locally. Best for visual testing.
+*   `npm run lint` / `npm run format`: Keep the code clean!
+
+## 🤝 Contributing
+
+We welcome contributions!
+1.  Fork the repository.
+2.  Create a feature branch.
+3.  Commit your changes (please follow the existing style).
+4.  Push to the branch.
+5.  Open a Pull Request.
+
+### Commit Messages & Versioning
+This project uses **[Semantic Release](https://github.com/semantic-release/semantic-release)** to automatically generate version numbers and changelogs. Please use **[Conventional Commits](https://www.conventionalcommits.org/)**:
+
+*   `feat: ...` -> Triggers a **Minor** release (e.g., 1.1.0 -> 1.2.0). Used for new features.
+*   `fix: ...` -> Triggers a **Patch** release (e.g., 1.1.0 -> 1.1.1). Used for bug fixes.
+*   `docs: ...`, `style: ...`, `refactor: ...`, `chore: ...` -> No release trigger (usually). Used for maintenance.
+*   `BREAKING CHANGE: ...` in the footer -> Triggers a **Major** release (e.g., 1.0.0 -> 2.0.0).
+
+Example:
+```text
+feat(minecraft): add new player count sensor
 ```
-
-### 2. 🎮 Dihor Minecraft Card - For the Blocky Gamers
-Got a Minecraft server? Want to show off how many players are online without opening the game? This card is perfect for you! It's like having a mini-server monitor right on your dashboard.
-
-```yaml
-type: 'custom:dihor-minecraft-card'
-title: My Minecraft Server
-entity_prefix: server_minecraft
-```
-
-### 3. 👤 Dihor Person Card - The Social Network of Your Smart Home
-Display your Home Assistant person entities with style! Perfect for keeping track of who's home, who's away, and who's probably making a mess in the kitchen.
-
-```yaml
-type: 'custom:dihor-person-card'
-entity: person.my_account  # Replace with your actual person entity
-```
-
-### 4. 🖼️ Dihor Dashboard Background Card - Repaint Whole Views
-When you add this card to a view, it takes over the `hui-view` background and can drive it using static colors, gradients or custom images, giving each dashboard its own mood.
-
-```yaml
-type: 'custom:dihor-dashboard-background-card'
-# Podstawowe ustawienia
-color: '#2c3e50'                # Statyczny kolor tła
-image: '/local/background.jpg'   # Obraz z lokalnego folderu www
-image_url: 'https://example.com/background.png' # Obraz z zewnętrznego URL
-gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' # Gradient
-
-# Ustawienia wyglądu
-size: 'cover'                   # Rozmiar tła (cover, contain, auto, %)
-position: 'center'              # Pozycja tła (center, top, bottom, left, right)
-repeat: 'no-repeat'             # Powtarzanie tła (repeat, repeat-x, repeat-y, no-repeat)
-attachment: 'fixed'             # Przesunięcie tła (fixed, scroll, local)
-blend_mode: 'overlay'           # Tryb mieszania warstw (overlay, multiply, screen, etc.)
-
-# Animacja i debugowanie
-transition: 'background 0.5s ease' # Animacja przejścia
-debug_background_color: '#ff0000' # Kolor debugowania (nadpisuje inne ustawienia tła)
-```
-
-### Dostępne parametry
-| Parametr                | Opis                                                                 |
-|-------------------------|----------------------------------------------------------------------|
-| `color`                 | Statyczny kolor tła (np. `#ff0000` lub `red`)                        |
-| `image`                 | Ścieżka do lokalnego obrazu (np. `/local/background.jpg`)            |
-| `image_url`             | URL do zewnętrznego obrazu                                           |
-| `gradient`              | Składnia gradientu CSS (np. `linear-gradient(135deg, #a, #b)`)       |
-| `size`                  | Rozmiar tła (cover, contain, auto, lub wartości procentowe)          |
-| `position`              | Pozycja tła (np. `center center`, `top left`)                        |
-| `repeat`                | Tryb powtarzania tła                                                 |
-| `attachment`            | Przesunięcie tła wraz z przewijaniem                                  |
-| `blend_mode`            | Tryb mieszania warstw tła                                           |
-| `transition`            | Animacja przejścia między zmianami tła                               |
-| `debug_background_color`| Kolor debugowania - nadpisuje wszystkie inne ustawienia tła          |
-
-## 🛠️ Installation - It's Easier Than Baking Bread!
-
-### Method 1: HACS (Recommended - Like Shopping Online!)
-1. Open HACS in your Home Assistant
-2. Go to the "Frontend" section
-3. Click the "+ Explore & Download Repositories" button
-4. Search for "Dihor HA Components"
-5. Click "Download" (and maybe a little happy dance? 🕺)
-6. After installation, add the resource:
-   - URL: `/hacsfiles/dihor-ha-components/dihor-ha-components.js`
-   - Type: Module
-
-### Method 2: Manual (For the Adventurous)
-1. Download the `dihor-ha-components.js` file from the latest release
-2. Put it in your `www/` folder (e.g., `config/www/`)
-3. Add the resource:
-   - URL: `/local/dihor-ha-components.js`
-   - Type: Module
-
-## 🔥 Features That Make You Go "Wow!"
-
-- ✨ **Easy to Install**: Just a few clicks (or a little copy-pasting) and you're in business!
-- 🎨 **Customizable**: Tweak colors, sizes, and other settings to match your style
-- 📱 **Mobile-Friendly**: Looks great on both big screens and tiny phone displays
-- 🔄 **Regular Updates**: We're always adding new features (and fixing bugs... we promise!)
-- 🤝 **Community-Driven**: Made by a Home Assistant user, for Home Assistant users!
-
-## 🐛 Found a Bug? Want a Feature?
-Hey, we're only human (well, mostly... 🤖). If you find a bug or have a brilliant idea for a new feature, let us know! Open an issue on GitHub or send us a message. We love feedback!
 
 ## 📜 License
-This project is licensed under the MIT License - which means you can do pretty much whatever you want with it! Just don't blame us if your dashboard becomes too awesome.
+
+This project is licensed under the **MIT License**.
 
 ---
-
-Made with ❤️ by [Pawel Wielga](https://github.com/PawelWielga)  
-"Turning boring dashboards into something worth showing off!" 🚀
+Made with ❤️ by [Pawel Wielga](https://github.com/PawelWielga)

@@ -1,9 +1,13 @@
-import html from "./dihor-minecraft-card.html";
-
-import coreCss from "../core.css";
-import css from "./dihor-minecraft-card.css";
+import { html, css, unsafeCSS } from "lit";
 import { BaseDihorCard } from "../base";
-import type { HomeAssistant } from "../../../types/home-assistant";
+
+// Import CSS as string (handled by rollup-plugin-string)
+import coreCss from "../core.css";
+import cardCssStr from "./dihor-minecraft-card.css";
+
+// We will inline the HTML template logic into render() instead of importing the HTML file
+// to take full advantage of Lit's binding capabilities.
+// import htmlTemplate from "./dihor-minecraft-card.html"; 
 
 export interface MinecraftCardConfig {
   title?: string;
@@ -11,6 +15,14 @@ export interface MinecraftCardConfig {
 }
 
 export class MinecraftCard extends BaseDihorCard<MinecraftCardConfig> {
+
+  static get styles() {
+    return [
+      super.styles,
+      css`${unsafeCSS(cardCssStr)}`,
+      css`${unsafeCSS(coreCss)}`
+    ];
+  }
 
   setConfig(config: MinecraftCardConfig) {
     if (!config.entity_prefix) {
@@ -27,39 +39,26 @@ export class MinecraftCard extends BaseDihorCard<MinecraftCardConfig> {
     super.setConfig(config);
   }
 
-  protected additionalCss() {
-    return `<style>${coreCss}</style>`;
-  }
+  protected renderCard() {
+    if (!this.hass || !this._config) return html``;
 
-  protected cardHtml() {
-    return html;
-  }
-
-  protected cardCss() {
-    return css;
-  }
-
-  protected update(hass: HomeAssistant) {
     const p = this._config.entity_prefix;
-
     const getState = (suffix: string): string => {
       return (
-        hass.states[`${p}${suffix}`]?.state ??
-        hass.states[`sensor.${p}${suffix}`]?.state ??
-        hass.states[`binary_sensor.${p}${suffix}`]?.state ??
+        this.hass.states[`${p}${suffix}`]?.state ??
+        this.hass.states[`sensor.${p}${suffix}`]?.state ??
+        this.hass.states[`binary_sensor.${p}${suffix}`]?.state ??
         "unavailable"
       );
     };
 
-    const updateText = (id: string, value: string) => {
-      const el = this.querySelector(`#${id}`);
-      if (el) el.textContent = value;
-    };
-
-    // --- Dane ze stanów Home Assistanta ---
+    // Data gathering
     const status = getState("_status").toLowerCase();
-    const isOffline =
-      status === "unavailable" || status === "offline" || status === "0";
+    const isOffline = status === "unavailable" || status === "offline" || status === "0";
+
+    // If we want to strictly follow the old HTML structure:
+    // It seems the old HTML was quite static and used IDs to update content.
+    // We should recreate that structure but with bindings.
 
     const worldMessage = isOffline ? "" : getState("_world_message");
     const version = isOffline ? "0.0.0" : getState("_version");
@@ -67,21 +66,41 @@ export class MinecraftCard extends BaseDihorCard<MinecraftCardConfig> {
     const playersMax = isOffline ? "0" : getState("_players_max");
     const latencyRaw = isOffline ? "0" : getState("_latency");
     const latency = latencyRaw.split(".")[0];
+    const statusText = isOffline ? "Offline" : "Online";
+    const statusClass = isOffline ? "dihor-badge-offline" : "dihor-badge-online";
 
-    // --- Aktualizacja tekstu ---
-    updateText("motd", worldMessage);
-    updateText("version", version);
-    updateText("status", isOffline ? "Offline" : "Online");
-    updateText("players", `${playersOnline} / ${playersMax}`);
-    updateText("latency", latency);
+    return html`
+      <ha-card class="dihor-card">
+        <div class="dihor-card-header">
+          <div class="dihor-card-title">
+             <span class="dihor-icon">🎮</span> ${this._config.title || "Minecraft Server"}
+          </div>
+          <div id="status" class="dihor-badge ${statusClass}">${statusText}</div>
+        </div>
+        
+        <div class="dihor-card-content">
+          <div class="server-info-row">
+            <span class="info-label">MOTD</span>
+            <span class="info-value" id="motd">${worldMessage}</span>
+          </div>
 
-    // --- Aktualizacja koloru statusu ---
-    const statusEl = this.querySelector("#status");
-    if (statusEl) {
-      statusEl.className = `dihor-badge ${
-        isOffline ? "dihor-badge-offline" : "dihor-badge-online"
-      }`;
-    }
+          <div class="server-stats-grid">
+             <div class="stat-item">
+                <span class="stat-value" id="players">${playersOnline} / ${playersMax}</span>
+                <span class="stat-label">Players</span>
+             </div>
+             <div class="stat-item">
+                <span class="stat-value" id="latency">${latency} ms</span>
+                <span class="stat-label">Ping</span>
+             </div>
+             <div class="stat-item">
+                <span class="stat-value" id="version">${version}</span>
+                <span class="stat-label">Version</span>
+             </div>
+          </div>
+        </div>
+      </ha-card>
+    `;
   }
 
   getCardSize() {
@@ -94,8 +113,8 @@ if (!customElements.get("dihor-minecraft-card")) {
 }
 
 // Register for Lovelace editor preview and HACS UI
-;(window as any).customCards = (window as any).customCards || [];
-;(window as any).customCards.push({
+; (window as any).customCards = (window as any).customCards || [];
+; (window as any).customCards.push({
   type: 'dihor-minecraft-card',
   name: 'Dihor Minecraft Card',
   preview: true,

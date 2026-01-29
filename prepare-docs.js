@@ -1,62 +1,27 @@
 const fs = require("fs");
 const path = require("path");
 
-// Ścieżki źródłowe i docelowe
-const cardsSourceDir = path.join(__dirname, "src", "cards");
-const cardsTargetDir = path.join(__dirname, "docs", "cards");
+// Source and Target Paths
+const distFile = path.join(__dirname, "dist", "dihor-ha-components.js");
 const docsDir = path.join(__dirname, "docs");
+const targetFile = path.join(docsDir, "dihor-ha-components.js");
 
 const packageJson = require(path.join(__dirname, "package.json"));
 
-// Upewnij się, że katalog docs/cards istnieje
-fs.mkdirSync(cardsTargetDir, { recursive: true });
-
-// Skopiuj theme.css jeśli istnieje
-const themeCssPath = path.join(cardsSourceDir, "theme.css");
-if (fs.existsSync(themeCssPath)) {
-  const destThemePath = path.join(cardsTargetDir, "theme.css");
-  fs.copyFileSync(themeCssPath, destThemePath);
-  console.log("✅ Copied theme.css to docs/cards/");
+// Ensure docs directory exists
+if (!fs.existsSync(docsDir)) {
+  fs.mkdirSync(docsDir, { recursive: true });
 }
 
-// Skopiuj theme.css jeśli istnieje
-const coreCssPath = path.join(cardsSourceDir, "core.css");
-if (fs.existsSync(coreCssPath)) {
-  const destThemePath = path.join(cardsTargetDir, "core.css");
-  fs.copyFileSync(coreCssPath, destThemePath);
-  console.log("✅ Copied core.css to docs/cards/");
+// Copy the built bundle
+if (fs.existsSync(distFile)) {
+  fs.copyFileSync(distFile, targetFile);
+  console.log("✅ Copied dist/dihor-ha-components.js to docs/");
+} else {
+  console.warn("⚠️  dist/dihor-ha-components.js not found. Run 'npm run build' first.");
 }
 
-// Skopiuj manifest dokumentacji kart jeśli istnieje
-const manifestPath = path.join(cardsSourceDir, "cards-docs.json");
-if (fs.existsSync(manifestPath)) {
-  const destManifestPath = path.join(cardsTargetDir, "cards-docs.json");
-  fs.copyFileSync(manifestPath, destManifestPath);
-  console.log("✅ Copied cards-docs.json to docs/cards/");
-}
-
-// Kopiuj każdy komponent z src/cards/ do docs/cards/
-fs.readdirSync(cardsSourceDir, { withFileTypes: true })
-  .filter((entry) => entry.isDirectory())
-  .forEach((dir) => {
-    const srcPath = path.join(cardsSourceDir, dir.name);
-    const destPath = path.join(cardsTargetDir, dir.name);
-    fs.mkdirSync(destPath, { recursive: true });
-
-    fs.readdirSync(srcPath)
-      .filter((file) => file.endsWith(".html") || file.endsWith(".css"))
-      .forEach((file) => {
-        const srcFile = path.join(srcPath, file);
-        const destFile = path.join(destPath, file);
-        fs.copyFileSync(srcFile, destFile);
-        console.log(`✅ Copied ${file} to docs/cards/${dir.name}/`);
-      });
-  });
-
-// Dodaj .nojekyll
-fs.writeFileSync(path.join(docsDir, ".nojekyll"), "");
-
-// Zapisz wersję dokumentacji
+// Write version info
 const versionInfo = {
   version: packageJson.version,
   generatedAt: new Date().toISOString(),
@@ -66,3 +31,7 @@ fs.writeFileSync(
   JSON.stringify(versionInfo, null, 2) + "\n"
 );
 console.log(`✅ Wrote version.json (v${versionInfo.version})`);
+
+// Create .nojekyll
+fs.writeFileSync(path.join(docsDir, ".nojekyll"), "");
+

@@ -1,5 +1,5 @@
+import { html, nothing } from 'lit';
 import { BaseDihorCard } from "../base";
-import type { HomeAssistant } from "../../../types/home-assistant";
 
 export interface PersonCardConfig {
   entity: string;
@@ -14,32 +14,31 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
     super.setConfig(config);
   }
 
-  protected cardHtml() {
-    return `
-      <div class="card-content">
-        <img style="width:100%;border-radius:50%" />
-      </div>
-    `;
-  }
-
-  protected update(hass: HomeAssistant) {
-    const state = hass.states[this._config.entity];
-    if (!state) {
-      return;
+  protected renderCard() {
+    if (!this.hass || !this._config) {
+      return nothing;
     }
+    const state = this.hass.states[this._config.entity];
+    if (!state) {
+      return html`
+        <ha-card header="Person not found">
+            <div class="card-content">
+                Entity ${this._config.entity} not found.
+            </div>
+        </ha-card>
+      `;
+    }
+
     const name = state.attributes.friendly_name || this._config.entity;
     const picture = state.attributes.entity_picture;
 
-    const haCard = this.querySelector('ha-card');
-    if (haCard) {
-      haCard.setAttribute('header', name);
-    }
-
-    const img = this.querySelector('img');
-    if (img && picture) {
-      img.setAttribute('src', picture);
-      img.setAttribute('alt', name);
-    }
+    return html`
+      <ha-card header="${name}">
+        <div class="card-content">
+            ${picture ? html`<img src="${picture}" alt="${name}" style="width:100%;border-radius:50%" />` : nothing}
+        </div>
+      </ha-card>
+    `;
   }
 
   getCardSize() {
@@ -52,8 +51,8 @@ if (!customElements.get('dihor-person-card')) {
 }
 
 // Register for Lovelace editor preview and HACS UI
-;(window as any).customCards = (window as any).customCards || [];
-;(window as any).customCards.push({
+; (window as any).customCards = (window as any).customCards || [];
+; (window as any).customCards.push({
   type: 'dihor-person-card',
   name: 'Dihor Person Card',
   preview: true,
