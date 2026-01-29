@@ -1,441 +1,468 @@
 ﻿<!doctype html>
 <html lang="pl">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Custom cards preview</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="cards/theme.css" />
-    <link rel="stylesheet" href="cards/core.css" />
 
-    <!-- Dodanie czcionki ROBOTO -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <title>Custom cards preview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="cards/theme.css" />
+  <link rel="stylesheet" href="cards/core.css" />
 
-    <!-- Dołączenie CSS komponentów -->
-    <script>
-      const isLocal =
-        location.hostname === 'localhost' || location.protocol === 'file:';
-      const basePath = isLocal ? '/cards' : './cards';
-      const manifestPath = `${basePath}/cards-docs.json`;
-      window.__cardsBasePath = basePath;
-      window.__cardsManifestPromise = fetch(manifestPath)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Nie udało się pobrać manifestu kart');
-          }
-          return response.json();
-        })
-        .catch((error) => {
-          console.warn('cards-docs.json fetch failed:', error);
-          return [];
-        });
+  <!-- Dodanie czcionki ROBOTO -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
 
-      window.__cardsManifestPromise.then((cards) => {
-        cards.forEach((card) => {
-          if (card.preview && card.preview.css) {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = `${basePath}/${card.folder}/${card.preview.css}`;
-            document.head.appendChild(link);
-          }
-        });
+  <!-- Dołączenie CSS komponentów -->
+  <script>
+    const isLocal =
+      location.hostname === 'localhost' || location.protocol === 'file:';
+    const basePath = isLocal ? '/cards' : './cards';
+    const manifestPath = `${basePath}/cards-docs.json`;
+    window.__cardsBasePath = basePath;
+    window.__cardsManifestPromise = fetch(manifestPath)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Nie udało się pobrać manifestu kart');
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.warn('cards-docs.json fetch failed:', error);
+        return [];
       });
-    </script>
-  </head>
 
-  <body>
-    <div class="app-shell">
-      <nav class="navbar">
-        <div class="navbar-title">đź“¦ Custom Cards Preview</div>
-        <div class="navbar-buttons">
-          <button id="toggle-language" title="Zmień język">đź‡µđź‡±</button>
-          <button id="toggle-theme" title="Zmień motyw">đźŚ™</button>
+    window.__cardsManifestPromise.then((cards) => {
+      cards.forEach((card) => {
+        if (card.preview && card.preview.css) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = `${basePath}/${card.folder}/${card.preview.css}`;
+          document.head.appendChild(link);
+        }
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div class="app-shell">
+    <nav class="navbar">
+      <div class="navbar-title">đź“¦ Custom Cards Preview</div>
+      <div class="navbar-buttons">
+        <button id="toggle-language" title="Zmień język">đź‡µđź‡±</button>
+        <button id="toggle-theme" title="Zmień motyw">đźŚ™</button>
+      </div>
+    </nav>
+
+    <main class="split-layout">
+      <section class="mock-panel">
+        <div class="phone-mock">
+          <div class="phone-top">
+            <div class="phone-status">
+              <span class="privacy-dot"></span>
+            </div>
+          </div>
+          <div class="phone-screen" role="presentation">
+            <div class="phone-inner">
+              <div class="phone-app-bar">
+                <div class="phone-app-bar-left">
+                  <span class="app-icon hamburger">
+                    <svg viewBox="0 0 24 24">
+                      <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+                    </svg>
+                  </span>
+                  <span class="app-icon home">
+                    <svg viewBox="0 0 24 24">
+                      <path fill="currentColor" d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
+                    </svg>
+                  </span>
+                  <span class="app-icon bug active">
+                    <svg viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M13,8.14V11H15.86C15.53,12.5 14.36,13.67 12.86,14H15V16H9V14H11.14C9.64,13.67 8.47,12.5 8.14,11H11V8.14C11.33,8.05 11.66,8 12,8C12.34,8 12.67,8.05 13,8.14Z" />
+                      <!-- Using a generic circle-bug-like icon as placeholder for the specific 'bug with legs' if not exact, but trying to match standard bug report icon or similar -->
+                      <!-- Actually looking at screenshot, it's a Beetle. Let's use mdi-ladybug or similar shape -->
+                      <path
+                        d="M12,6.5C14.5,6.5 16.6,8.2 17.3,10.5C17.3,10.5 17.3,10.5 17.3,10.5H19.5V12H17.4C17.3,13.8 16.3,15.4 14.8,16.4L16.2,18.5L14.7,19.6L13.2,17.4C12.8,17.5 12.4,17.5 12,17.5C11.6,17.5 11.2,17.5 10.8,17.4L9.3,19.6L7.8,18.5L9.2,16.4C7.7,15.4 6.7,13.8 6.6,12H4.5V10.5H6.7C7.4,8.2 9.5,6.5 12,6.5M12,8.5C10.6,8.5 9.4,9.4 8.9,10.7H15.1C14.6,9.4 13.4,8.5 12,8.5M8.7,12C8.8,13.2 9.5,14.3 10.5,15C10.9,15.2 11.5,15.4 12,15.4C12.5,15.4 13.1,15.2 13.5,15C14.5,14.3 15.2,13.2 15.3,12H8.7Z"
+                        fill="currentColor" />
+                    </svg>
+                  </span>
+                </div>
+                <div class="phone-app-bar-right">
+                  <div class="menu-dots">
+                    <svg viewBox="0 0 24 24" style="width: 24px; height: 24px;">
+                      <path fill="currentColor"
+                        d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <p class="phone-app-title">dihor-ha-components (test view)</p>
+              <div class="phone-cards" id="phone-cards">
+                <div class="coming-soon-section">
+                  <div class="coming-soon-icon">đźš€</div>
+                  <div class="coming-soon-text">Kolejne komponenty wkrótce!</div>
+                  <div class="coming-soon-subtitle">
+                    Pracujemy nad nowymi kartami dla Home Assistant
+                  </div>
+                </div>
+              </div>
+              <div class="phone-home-indicator"></div>
+            </div>
+          </div>
         </div>
-      </nav>
+      </section>
 
-      <main class="split-layout">
-        <section class="mock-panel">
-          <div class="phone-mock">
-            <div class="phone-top">
-              <div class="phone-status">
-                <span class="privacy-dot"></span>
-              </div>
-            </div>
-            <div class="phone-screen" role="presentation">
-              <div class="phone-inner">
-                <div class="phone-app-bar">
-                  <div class="phone-app-bar-left">
-                    <span class="app-icon hamburger">
-                      <svg viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
-                      </svg>
-                    </span>
-                    <span class="app-icon home">
-                      <svg viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
-                      </svg>
-                    </span>
-                    <span class="app-icon bug active">
-                      <svg viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M13,8.14V11H15.86C15.53,12.5 14.36,13.67 12.86,14H15V16H9V14H11.14C9.64,13.67 8.47,12.5 8.14,11H11V8.14C11.33,8.05 11.66,8 12,8C12.34,8 12.67,8.05 13,8.14Z" />
-                        <!-- Using a generic circle-bug-like icon as placeholder for the specific 'bug with legs' if not exact, but trying to match standard bug report icon or similar -->
-                        <!-- Actually looking at screenshot, it's a Beetle. Let's use mdi-ladybug or similar shape -->
-                        <path d="M12,6.5C14.5,6.5 16.6,8.2 17.3,10.5C17.3,10.5 17.3,10.5 17.3,10.5H19.5V12H17.4C17.3,13.8 16.3,15.4 14.8,16.4L16.2,18.5L14.7,19.6L13.2,17.4C12.8,17.5 12.4,17.5 12,17.5C11.6,17.5 11.2,17.5 10.8,17.4L9.3,19.6L7.8,18.5L9.2,16.4C7.7,15.4 6.7,13.8 6.6,12H4.5V10.5H6.7C7.4,8.2 9.5,6.5 12,6.5M12,8.5C10.6,8.5 9.4,9.4 8.9,10.7H15.1C14.6,9.4 13.4,8.5 12,8.5M8.7,12C8.8,13.2 9.5,14.3 10.5,15C10.9,15.2 11.5,15.4 12,15.4C12.5,15.4 13.1,15.2 13.5,15C14.5,14.3 15.2,13.2 15.3,12H8.7Z" fill="currentColor"/>
-                      </svg>
-                    </span>
-                  </div>
-                  <div class="phone-app-bar-right">
-                    <div class="menu-dots">
-                      <svg viewBox="0 0 24 24" style="width: 24px; height: 24px;">
-                         <path fill="currentColor" d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                <p class="phone-app-title">dihor-ha-components (test view)</p>
-                <div class="phone-cards" id="phone-cards">
-                  <div class="coming-soon-section">
-                    <div class="coming-soon-icon">đźš€</div>
-                    <div class="coming-soon-text">Kolejne komponenty wkrótce!</div>
-                    <div class="coming-soon-subtitle">
-                      Pracujemy nad nowymi kartami dla Home Assistant
-                    </div>
-                  </div>
-                </div>
-                <div class="phone-home-indicator"></div>
-              </div>
-            </div>
+      <section class="info-panel">
+        <div class="info-card" id="hac-info">
+          <div class="info-card-header">
+            <h2 id="hacs-title">Zainstaluj przez HACS</h2>
           </div>
-        </section>
+          <p id="hacs-description">
+            W HACS dodajemy repozytorium frontendu, aby zainstalować komponenty.
+          </p>
+          <ol id="hacs-steps">
+            <li>Otwórz HACS i przejdź do zakładki Frontend.</li>
+            <li>
+              Dodaj nowe repozytorium <code>https://github.com/dihor/dihor-ha-components</code>.
+            </li>
+            <li>Wybierz kategorię Frontend, zapisz i zainstaluj.</li>
+          </ol>
+          <p class="info-note" id="hacs-note">
+            Po zainstalowaniu odśwież widok, aby zobaczyć karty po lewej.
+          </p>
+        </div>
 
-        <section class="info-panel">
-          <div class="info-card" id="hac-info">
-            <div class="info-card-header">
-              <h2 id="hacs-title">Zainstaluj przez HACS</h2>
-            </div>
-            <p id="hacs-description">
-              W HACS dodajemy repozytorium frontendu, aby zainstalować komponenty.
-            </p>
-            <ol id="hacs-steps">
-              <li>Otwórz HACS i przejdź do zakładki Frontend.</li>
-              <li>
-                Dodaj nowe repozytorium <code>https://github.com/dihor/dihor-ha-components</code>.
-              </li>
-              <li>Wybierz kategorię Frontend, zapisz i zainstaluj.</li>
-            </ol>
-            <p class="info-note" id="hacs-note">
-              Po zainstalowaniu odśwież widok, aby zobaczyć karty po lewej.
+        <div class="info-card yaml-card">
+          <div class="info-card-header">
+            <h3 id="yaml-title">Konfiguracja YAML</h3>
+            <p id="yaml-hint">
+              Kliknij kartę po lewej, aby zobaczyć przykładową konfigurację.
             </p>
           </div>
+          <pre id="yaml-output">Wybierz kartę, aby zobaczyć YAML.</pre>
+        </div>
 
-          <div class="info-card yaml-card">
-            <div class="info-card-header">
-              <h3 id="yaml-title">Konfiguracja YAML</h3>
-              <p id="yaml-hint">
-                Kliknij kartę po lewej, aby zobaczyć przykładową konfigurację.
-              </p>
-            </div>
-            <pre id="yaml-output">Wybierz kartę, aby zobaczyć YAML.</pre>
-          </div>
+        <footer class="version-footer">
+          <span id="version-label">Wersja</span>: <span id="docs-version">?</span>
+        </footer>
+      </section>
+    </main>
+  </div>
 
-          <footer class="version-footer">
-            <span id="version-label">Wersja</span>: <span id="docs-version">?</span>
-          </footer>
-        </section>
-      </main>
-    </div>
+  <!-- Wszystko działa tutaj -->
+  <!-- Load the component bundle -->
+  <script type="module" src="./dihor-ha-components.js"></script>
 
-    <!-- Wszystko działa tutaj -->
-    <script>
-      const translations = {
-        pl: {
-          comingSoon: 'Kolejne komponenty wkrótce!',
-          comingSoonSub: 'Pracujemy nad nowymi kartami dla Home Assistant',
-          previewLabel: 'Podgląd karty',
-          loading: 'Ładowanie podglądu...',
-          error: 'Nie udało się załadować podglądu',
-          versionLabel: 'Wersja',
-          hacsHeader: 'Zainstaluj przez HACS',
-          hacsDescription:
-            'W HACS dodaj repozytorium frontendu, aby zainstalować komponenty.',
-          hacsSteps: [
-            'Otwórz HACS i przejdź do zakładki Frontend.',
-            'Dodaj repozytorium https://github.com/dihor/dihor-ha-components jako Frontend.',
-            'Zainstaluj je i zrestartuj Home Assistanta.',
-          ],
-          hacsNote: 'Po instalacji odśwież widok, aby zobaczyć karty po lewej.',
-          yamlTitle: 'Konfiguracja YAML',
-          yamlHint: 'Kliknij kartę po lewej, aby zobaczyć przykładową konfigurację.',
-          yamlPlaceholder: 'Wybierz kartę, aby zobaczyć YAML.',
+  <script>
+    const translations = {
+      pl: {
+        comingSoon: 'Kolejne komponenty wkrótce!',
+        comingSoonSub: 'Pracujemy nad nowymi kartami dla Home Assistant',
+        previewLabel: 'Podgląd karty',
+        loading: 'Ładowanie podglądu...',
+        error: 'Nie udało się załadować podglądu',
+        versionLabel: 'Wersja',
+        hacsHeader: 'Zainstaluj przez HACS',
+        hacsDescription:
+          'W HACS dodaj repozytorium frontendu, aby zainstalować komponenty.',
+        hacsSteps: [
+          'Otwórz HACS i przejdź do zakładki Frontend.',
+          'Dodaj repozytorium https://github.com/dihor/dihor-ha-components jako Frontend.',
+          'Zainstaluj je i zrestartuj Home Assistanta.',
+        ],
+        hacsNote: 'Po instalacji odśwież widok, aby zobaczyć karty po lewej.',
+        yamlTitle: 'Konfiguracja YAML',
+        yamlHint: 'Kliknij kartę po lewej, aby zobaczyć przykładową konfigurację.',
+        yamlPlaceholder: 'Wybierz kartę, aby zobaczyć YAML.',
+      },
+      en: {
+        comingSoon: 'More components coming soon!',
+        comingSoonSub: "We're working on new Home Assistant cards",
+        previewLabel: 'Card preview',
+        loading: 'Loading preview...',
+        error: 'Failed to load preview',
+        versionLabel: 'Version',
+        hacsHeader: 'Install via HACS',
+        hacsDescription: 'Add the frontend repository in HACS to install our cards.',
+        hacsSteps: [
+          'Open HACS and switch to the Frontend section.',
+          'Add https://github.com/dihor/dihor-ha-components as a custom repository (Frontend).',
+          'Install it and refresh Home Assistant.',
+        ],
+        hacsNote: 'After installation the mock dashboard will show the cards on the left.',
+        yamlTitle: 'YAML configuration',
+        yamlHint: 'Select a card on the left to preview its sample YAML.',
+        yamlPlaceholder: 'Select a card to inspect the YAML.',
+      },
+    };
+
+    const phoneCardsContainer = document.getElementById('phone-cards');
+    const yamlOutputEl = document.getElementById('yaml-output');
+    const yamlHintEl = document.getElementById('yaml-hint');
+    const yamlTitleEl = document.getElementById('yaml-title');
+    const hacsTitleEl = document.getElementById('hacs-title');
+    const hacsDescriptionEl = document.getElementById('hacs-description');
+    const hacsStepsEl = document.getElementById('hacs-steps');
+    const hacsNoteEl = document.getElementById('hacs-note');
+    const versionLabelEl = document.getElementById('version-label');
+
+    let currentTheme = localStorage.getItem('theme') || 'light';
+    let currentLang = localStorage.getItem('lang') || 'pl';
+    let activeCard = null;
+
+    // --- MOCK HOME ASSISTANT OBJECT ---
+    const mockHass = {
+      states: {
+        "person.tomek": {
+          state: "home",
+          attributes: {
+            friendly_name: "Tomek",
+            entity_picture: "https://randomuser.me/api/portraits/men/32.jpg"
+          }
         },
-        en: {
-          comingSoon: 'More components coming soon!',
-          comingSoonSub: "We're working on new Home Assistant cards",
-          previewLabel: 'Card preview',
-          loading: 'Loading preview...',
-          error: 'Failed to load preview',
-          versionLabel: 'Version',
-          hacsHeader: 'Install via HACS',
-          hacsDescription: 'Add the frontend repository in HACS to install our cards.',
-          hacsSteps: [
-            'Open HACS and switch to the Frontend section.',
-            'Add https://github.com/dihor/dihor-ha-components as a custom repository (Frontend).',
-            'Install it and refresh Home Assistant.',
-          ],
-          hacsNote: 'After installation the mock dashboard will show the cards on the left.',
-          yamlTitle: 'YAML configuration',
-          yamlHint: 'Select a card on the left to preview its sample YAML.',
-          yamlPlaceholder: 'Select a card to inspect the YAML.',
+        "switch.living_room": {
+          state: "on",
+          attributes: { friendly_name: "Living Room Light" }
         },
-      };
-
-      const phoneCardsContainer = document.getElementById('phone-cards');
-      const yamlOutputEl = document.getElementById('yaml-output');
-      const yamlHintEl = document.getElementById('yaml-hint');
-      const yamlTitleEl = document.getElementById('yaml-title');
-      const hacsTitleEl = document.getElementById('hacs-title');
-      const hacsDescriptionEl = document.getElementById('hacs-description');
-      const hacsStepsEl = document.getElementById('hacs-steps');
-      const hacsNoteEl = document.getElementById('hacs-note');
-      const versionLabelEl = document.getElementById('version-label');
-
-      let currentTheme = localStorage.getItem('theme') || 'light';
-      let currentLang = localStorage.getItem('lang') || 'pl';
-      let latestCards = [];
-      let activeCard = null;
-
-      function applyThemeToCards() {
-        const isDark = currentTheme === 'dark';
-        document.body.classList.toggle('dark', isDark);
-        document.body.classList.toggle('light', !isDark);
-        document
-          .querySelectorAll('.card-preview .dihor-card')
-          .forEach((card) => {
-            card.classList.toggle('dihor-theme-dark', isDark);
-            card.classList.toggle('dihor-theme-light', !isDark);
-          });
+        // Minecraft Mock Data
+        "server_minecraft_status": { state: "online" },
+        "server_minecraft_world_message": { state: "Survival Server" },
+        "server_minecraft_version": { state: "1.20.4" },
+        "server_minecraft_players_online": { state: "5" },
+        "server_minecraft_players_max": { state: "20" },
+        "server_minecraft_latency": { state: "45.2" }
+      },
+      themes: {
+        darkMode: false
+      },
+      callService: async (domain, service, data) => {
+        console.log(`[MockHass] Call service: ${domain}.${service}`, data);
       }
+    };
 
-      function setupThemeToggle() {
-        const themeButton = document.getElementById('toggle-theme');
-        if (!themeButton) return;
-        themeButton.textContent = currentTheme === 'dark' ? 'â€ď¸Ź' : 'đźŚ™';
-        applyThemeToCards();
-        themeButton.addEventListener('click', () => {
-          currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          localStorage.setItem('theme', currentTheme);
-          themeButton.textContent = currentTheme === 'dark' ? 'â€ď¸Ź' : 'đźŚ™';
-          applyThemeToCards();
-        });
-      }
-
-      function formatYaml(card) {
-        if (!card || !card.usage || !card.usage.length) {
-          return translations[currentLang].yamlPlaceholder;
-        }
-        return card.usage
-          .map((line) => `${line.key}: ${line.value}`)
-          .join('\n');
-      }
-
-      function updateYamlOutput(card) {
-        if (!yamlOutputEl) return;
-        const text = formatYaml(card);
-        yamlOutputEl.textContent = text;
-      }
-
-      function selectCard(card) {
-        if (!card) return;
-        const previous = document.querySelector('.phone-card.is-active');
-        if (previous) {
-          previous.classList.remove('is-active');
-        }
-        const current = document.querySelector(
-          `.phone-card[data-card-id="${card.id}"]`
-        );
-        if (current) {
-          current.classList.add('is-active');
-          current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-        activeCard = card;
-        updateYamlOutput(card);
-      }
-
-      function renderCards(cards) {
-        if (!phoneCardsContainer) return;
-        latestCards = cards || [];
-        phoneCardsContainer
-          .querySelectorAll('.phone-card')
-          .forEach((node) => node.remove());
-        const comingSoon = phoneCardsContainer.querySelector(
-          '.coming-soon-section'
-        );
-        cards.forEach((card) => {
-          const cardElement = document.createElement('article');
-          cardElement.className = 'phone-card';
-          cardElement.setAttribute('data-card-id', card.id);
-          cardElement.innerHTML = `
-            <div class="phone-card-preview" id="${card.id}-card-preview">
-              <div class="loading-placeholder">${translations[currentLang].loading}</div>
-            </div>
-          `;
-          cardElement.addEventListener('click', () => selectCard(card));
-          if (comingSoon) {
-            phoneCardsContainer.insertBefore(cardElement, comingSoon);
-          } else {
-            phoneCardsContainer.appendChild(cardElement);
-          }
-        });
-        applyThemeToCards();
-      }
-
-      function applyTranslations() {
-        const t = translations[currentLang];
-        if (hacsTitleEl) {
-          hacsTitleEl.textContent = t.hacsHeader;
-        }
-        if (hacsDescriptionEl) {
-          hacsDescriptionEl.textContent = t.hacsDescription;
-        }
-        if (hacsNoteEl) {
-          hacsNoteEl.textContent = t.hacsNote;
-        }
-        if (yamlTitleEl) {
-          yamlTitleEl.textContent = t.yamlTitle;
-        }
-        if (yamlHintEl) {
-          yamlHintEl.textContent = t.yamlHint;
-        }
-        if (versionLabelEl) {
-          versionLabelEl.textContent = t.versionLabel;
-        }
-        if (hacsStepsEl) {
-          hacsStepsEl.innerHTML = '';
-          t.hacsSteps.forEach((step) => {
-            const li = document.createElement('li');
-            li.textContent = step;
-            hacsStepsEl.appendChild(li);
-          });
-        }
-        const comingText = document.querySelector('.coming-soon-text');
-        if (comingText) {
-          comingText.textContent = t.comingSoon;
-        }
-        const comingSubtitle = document.querySelector(
-          '.coming-soon-subtitle'
-        );
-        if (comingSubtitle) {
-          comingSubtitle.textContent = t.comingSoonSub;
-        }
-        document
-          .querySelectorAll('.loading-placeholder')
-          .forEach((el) => (el.textContent = '⏳ ' + t.loading));
-        updateYamlOutput(activeCard);
-      }
-
-      function setupLanguageToggle() {
-        const langButton = document.getElementById('toggle-language');
-        if (!langButton) return;
-        const render = () => applyTranslations();
-        langButton.textContent = currentLang === 'pl' ? 'đź‡µđź‡±' : 'đź‡¬đź‡§';
-        langButton.addEventListener('click', () => {
-          currentLang = currentLang === 'pl' ? 'en' : 'pl';
-          localStorage.setItem('lang', currentLang);
-          langButton.textContent = currentLang === 'pl' ? 'đź‡µđź‡±' : 'đź‡¬đź‡§';
-          render();
-        });
-        render();
-      }
-
-      function loadCardPreview(cards) {
-        const previewBasePath = window.__cardsBasePath || './cards';
-        cards.forEach((card) => {
-          if (!card.folder || !card.preview || !card.preview.html) {
-            return;
-          }
-          const el = document.getElementById(`${card.id}-card-preview`);
-          if (!el) {
-            return;
-          }
-          fetch(`${previewBasePath}/${card.folder}/${card.preview.html}`)
-            .then((res) => {
-              if (!res.ok) {
-                throw new Error(res.statusText || 'Błąd HTTP');
-              }
-              return res.text();
-            })
-            .then((html) => {
-              el.innerHTML = html;
-              applyThemeToCards();
-            })
-            .catch((err) => {
-              const localizedError =
-                translations[currentLang] &&
-                translations[currentLang].error
-                  ? `${translations[currentLang].error}: ${err.message}`
-                  : err.message;
-              el.innerHTML = `<div class="error-placeholder">✖ ${localizedError}</div>`;
-            });
-        });
-      }
-
-      function displayDocsVersion() {
-        const versionEl = document.getElementById('docs-version');
-        if (!versionEl) return;
-        const versionPath = `${window.__cardsBasePath || '.'}/version.json`;
-        fetch(versionPath)
-          .then((res) => {
-            if (!res.ok) {
-              throw new Error(res.statusText || 'Failed to load version');
-            }
-            return res.json();
-          })
-          .then((info) => {
-            versionEl.textContent = info.version || 'n/a';
-            if (info.generatedAt) {
-              versionEl.setAttribute(
-                'title',
-                `Generated ${new Date(info.generatedAt).toLocaleString()}`
-              );
-            }
-          })
-          .catch(() => {
-            versionEl.textContent = 'n/a';
-          });
-      }
-
-      function resolveManifestPromise() {
-        if (window.__cardsManifestPromise) {
-          return window.__cardsManifestPromise;
-        }
-        const fallbackPath = `${window.__cardsBasePath || './cards'}/cards-docs.json`;
-        return fetch(fallbackPath)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error('Manifest build fetch failed');
-            }
-            return response.json();
-          })
-          .catch(() => []);
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        setupThemeToggle();
-        displayDocsVersion();
-        resolveManifestPromise().then((cards) => {
-          if (cards && cards.length) {
-            latestCards = cards;
-            renderCards(cards);
-            loadCardPreview(cards);
-            selectCard(cards[0]);
-          }
-          setupLanguageToggle();
-        });
+    function updateMockTheme() {
+      mockHass.themes.darkMode = currentTheme === 'dark';
+      // Trigger update on all live cards
+      document.querySelectorAll('.dihor-card-live').forEach(el => {
+        if (el.hass) el.hass = { ...mockHass }; // Force update
       });
-    </script>
-    <script src="clock.js"></script>
-  </body>
+    }
+
+    function applyThemeToCards() {
+      const isDark = currentTheme === 'dark';
+      document.body.classList.toggle('dark', isDark);
+      document.body.classList.toggle('light', !isDark);
+      updateMockTheme();
+    }
+
+    function setupThemeToggle() {
+      const themeButton = document.getElementById('toggle-theme');
+      if (!themeButton) return;
+      themeButton.textContent = currentTheme === 'dark' ? 'â˜€ď¸Ź' : 'đźŚ™';
+      applyThemeToCards();
+      themeButton.addEventListener('click', () => {
+        currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('theme', currentTheme);
+        themeButton.textContent = currentTheme === 'dark' ? 'â˜€ď¸Ź' : 'đźŚ™';
+        applyThemeToCards();
+      });
+    }
+
+    function formatYaml(card) {
+      if (!card || !card.usage || !card.usage.length) {
+        return translations[currentLang].yamlPlaceholder;
+      }
+      return card.usage
+        .map((line) => `${line.key}: ${line.value}`)
+        .join('\n');
+    }
+
+    function updateYamlOutput(card) {
+      if (!yamlOutputEl) return;
+      const text = formatYaml(card);
+      yamlOutputEl.textContent = text;
+    }
+
+    function selectCard(card) {
+      if (!card) return;
+      const previous = document.querySelector('.phone-card.is-active');
+      if (previous) {
+        previous.classList.remove('is-active');
+      }
+      const current = document.querySelector(
+        `.phone-card[data-card-id="${card.id}"]`
+      );
+      if (current) {
+        current.classList.add('is-active');
+        current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      activeCard = card;
+      updateYamlOutput(card);
+    }
+
+    function createLiveCard(cardDef) {
+      // Parse usage to get type and config
+      let type = '';
+      const config = {};
+
+      if (cardDef.usage) {
+        cardDef.usage.forEach(item => {
+          if (item.key === 'type') {
+            type = item.value.replace('custom:', '');
+          } else {
+            config[item.key] = item.value;
+          }
+        });
+      }
+
+      if (!type) {
+        const div = document.createElement('div');
+        div.textContent = 'Unknown card type';
+        return div;
+      }
+
+      try {
+        const element = document.createElement(type);
+        element.classList.add('dihor-card-live');
+        // Small delay to ensure prototype is ready if bundle loads async, 
+        // though module script should handle it.
+        if (element.setConfig) {
+          element.setConfig(config);
+        }
+        element.hass = mockHass;
+        return element;
+      } catch (e) {
+        console.error("Error creating card", e);
+        const err = document.createElement('div');
+        err.textContent = "Error loading card: " + e.message;
+        return err;
+      }
+    }
+
+    function renderCards(cards) {
+      if (!phoneCardsContainer) return;
+
+      phoneCardsContainer
+        .querySelectorAll('.phone-card')
+        .forEach((node) => node.remove());
+
+      const comingSoon = phoneCardsContainer.querySelector(
+        '.coming-soon-section'
+      );
+
+      cards.forEach((card) => {
+        const cardElement = document.createElement('article');
+        cardElement.className = 'phone-card';
+        cardElement.setAttribute('data-card-id', card.id);
+
+        const previewContainer = document.createElement('div');
+        previewContainer.className = 'phone-card-preview';
+        previewContainer.id = `${card.id}-card-preview`;
+
+        // Create LIVE component
+        const liveComponent = createLiveCard(card);
+        previewContainer.appendChild(liveComponent);
+
+        cardElement.appendChild(previewContainer);
+
+        cardElement.addEventListener('click', () => selectCard(card));
+        if (comingSoon) {
+          phoneCardsContainer.insertBefore(cardElement, comingSoon);
+        } else {
+          phoneCardsContainer.appendChild(cardElement);
+        }
+      });
+      applyThemeToCards();
+    }
+
+    function applyTranslations() {
+      const t = translations[currentLang];
+      // ... (existing translation logic)
+      if (hacsTitleEl) hacsTitleEl.textContent = t.hacsHeader;
+      if (hacsDescriptionEl) hacsDescriptionEl.textContent = t.hacsDescription;
+      if (hacsNoteEl) hacsNoteEl.textContent = t.hacsNote;
+      if (yamlTitleEl) yamlTitleEl.textContent = t.yamlTitle;
+      if (yamlHintEl) yamlHintEl.textContent = t.yamlHint;
+      if (versionLabelEl) versionLabelEl.textContent = t.versionLabel;
+      if (hacsStepsEl) {
+        hacsStepsEl.innerHTML = '';
+        t.hacsSteps.forEach((step) => {
+          const li = document.createElement('li');
+          li.textContent = step;
+          hacsStepsEl.appendChild(li);
+        });
+      }
+      const comingText = document.querySelector('.coming-soon-text');
+      if (comingText) comingText.textContent = t.comingSoon;
+      const comingSubtitle = document.querySelector('.coming-soon-subtitle');
+      if (comingSubtitle) comingSubtitle.textContent = t.comingSoonSub;
+      updateYamlOutput(activeCard);
+    }
+
+    function setupLanguageToggle() {
+      const langButton = document.getElementById('toggle-language');
+      if (!langButton) return;
+      const render = () => applyTranslations();
+      langButton.textContent = currentLang === 'pl' ? 'đź‡µđź‡±' : 'đź‡¬đź‡§';
+      langButton.addEventListener('click', () => {
+        currentLang = currentLang === 'pl' ? 'en' : 'pl';
+        localStorage.setItem('lang', currentLang);
+        langButton.textContent = currentLang === 'pl' ? 'đź‡µđź‡±' : 'đź‡¬đź‡§';
+        render();
+      });
+      render();
+    }
+
+    function displayDocsVersion() {
+      // ... same as before
+      const versionEl = document.getElementById('docs-version');
+      if (!versionEl) return;
+      const versionPath = `${window.__cardsBasePath || '.'}/version.json`;
+      fetch(versionPath)
+        .then((res) => {
+          if (!res.ok) throw new Error('Failed');
+          return res.json();
+        })
+        .then((info) => {
+          versionEl.textContent = info.version || 'n/a';
+          if (info.generatedAt) {
+            versionEl.setAttribute(
+              'title',
+              `Generated ${new Date(info.generatedAt).toLocaleString()}`
+            );
+          }
+        })
+        .catch(() => {
+          versionEl.textContent = 'n/a';
+        });
+    }
+
+    function resolveManifestPromise() {
+      const basePath = (window.__cardsBasePath || './cards');
+      const fallbackPath = `${basePath}/cards-docs.json`;
+      return fetch(fallbackPath)
+        .then((response) => response.ok ? response.json() : [])
+        .catch(() => []);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Determine base path for manifest
+      const isLocal = location.hostname === 'localhost' || location.protocol === 'file:';
+      window.__cardsBasePath = isLocal ? '/cards' : './cards';
+
+      setupThemeToggle();
+      displayDocsVersion();
+      resolveManifestPromise().then((cards) => {
+        if (cards && cards.length) {
+          renderCards(cards);
+          selectCard(cards[0]);
+        }
+        setupLanguageToggle();
+      });
+    });
+  </script>
+  <script src="clock.js"></script>
+</body>
+
 </html>
