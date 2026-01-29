@@ -21,10 +21,8 @@ export abstract class BaseDihorCard<ConfigType> extends LitElement implements Lo
   // Lit element styles
   static get styles(): CSSResultGroup {
     return css`
-      ${// @ts-expect-error: Importing CSS as string
       unsafeCSS(themeCss)}
-      ${// @ts-expect-error: Importing CSS as string
-      unsafeCSS(coreCss)}
+      ${unsafeCSS(coreCss)}
     `;
   }
 
