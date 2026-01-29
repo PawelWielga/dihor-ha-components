@@ -384,6 +384,16 @@ body.dark .card-showcase {
   font-weight: 400;
 }
 
+.version-footer {
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.8);
+}
+.version-footer span {
+  font-weight: 600;
+}
+
 @media (max-width: 768px) {
   .cards-grid {
     grid-template-columns: 1fr;

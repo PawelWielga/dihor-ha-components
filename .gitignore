@@ -1,3 +1,6 @@
 node_modules
 dist
 cards
+!src/cards/
+!src/cards/cards-docs.json
+docs/version.json

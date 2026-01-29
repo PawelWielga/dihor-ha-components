@@ -19,12 +19,29 @@
       const isLocal =
         location.hostname === 'localhost' || location.protocol === 'file:';
       const basePath = isLocal ? '/cards' : './cards';
+      const manifestPath = `${basePath}/cards-docs.json`;
+      window.__cardsBasePath = basePath;
+      window.__cardsManifestPromise = fetch(manifestPath)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Nie udało się pobrać manifestu kart');
+          }
+          return response.json();
+        })
+        .catch((error) => {
+          console.warn('cards-docs.json fetch failed:', error);
+          return [];
+        });
 
-      ['minecraft', 'clock'].forEach((card) => {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = `${basePath}/${card}/dihor-${card}-card.css`;
-        document.head.appendChild(link);
+      window.__cardsManifestPromise.then((cards) => {
+        cards.forEach((card) => {
+          if (card.preview && card.preview.css) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = `${basePath}/${card.folder}/${card.preview.css}`;
+            document.head.appendChild(link);
+          }
+        });
       });
     </script>
   </head>
@@ -39,76 +56,7 @@
         </div>
       </nav>
 
-      <div class="cards-grid">
-        <div class="card-showcase">
-          <div class="card-header">
-            <div class="card-icon">🎮</div>
-            <div>
-              <h3 class="card-title">dihor-minecraft-card</h3>
-              <p class="card-subtitle">
-                Karta do monitorowania serwera Minecraft
-              </p>
-            </div>
-          </div>
-
-          <div class="preview-section">
-            <div class="preview-label">Podgląd karty</div>
-            <div class="card-preview" id="minecraft-card-preview">
-              <div class="loading-placeholder">Ładowanie podglądu...</div>
-            </div>
-          </div>
-
-          <div class="usage-section">
-            <div class="usage-header">Konfiguracja YAML</div>
-            <div class="config-line">
-              <span class="config-key">type</span>
-              <span class="config-separator">:</span>
-              <span class="config-value">custom:dihor-minecraft-card</span>
-            </div>
-            <div class="config-line">
-              <span class="config-key">title</span>
-              <span class="config-separator">:</span>
-              <span class="config-value">My Minecraft Server</span>
-            </div>
-            <div class="config-line">
-              <span class="config-key">entity_prefix</span>
-              <span class="config-separator">:</span>
-              <span class="config-value">server_minecraft</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card-showcase">
-          <div class="card-header">
-            <div class="card-icon">🕒</div>
-            <div>
-              <h3 class="card-title">dihor-clock-card</h3>
-              <p class="card-subtitle">Cyfrowy zegar</p>
-            </div>
-          </div>
-
-          <div class="preview-section">
-            <div class="preview-label">Podgląd karty</div>
-            <div class="card-preview" id="clock-card-preview">
-              <div class="loading-placeholder">Ładowanie podglądu...</div>
-            </div>
-          </div>
-
-          <div class="usage-section">
-            <div class="usage-header">Konfiguracja YAML</div>
-            <div class="config-line">
-              <span class="config-key">type</span>
-              <span class="config-separator">:</span>
-              <span class="config-value">custom:dihor-clock-card</span>
-            </div>
-            <div class="config-line">
-              <span class="config-key">size</span>
-              <span class="config-separator">:</span>
-              <span class="config-value">2</span>
-            </div>
-          </div>
-        </div>
-
+      <div class="cards-grid" id="cards-grid">
         <div class="coming-soon-section">
           <div class="coming-soon-icon">🚀</div>
           <div class="coming-soon-text">Kolejne komponenty wkrótce!</div>
@@ -118,31 +66,34 @@
         </div>
       </div>
     </div>
+    <footer class="version-footer">
+      <span id="version-label">Wersja</span>: <span id="docs-version">?</span>
+    </footer>
 
     <!-- Wszystko działa tutaj -->
     <script>
       const translations = {
         pl: {
-          minecraftSubtitle: 'Karta do monitorowania serwera Minecraft',
-          clockSubtitle: 'Cyfrowy zegar',
           comingSoon: 'Kolejne komponenty wkrótce!',
           comingSoonSub: 'Pracujemy nad nowymi kartami dla Home Assistant',
           previewLabel: 'Podgląd karty',
           yamlHeader: 'Konfiguracja YAML',
           loading: 'Ładowanie podglądu...',
           error: 'Nie udało się załadować podglądu',
+          versionLabel: 'Wersja',
         },
         en: {
-          minecraftSubtitle: 'Card for monitoring Minecraft server',
-          clockSubtitle: 'Simple digital clock',
           comingSoon: 'More components coming soon!',
           comingSoonSub: "We're working on new Home Assistant cards",
           previewLabel: 'Card preview',
           yamlHeader: 'YAML Configuration',
           loading: 'Loading preview...',
           error: 'Failed to load preview',
+          versionLabel: 'Version',
         },
       };
+
+      const cardsGrid = document.getElementById('cards-grid');
 
       function applyThemeToCards() {
         const isDark = localStorage.getItem('theme') === 'dark';
@@ -167,19 +118,75 @@
         });
       }
 
-      function setupLanguageToggle() {
+      function renderCards(cards) {
+        if (!cardsGrid) return;
+        const comingSoon = cardsGrid.querySelector('.coming-soon-section');
+        cards.forEach((card) => {
+          const configLines = (card.usage || [])
+            .map(
+              (line) => `<div class="config-line">
+                <span class="config-key">${line.key}</span>
+                <span class="config-separator">:</span>
+                <span class="config-value">${line.value}</span>
+              </div>`
+            )
+            .join('');
+          const cardElement = document.createElement('div');
+          cardElement.className = 'card-showcase';
+          cardElement.innerHTML = `
+            <div class="card-header">
+              <div class="card-icon">${card.icon || '📦'}</div>
+              <div>
+                <h3 class="card-title">${card.name}</h3>
+                <p class="card-subtitle" data-card-id="${card.id}"></p>
+              </div>
+            </div>
+
+            <div class="preview-section">
+              <div class="preview-label">Podgląd karty</div>
+              <div class="card-preview" id="${card.id}-card-preview">
+                <div class="loading-placeholder">Ładowanie podglądu...</div>
+              </div>
+            </div>
+
+            <div class="usage-section">
+              <div class="usage-header">Konfiguracja YAML</div>
+              <div class="config-lines">
+                ${configLines}
+              </div>
+            </div>
+          `;
+          if (comingSoon) {
+            cardsGrid.insertBefore(cardElement, comingSoon);
+          } else {
+            cardsGrid.appendChild(cardElement);
+          }
+        });
+        applyThemeToCards();
+      }
+
+      function setupLanguageToggle(cards = []) {
         const langButton = document.getElementById('toggle-language');
         let lang = localStorage.getItem('lang') || 'pl';
         langButton.textContent = lang === 'pl' ? '🇵🇱' : '🇬🇧';
 
         function applyTranslations() {
           const t = translations[lang];
-          document.querySelector(
-            '.card-showcase:nth-child(1) .card-subtitle'
-          ).textContent = t.minecraftSubtitle;
-          document.querySelector(
-            '.card-showcase:nth-child(2) .card-subtitle'
-          ).textContent = t.clockSubtitle;
+          cards.forEach((card) => {
+            const subtitleEl = document.querySelector(
+              `.card-subtitle[data-card-id="${card.id}"]`
+            );
+            if (subtitleEl) {
+              subtitleEl.textContent =
+                (card.subtitle && card.subtitle[lang]) ||
+                (card.subtitle && card.subtitle.pl) ||
+                '';
+            }
+          });
+          const versionLabelEl = document.getElementById('version-label');
+          if (versionLabelEl) {
+            versionLabelEl.textContent = t.versionLabel || 'Wersja';
+          }
           document
             .querySelectorAll('.preview-label')
             .forEach((el) => (el.textContent = t.previewLabel));
@@ -205,33 +212,82 @@
         applyTranslations();
       }
 
-      function loadCardPreview() {
-        const cards = [
-          { id: 'minecraft', name: 'dihor-minecraft-card' },
-          { id: 'clock', name: 'dihor-clock-card' },
-        ];
-        cards.forEach(({ id, name }) => {
-          const el = document.getElementById(`${id}-card-preview`);
-          fetch(`${basePath}/${id}/${name}.html`)
+      function loadCardPreview(cards) {
+        const previewBasePath = window.__cardsBasePath || './cards';
+        cards.forEach((card) => {
+          if (!card.folder || !card.preview || !card.preview.html) {
+            return;
+          }
+          const el = document.getElementById(`${card.id}-card-preview`);
+          if (!el) {
+            return;
+          }
+          fetch(`${previewBasePath}/${card.folder}/${card.preview.html}`)
             .then((res) => {
-              if (!res.ok) throw new Error('Błąd HTTP');
+              if (!res.ok) {
+                throw new Error(res.statusText || 'Błąd HTTP');
+              }
               return res.text();
             })
             .then((html) => {
-              if (el) el.innerHTML = html;
+              el.innerHTML = html;
               applyThemeToCards();
             })
             .catch((err) => {
-              if (el)
-                el.innerHTML = `<div class="error-placeholder">❌ Błąd: ${err.message}</div>`;
+              el.innerHTML = `<div class="error-placeholder">❌ Błąd: ${err.message}</div>`;
             });
         });
       }
 
+      function displayDocsVersion() {
+        const versionEl = document.getElementById('docs-version');
+        if (!versionEl) return;
+        fetch('./version.json')
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error(res.statusText || 'Failed to load version');
+            }
+            return res.json();
+          })
+          .then((info) => {
+            versionEl.textContent = info.version || 'n/a';
+            if (info.generatedAt) {
+              versionEl.setAttribute(
+                'title',
+                `Generated ${new Date(info.generatedAt).toLocaleString()}`
+              );
+            }
+          })
+          .catch(() => {
+            versionEl.textContent = 'n/a';
+          });
+      }
+
+      function resolveManifestPromise() {
+        if (window.__cardsManifestPromise) {
+          return window.__cardsManifestPromise;
+        }
+        const fallbackPath = `${window.__cardsBasePath || './cards'}/cards-docs.json`;
+        return fetch(fallbackPath)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Manifest build fetch failed');
+            }
+            return response.json();
+          })
+          .catch(() => []);
+      }
+
       document.addEventListener('DOMContentLoaded', () => {
         setupThemeToggle();
-        setupLanguageToggle();
-        loadCardPreview();
+        displayDocsVersion();
+        resolveManifestPromise().then((cards) => {
+          if (cards && cards.length) {
+            renderCards(cards);
+            loadCardPreview(cards);
+          }
+          setupLanguageToggle(cards);
+        });
       });
     </script>
     <script src="clock.js"></script>

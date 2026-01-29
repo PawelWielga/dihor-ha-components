@@ -6,6 +6,8 @@ const cardsSourceDir = path.join(__dirname, "src", "cards");
 const cardsTargetDir = path.join(__dirname, "docs", "cards");
 const docsDir = path.join(__dirname, "docs");
 
+const packageJson = require(path.join(__dirname, "package.json"));
+
 // Upewnij się, że katalog docs/cards istnieje
 fs.mkdirSync(cardsTargetDir, { recursive: true });
 
@@ -23,6 +25,14 @@ if (fs.existsSync(coreCssPath)) {
   const destThemePath = path.join(cardsTargetDir, "core.css");
   fs.copyFileSync(coreCssPath, destThemePath);
   console.log("✅ Copied core.css to docs/cards/");
+}
+
+// Skopiuj manifest dokumentacji kart jeśli istnieje
+const manifestPath = path.join(cardsSourceDir, "cards-docs.json");
+if (fs.existsSync(manifestPath)) {
+  const destManifestPath = path.join(cardsTargetDir, "cards-docs.json");
+  fs.copyFileSync(manifestPath, destManifestPath);
+  console.log("✅ Copied cards-docs.json to docs/cards/");
 }
 
 // Kopiuj każdy komponent z src/cards/ do docs/cards/
@@ -45,3 +55,14 @@ fs.readdirSync(cardsSourceDir, { withFileTypes: true })
 
 // Dodaj .nojekyll
 fs.writeFileSync(path.join(docsDir, ".nojekyll"), "");
+
+// Zapisz wersję dokumentacji
+const versionInfo = {
+  version: packageJson.version,
+  generatedAt: new Date().toISOString(),
+};
+fs.writeFileSync(
+  path.join(docsDir, "version.json"),
+  JSON.stringify(versionInfo, null, 2) + "\n"
+);
+console.log(`✅ Wrote version.json (v${versionInfo.version})`);
