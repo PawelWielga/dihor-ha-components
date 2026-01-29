@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/PawelWielga/dihor-ha-components/compare/v1.7.0...v1.7.1) (2026-01-29)
+
+
+### Bug Fixes
+
+* type HomeAssistant.callService ([452d045](https://github.com/PawelWielga/dihor-ha-components/commit/452d045c272809e176e824ac2aca3dbeed98f001))
+
 # [1.7.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.6.0...v1.7.0) (2026-01-29)
 
 
