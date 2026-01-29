@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/PawelWielga/dihor-ha-components/compare/v2.0.1...v2.0.2) (2026-01-29)
+
+
+### Bug Fixes
+
+* **docs:** restore cards-docs.json for demo site ([4b496e7](https://github.com/PawelWielga/dihor-ha-components/commit/4b496e73e3715e8bd8000c9828487488401ccaed))
+
 ## [2.0.1](https://github.com/PawelWielga/dihor-ha-components/compare/v2.0.0...v2.0.1) (2026-01-29)
 
 
