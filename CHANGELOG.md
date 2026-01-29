@@ -1,3 +1,16 @@
+# [2.1.0](https://github.com/PawelWielga/dihor-ha-components/compare/v2.0.2...v2.1.0) (2026-01-29)
+
+
+### Bug Fixes
+
+* **build:** remove unused [@ts-expect-error](https://github.com/ts-expect-error) directives ([3d94e34](https://github.com/PawelWielga/dihor-ha-components/commit/3d94e34f0c4a6ad08dbf9673c363f299b184b7ff))
+* **docs:** restore cards-docs.json for demo site ([3e23124](https://github.com/PawelWielga/dihor-ha-components/commit/3e2312468380d873e4fcafe967f4bb3724a0cc31))
+
+
+### Features
+
+* embed Inter font into package ([81eaa4a](https://github.com/PawelWielga/dihor-ha-components/commit/81eaa4aa6a4cb958b8ffbe468a92cd7087fe8941))
+
 ## [2.0.2](https://github.com/PawelWielga/dihor-ha-components/compare/v2.0.1...v2.0.2) (2026-01-29)
 
 
