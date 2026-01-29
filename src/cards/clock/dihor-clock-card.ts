@@ -18,6 +18,37 @@ export class ClockCard extends BaseDihorCard<ClockCardConfig> {
     ];
   }
 
+  static getStubConfig() {
+    return {
+      size: 2
+    };
+  }
+
+  static getConfigForm() {
+    return {
+      schema: [
+        {
+          name: "size",
+          selector: {
+            number: {
+              min: 1,
+              max: 5,
+              mode: "box"
+            }
+          }
+        }
+      ],
+      computeLabel: (schema: any) => {
+        if (schema.name === "size") return "Clock Size";
+        return undefined;
+      },
+      computeHelper: (schema: any) => {
+        if (schema.name === "size") return "Size of the clock display (1-5, default: 2)";
+        return undefined;
+      }
+    };
+  }
+
   connectedCallback() {
     super.connectedCallback();
     this.startClock();

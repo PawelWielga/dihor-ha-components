@@ -105,8 +105,26 @@ Want to add a new card? Follow this copy-pasteable recipe:
       preview: true
     });
     ```
-4.  **Register Export**: Add `export * from "./cards/my-new-feature/dihor-my-new-card";` to `src/index.ts`.
-5.  **Build**: Run `npm run build`.
+4.  **Add Visual Editor**: Create a static `getConfigForm()` method to enable visual UI configuration:
+    ```typescript
+    static getStubConfig() {
+      return { header: "My New Card" };
+    }
+
+    static getConfigForm() {
+      return {
+        schema: [
+          { name: "header", selector: { text: {} } }
+        ],
+        computeLabel: (schema) => {
+          if (schema.name === "header") return "Card Header";
+        }
+      };
+    }
+    ```
+    Available selector types: `text`, `number`, `entity`, `icon`, `ui_color`, `select`. See [HA selectors](https://www.home-assistant.io/docs/blueprint/selectors/).
+5.  **Register Export**: Add `export * from "./cards/my-new-feature/dihor-my-new-card";` to `src/index.ts`.
+6.  **Build**: Run `npm run build`.
 
 ### 🛠️ Build & Commands
 
