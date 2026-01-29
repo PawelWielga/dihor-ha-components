@@ -1,3 +1,13 @@
+# [2.0.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.7.1...v2.0.0) (2026-01-29)
+
+
+* feat!: migrate project to LitElement and modernize tooling ([2ff1733](https://github.com/PawelWielga/dihor-ha-components/commit/2ff173362e368f5e2e2c12560f188e238b73ecfa))
+
+
+### BREAKING CHANGES
+
+* This release completely refactors the project structure and dependencies. All custom cards now use LitElement. Build process has changed. Pre-existing HTML/CSS imports are removed in favor of bundled assets.
+
 ## [1.7.1](https://github.com/PawelWielga/dihor-ha-components/compare/v1.7.0...v1.7.1) (2026-01-29)
 
 
