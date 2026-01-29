@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/PawelWielga/dihor-ha-components/compare/v2.0.0...v2.0.1) (2026-01-29)
+
+
+### Bug Fixes
+
+* **build:** remove unused [@ts-expect-error](https://github.com/ts-expect-error) directives ([#43](https://github.com/PawelWielga/dihor-ha-components/issues/43)) ([91b4a5b](https://github.com/PawelWielga/dihor-ha-components/commit/91b4a5b90bf1c29583343c176271824e49ba9d36))
+
 # [2.0.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.7.1...v2.0.0) (2026-01-29)
 
 
