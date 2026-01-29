@@ -1,0 +1,110 @@
+[
+  {
+    "id": "minecraft",
+    "folder": "minecraft",
+    "name": "dihor-minecraft-card",
+    "icon": "🎮",
+    "preview": {
+      "html": "dihor-minecraft-card.html",
+      "css": "dihor-minecraft-card.css"
+    },
+    "subtitle": {
+      "pl": "Karta do monitorowania serwera Minecraft",
+      "en": "Card for monitoring Minecraft server"
+    },
+    "usage": [
+      {
+        "key": "type",
+        "value": "custom:dihor-minecraft-card"
+      },
+      {
+        "key": "title",
+        "value": "My Minecraft Server"
+      },
+      {
+        "key": "entity_prefix",
+        "value": "server_minecraft"
+      }
+    ]
+  },
+  {
+    "id": "clock",
+    "folder": "clock",
+    "name": "dihor-clock-card",
+    "icon": "🕒",
+    "preview": {
+      "html": "dihor-clock-card.html",
+      "css": "dihor-clock-card.css"
+    },
+    "subtitle": {
+      "pl": "Cyfrowy zegar",
+      "en": "Simple digital clock"
+    },
+    "usage": [
+      {
+        "key": "type",
+        "value": "custom:dihor-clock-card"
+      },
+      {
+        "key": "size",
+        "value": "2"
+      }
+    ]
+  },
+  {
+    "id": "dashboard-background",
+    "folder": "dashboard-background",
+    "name": "dihor-dashboard-background-card",
+    "icon": "🖼️",
+    "preview": {
+      "html": "dihor-dashboard-background-card.html",
+      "css": "dihor-dashboard-background-card.css"
+    },
+    "subtitle": {
+      "pl": "Nadaj widokom tło przy pomocy kolorów, gradientów lub obrazów",
+      "en": "Take over a view background with colors, gradients or images"
+    },
+    "usage": [
+      {
+        "key": "type",
+        "value": "custom:dihor-dashboard-background-card"
+      },
+      {
+        "key": "gradient",
+        "value": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+      },
+      {
+        "key": "blend_mode",
+        "value": "overlay"
+      }
+    ]
+  },
+  {
+    "id": "toggle-button",
+    "folder": "toggle-button",
+    "name": "dihor-toggle-button-card",
+    "icon": "🔘",
+    "preview": {
+      "html": "dihor-toggle-button-card.html",
+      "css": "dihor-toggle-button-card.css"
+    },
+    "subtitle": {
+      "pl": "Przycisk w trybie toggle dla pojedynczej encji",
+      "en": "Toggle button for a single entity"
+    },
+    "usage": [
+      {
+        "key": "type",
+        "value": "custom:dihor-toggle-button-card"
+      },
+      {
+        "key": "entity",
+        "value": "switch.living_room"
+      },
+      {
+        "key": "icon",
+        "value": "mdi:lightbulb-on-outline"
+      }
+    ]
+  }
+]
