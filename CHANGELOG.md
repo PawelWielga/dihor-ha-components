@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/PawelWielga/dihor-ha-components/compare/v3.0.0...v3.0.1) (2026-01-29)
+
+
+### Bug Fixes
+
+* Improve dashboard background debugging and redesign toggle button UI ([c3e80be](https://github.com/PawelWielga/dihor-ha-components/commit/c3e80be319b4ca388d462e80b1832b93b82a2dd6))
+
 # [3.0.0](https://github.com/PawelWielga/dihor-ha-components/compare/v2.2.0...v3.0.0) (2026-01-29)
 
 
