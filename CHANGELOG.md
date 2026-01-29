@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.5.0...v1.6.0) (2026-01-29)
+
+
+### Features
+
+* make phone mock look like real view ([5316097](https://github.com/PawelWielga/dihor-ha-components/commit/5316097b20cc849cf670e38cd11780b4eaaf910a))
+
 # [1.5.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.4.0...v1.5.0) (2026-01-29)
 
 
