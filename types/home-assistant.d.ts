@@ -6,6 +6,11 @@ export interface HomeAssistant {
   themes?: {
     darkMode?: boolean;
   };
+  callService(
+    domain: string,
+    service: string,
+    serviceData?: Record<string, any>
+  ): Promise<void>;
 }
 
 export interface LovelaceCard {
