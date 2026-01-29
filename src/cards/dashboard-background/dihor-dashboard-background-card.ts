@@ -2,6 +2,8 @@ import { html, css, unsafeCSS } from "lit";
 import { BaseDihorCard } from "../base";
 import cardCssStr from "./dihor-dashboard-background-card.css";
 
+const DEFAULT_BACKGROUND_IMAGE = "https://images.unsplash.com/photo-1761880743944-af860cbcc211?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+
 export interface DashboardBackgroundCardConfig {
   color?: string;
   image?: string;
@@ -23,6 +25,12 @@ export class DashboardBackgroundCard extends BaseDihorCard<DashboardBackgroundCa
 
   static get styles() {
     return [super.styles, css`${unsafeCSS(cardCssStr)}`];
+  }
+
+  static getStubConfig() {
+    return {
+      image_url: DEFAULT_BACKGROUND_IMAGE
+    };
   }
 
   public setConfig(config: DashboardBackgroundCardConfig): void {
