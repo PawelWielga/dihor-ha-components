@@ -1,6 +1,6 @@
 {
   "name": "dihor-ha-components",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "scripts": {
     "build": "rollup -c",
     "prepare-docs": "node prepare-docs.js",

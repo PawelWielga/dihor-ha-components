@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.6.0...v1.7.0) (2026-01-29)
+
+
+### Features
+
+* refine phone bar ([e70f27e](https://github.com/PawelWielga/dihor-ha-components/commit/e70f27ec802545b30369c0f2c7d5e644b2c1bbe8))
+
 # [1.6.0](https://github.com/PawelWielga/dihor-ha-components/compare/v1.5.0...v1.6.0) (2026-01-29)
 
 
