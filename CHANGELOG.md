@@ -1,3 +1,10 @@
+## [3.0.2](https://github.com/PawelWielga/dihor-ha-components/compare/v3.0.1...v3.0.2) (2026-01-29)
+
+
+### Bug Fixes
+
+* style ([e14ab0f](https://github.com/PawelWielga/dihor-ha-components/commit/e14ab0f4078aa88e62b25e12f36e8f421713c3be))
+
 ## [3.0.1](https://github.com/PawelWielga/dihor-ha-components/compare/v3.0.0...v3.0.1) (2026-01-29)
 
 
