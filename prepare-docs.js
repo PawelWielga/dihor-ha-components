@@ -21,6 +21,20 @@ if (fs.existsSync(distFile)) {
   console.warn("⚠️  dist/dihor-ha-components.js not found. Run 'npm run build' first.");
 }
 
+// Copy cards-docs.json
+const cardsSourceDir = path.join(__dirname, "src", "cards");
+const cardsTargetDir = path.join(docsDir, "cards");
+if (!fs.existsSync(cardsTargetDir)) {
+  fs.mkdirSync(cardsTargetDir, { recursive: true });
+}
+
+const manifestPath = path.join(cardsSourceDir, "cards-docs.json");
+if (fs.existsSync(manifestPath)) {
+  const destManifestPath = path.join(cardsTargetDir, "cards-docs.json");
+  fs.copyFileSync(manifestPath, destManifestPath);
+  console.log("✅ Copied cards-docs.json to docs/cards/");
+}
+
 // Write version info
 const versionInfo = {
   version: packageJson.version,
