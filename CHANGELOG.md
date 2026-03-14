@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/PawelWielga/dihor-ha-components/compare/v4.0.0...v4.0.1) (2026-03-14)
+
+
+### Bug Fixes
+
+* **ui:** align card styling and expose background settings in HA editor ([78441ab](https://github.com/PawelWielga/dihor-ha-components/commit/78441abedc0bb5cdb1686dea510941c3319598e8))
+
 # [4.0.0](https://github.com/PawelWielga/dihor-ha-components/compare/v3.0.2...v4.0.0) (2026-03-14)
 
 
