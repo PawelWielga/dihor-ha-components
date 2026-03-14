@@ -1,4 +1,24 @@
 /* Style variables for dihor cards */
+:host {
+  --dihor-card-bg: var(--ha-card-background, rgba(255, 255, 255, 0.95));
+  --dihor-card-border-size: 1px;
+  --dihor-card-border-radius: 12px;
+  --dihor-card-border-color: var(--ha-card-border-color, rgba(255, 255, 255, 0.2));
+  --dihor-card-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+
+  --dihor-title-color: var(--primary-text-color, #1d1d1f);
+  --dihor-subtitle-color: var(--secondary-text-color, #666);
+  --dihor-stat-bg: rgba(200, 200, 200, 0.2);
+
+  --dihor-badge-online-bg: #4caf50;
+  --dihor-badge-offline-bg: #ff3b30;
+  --dihor-badge-players-bg: #9c27b0;
+  --dihor-badge-version-bg: #007aff;
+  --dihor-badge-latency-bg: #ff9500;
+
+  --dihor-divider-color: var(--divider-color, rgba(0, 0, 0, 0.08));
+}
+
 .dihor-theme-light {
   --dihor-card-bg: rgba(255, 255, 255, 0.95);
   --dihor-card-border-size: 1px;

@@ -1,6 +1,12 @@
 import { html, css, unsafeCSS } from "lit";
 import { state } from "lit/decorators.js";
-import { BaseCardConfig, BaseDihorCard } from "../../shared/base-card";
+import {
+  BaseCardConfig,
+  BaseDihorCard,
+  getBackgroundConfigHelper,
+  getBackgroundConfigLabel,
+  getBackgroundConfigSchema,
+} from "../../shared/base-card";
 import cardCssStr from "./dihor-clock-card.css";
 
 export interface ClockCardConfig extends BaseCardConfig {
@@ -36,14 +42,19 @@ export class ClockCard extends BaseDihorCard<ClockCardConfig> {
               mode: "box"
             }
           }
-        }
+        },
+        ...getBackgroundConfigSchema()
       ],
       computeLabel: (schema: any) => {
         if (schema.name === "size") return "Clock Size";
+        const backgroundLabel = getBackgroundConfigLabel(schema.name);
+        if (backgroundLabel) return backgroundLabel;
         return undefined;
       },
       computeHelper: (schema: any) => {
         if (schema.name === "size") return "Size of the clock display (1-5, default: 2)";
+        const backgroundHelper = getBackgroundConfigHelper(schema.name);
+        if (backgroundHelper) return backgroundHelper;
         return undefined;
       }
     };

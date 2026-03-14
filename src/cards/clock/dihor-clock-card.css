@@ -1,9 +1,21 @@
+.clock-card {
+  width: 100%;
+  min-height: 120px;
+}
+
+.clock-face,
 .dihor-digital-clock {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.time-display,
+.dihor-digital-clock {
   font-size: 2.5rem;
   font-weight: 600;
-  padding: 1rem 0;
+  letter-spacing: 0.06em;
   color: var(--dihor-title-color);
 }

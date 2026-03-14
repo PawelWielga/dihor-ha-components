@@ -22,6 +22,148 @@ export interface BaseCardConfig {
   background?: DashboardBackgroundConfig;
 }
 
+export function getBackgroundConfigSchema() {
+  return [
+    {
+      type: 'expandable',
+      name: '',
+      title: 'Dashboard Background',
+      schema: [
+        {
+          name: 'background.color',
+          selector: { ui_color: {} },
+        },
+        {
+          name: 'background.image_url',
+          selector: { text: { type: 'url' } },
+        },
+        {
+          name: 'background.gradient',
+          selector: { text: { multiline: true } },
+        },
+        {
+          name: 'background.transition',
+          selector: { text: {} },
+        },
+        {
+          type: 'grid',
+          name: '',
+          schema: [
+            {
+              name: 'background.size',
+              selector: {
+                select: {
+                  options: [
+                    { value: 'auto', label: 'Auto' },
+                    { value: 'cover', label: 'Cover' },
+                    { value: 'contain', label: 'Contain' },
+                    { value: '100%', label: '100%' },
+                  ],
+                  custom_value: true,
+                },
+              },
+            },
+            {
+              name: 'background.position',
+              selector: {
+                select: {
+                  options: [
+                    { value: 'center', label: 'Center' },
+                    { value: 'top', label: 'Top' },
+                    { value: 'bottom', label: 'Bottom' },
+                    { value: 'left', label: 'Left' },
+                    { value: 'right', label: 'Right' },
+                  ],
+                  custom_value: true,
+                },
+              },
+            },
+            {
+              name: 'background.repeat',
+              selector: {
+                select: {
+                  options: [
+                    { value: 'no-repeat', label: 'No Repeat' },
+                    { value: 'repeat', label: 'Repeat' },
+                    { value: 'repeat-x', label: 'Repeat X' },
+                    { value: 'repeat-y', label: 'Repeat Y' },
+                  ],
+                },
+              },
+            },
+            {
+              name: 'background.attachment',
+              selector: {
+                select: {
+                  options: [
+                    { value: 'scroll', label: 'Scroll' },
+                    { value: 'fixed', label: 'Fixed' },
+                    { value: 'local', label: 'Local' },
+                  ],
+                },
+              },
+            },
+            {
+              name: 'background.blend_mode',
+              selector: { text: {} },
+            },
+          ],
+        },
+      ],
+    },
+  ];
+}
+
+export function getBackgroundConfigLabel(fieldName: string): string | undefined {
+  switch (fieldName) {
+    case 'background.color':
+      return 'Background Color';
+    case 'background.image_url':
+      return 'Background Image URL';
+    case 'background.gradient':
+      return 'Background Gradient';
+    case 'background.transition':
+      return 'Background Transition';
+    case 'background.size':
+      return 'Background Size';
+    case 'background.position':
+      return 'Background Position';
+    case 'background.repeat':
+      return 'Background Repeat';
+    case 'background.attachment':
+      return 'Background Attachment';
+    case 'background.blend_mode':
+      return 'Background Blend Mode';
+    default:
+      return undefined;
+  }
+}
+
+export function getBackgroundConfigHelper(fieldName: string): string | undefined {
+  switch (fieldName) {
+    case 'background.color':
+      return 'Solid dashboard background color';
+    case 'background.image_url':
+      return 'URL of dashboard background image';
+    case 'background.gradient':
+      return 'CSS gradient, e.g. linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+    case 'background.transition':
+      return 'CSS transition, e.g. background 0.3s ease';
+    case 'background.size':
+      return 'How background image is sized';
+    case 'background.position':
+      return 'Position of dashboard background image';
+    case 'background.repeat':
+      return 'Background repeat mode';
+    case 'background.attachment':
+      return 'Whether background scrolls with content';
+    case 'background.blend_mode':
+      return 'CSS blend mode, e.g. overlay or multiply';
+    default:
+      return undefined;
+  }
+}
+
 const BACKGROUND_STYLE_PROPS = [
   'background-image',
   'background-color',
