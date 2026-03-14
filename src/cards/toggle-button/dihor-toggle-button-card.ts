@@ -1,8 +1,8 @@
 import { html, css, unsafeCSS } from "lit";
-import { BaseDihorCard } from "../../shared/base-card";
+import { BaseCardConfig, BaseDihorCard } from "../../shared/base-card";
 import cardCssStr from "./dihor-toggle-button-card.css";
 
-export interface ToggleButtonCardConfig {
+export interface ToggleButtonCardConfig extends BaseCardConfig {
   entity: string;
   label?: string;
   icon?: string;

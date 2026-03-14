@@ -1,8 +1,8 @@
 import { html, nothing, css, unsafeCSS } from 'lit';
-import { BaseDihorCard } from '../../shared/base-card';
+import { BaseCardConfig, BaseDihorCard } from '../../shared/base-card';
 import cardCssStr from "./dihor-person-card.css";
 
-export interface PersonCardConfig {
+export interface PersonCardConfig extends BaseCardConfig {
   entity: string;
 }
 

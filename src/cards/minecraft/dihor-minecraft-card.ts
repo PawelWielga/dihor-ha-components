@@ -1,5 +1,5 @@
 import { html, css, unsafeCSS } from "lit";
-import { BaseDihorCard } from "../../shared/base-card";
+import { BaseCardConfig, BaseDihorCard } from "../../shared/base-card";
 
 // Import CSS as string (handled by rollup-plugin-string)
 import coreCss from "../../shared/styles/core.css";
@@ -9,7 +9,7 @@ import cardCssStr from "./dihor-minecraft-card.css";
 // to take full advantage of Lit's binding capabilities.
 // import htmlTemplate from "./dihor-minecraft-card.html"; 
 
-export interface MinecraftCardConfig {
+export interface MinecraftCardConfig extends BaseCardConfig {
   title?: string;
   entity_prefix: string;
 }

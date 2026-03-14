@@ -1,31 +1,30 @@
-# 🚀 Dihor HA Components
+﻿# đźš€ Dihor HA Components
 
 **Dihor HA Components** is a collection of modern, custom UI cards for Home Assistant, built with performance and aesthetics in mind.
 
 > **Note for Users:** Installation instructions, configuration examples, and live previews are available on the **[Demo Page](docs/index.html)**.
 
-## 📦 Components
+## đź“¦ Components
 
 This library includes the following cards, now built with **Lit** for better performance and security:
 
-1.  **🕐 Dihor Clock Card** - Customizable digital clock.
-2.  **🎮 Dihor Minecraft Card** - Server status monitor.
-3.  **👤 Dihor Person Card** - Elegant person entity display.
-4.  **🖼️ Dihor Dashboard Background Card** - Dynamic view backgrounds (colors, gradients, images).
-5.  **🔘 Dihor Toggle Button Card** - Friendly toggle switch.
+1.  **đź• Dihor Clock Card** - Customizable digital clock.
+2.  **đźŽ® Dihor Minecraft Card** - Server status monitor.
+3.  **đź‘¤ Dihor Person Card** - Elegant person entity display.
+4.  **🔘 Dihor Toggle Button Card** - Friendly toggle switch.
 
-## 🛠️ Technology Stack
+## đź› ď¸Ź Technology Stack
 
 *   **[Lit](https://lit.dev/)**: Lightweight web components library.
 *   **[TypeScript](https://www.typescriptlang.org/)**: Static typing for reliability.
 *   **[Rollup](https://rollupjs.org/)**: Efficient module bundling.
 *   **ESLint & Prettier**: Code quality and formatting.
 
-## �‍💻 Developer Guide
+## ďż˝â€Ťđź’» Developer Guide
 
-This section is designed to be a future-proof reference for developers (including you, future-self! 👋).
+This section is designed to be a future-proof reference for developers (including you, future-self! đź‘‹).
 
-### 🏗️ Architecture & Technology Stack
+### đźŹ—ď¸Ź Architecture & Technology Stack
 
 We chose specific tools to balance **performance**, **maintainability**, and **developer experience**.
 
@@ -38,7 +37,7 @@ We chose specific tools to balance **performance**, **maintainability**, and **d
     *   **Why?** It creates very small, efficient ES module bundles perfect for modern browsers.
     *   **Plugins**: We use `rollup-plugin-string` to import `.css` files as strings, which we then feed into Lit's `unsafeCSS`.
 
-### 🧭 Target Structure (Iteration 1)
+### đź§­ Target Structure (Iteration 1)
 
 The project is organized to keep responsibilities clear:
 
@@ -48,7 +47,7 @@ The project is organized to keep responsibilities clear:
 - `scripts/*`: operational scripts (docs prep, helpers).
 - `docs/*`: preview app and gh-pages artifacts.
 
-### 🔁 Migration Note (Old -> New Paths)
+### đź” Migration Note (Old -> New Paths)
 
 | Old Path | New Path |
 | --- | --- |
@@ -58,7 +57,7 @@ The project is organized to keep responsibilities clear:
 | `src/cards/font.css` | `src/shared/styles/font.css` |
 | `prepare-docs.js` | `scripts/prepare-docs.js` |
 
-### 🚚 Publishing Flow
+### đźšš Publishing Flow
 
 Dual-output contract:
 
@@ -68,7 +67,7 @@ Dual-output contract:
   - `npm run prepare-docs` copies bundle/assets to `docs/`
   - `npm run preview` serves `docs/index.html`
 
-### 🛟 Rollback Checklist (Migration Work)
+### đź›ź Rollback Checklist (Migration Work)
 
 For structural migration work, keep one safety checkpoint per stage:
 
@@ -77,7 +76,7 @@ For structural migration work, keep one safety checkpoint per stage:
 3. Create a commit checkpoint before starting the next stage.
 4. If shared-layer migration fails and quick fix is not obvious, roll back to last stable checkpoint and continue in smaller increments.
 
-### 🧩 Core Patterns
+### đź§© Core Patterns
 
 1.  **BaseDihorCard (`src/shared/base-card.ts`)**:
     *   The abstract base class for all cards.
@@ -97,7 +96,36 @@ For structural migration work, keep one safety checkpoint per stage:
         }
         ```
 
-### 🆕 How to Add a New Card
+### Dashboard Background From Any Card
+
+Background configuration is now available in `BaseDihorCard`, so you can set view background directly from any card config.
+
+Example YAML:
+
+```yaml
+type: custom:dihor-clock-card
+size: 2
+background:
+  image_url: https://images.unsplash.com/photo-1761880743944-af860cbcc211?q=80&w=2071&auto=format&fit=crop
+  gradient: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.65))
+  blend_mode: overlay
+  position: center
+  size: cover
+  repeat: no-repeat
+```
+
+Supported keys in `background`:
+- `color`
+- `image` or `image_url`
+- `gradient`
+- `transition`
+- `size`
+- `position`
+- `repeat`
+- `blend_mode`
+- `attachment`
+
+### đź†• How to Add a New Card
 
 Want to add a new card? Follow this copy-pasteable recipe:
 
@@ -165,7 +193,7 @@ Want to add a new card? Follow this copy-pasteable recipe:
 5.  **Register Export**: Add `export * from "./cards/my-new-feature/dihor-my-new-card";` to `src/index.ts`.
 6.  **Build**: Run `npm run build`.
 
-### 🛠️ Build & Commands
+### đź› ď¸Ź Build & Commands
 
 *   `npm install`: Install dependencies.
 *   `npm run build`: Compiles everything to `dist/dihor-ha-components.js`. Use this before releasing.
@@ -173,7 +201,7 @@ Want to add a new card? Follow this copy-pasteable recipe:
 *   `npm run dev`: Builds, prepares the demo documentation, and serves it locally. Best for visual testing.
 *   `npm run lint` / `npm run format`: Keep the code clean!
 
-## 🤝 Contributing
+## đź¤ť Contributing
 
 We welcome contributions!
 1.  Fork the repository.
@@ -195,9 +223,10 @@ Example:
 feat(minecraft): add new player count sensor
 ```
 
-## 📜 License
+## đź“ś License
 
 This project is licensed under the **MIT License**.
 
 ---
-Made with ❤️ by [Pawel Wielga](https://github.com/PawelWielga)
+Made with âť¤ď¸Ź by [Pawel Wielga](https://github.com/PawelWielga)
+
