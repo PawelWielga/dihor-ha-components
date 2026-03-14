@@ -38,9 +38,48 @@ We chose specific tools to balance **performance**, **maintainability**, and **d
     *   **Why?** It creates very small, efficient ES module bundles perfect for modern browsers.
     *   **Plugins**: We use `rollup-plugin-string` to import `.css` files as strings, which we then feed into Lit's `unsafeCSS`.
 
+### 🧭 Target Structure (Iteration 1)
+
+The project is organized to keep responsibilities clear:
+
+- `src/cards/*`: feature card implementations (`*.ts`, `*.css`).
+- `src/shared/base-card.ts`: shared base class for all cards.
+- `src/shared/styles/*`: shared styles loaded by the base card and entrypoint.
+- `scripts/*`: operational scripts (docs prep, helpers).
+- `docs/*`: preview app and gh-pages artifacts.
+
+### 🔁 Migration Note (Old -> New Paths)
+
+| Old Path | New Path |
+| --- | --- |
+| `src/cards/base.ts` | `src/shared/base-card.ts` |
+| `src/cards/theme.css` | `src/shared/styles/theme.css` |
+| `src/cards/core.css` | `src/shared/styles/core.css` |
+| `src/cards/font.css` | `src/shared/styles/font.css` |
+| `prepare-docs.js` | `scripts/prepare-docs.js` |
+
+### 🚚 Publishing Flow
+
+Dual-output contract:
+
+- **Runtime artifact (Home Assistant):**
+  - `npm run build` -> `dist/dihor-ha-components.js`
+- **Preview artifact (gh-pages):**
+  - `npm run prepare-docs` copies bundle/assets to `docs/`
+  - `npm run preview` serves `docs/index.html`
+
+### 🛟 Rollback Checklist (Migration Work)
+
+For structural migration work, keep one safety checkpoint per stage:
+
+1. Run checks in order: `npm run lint` -> `npm run build` -> `npm run prepare-docs`.
+2. Verify preview card loading (`npm run preview`).
+3. Create a commit checkpoint before starting the next stage.
+4. If shared-layer migration fails and quick fix is not obvious, roll back to last stable checkpoint and continue in smaller increments.
+
 ### 🧩 Core Patterns
 
-1.  **BaseDihorCard (`src/cards/base.ts`)**:
+1.  **BaseDihorCard (`src/shared/base-card.ts`)**:
     *   The abstract base class for all cards.
     *   **Handles**: `hass` property updates, `setConfig`, and attaching core styles (`theme.css`, `core.css`).
     *   **You Implement**: `renderCard()` (returns `html`) and `getCardSize()`.
@@ -71,7 +110,7 @@ Want to add a new card? Follow this copy-pasteable recipe:
     ```typescript
     import { html, css, unsafeCSS } from "lit";
     import { state } from "lit/decorators.js";
-    import { BaseDihorCard } from "../base";
+    import { BaseDihorCard } from "../../shared/base-card";
     import cardCssStr from "./dihor-my-new-card.css";
 
     export interface MyNewCardConfig {
@@ -130,6 +169,7 @@ Want to add a new card? Follow this copy-pasteable recipe:
 
 *   `npm install`: Install dependencies.
 *   `npm run build`: Compiles everything to `dist/dihor-ha-components.js`. Use this before releasing.
+*   `npm run prepare-docs`: Copies runtime bundle and card assets into `docs/` for preview/gh-pages.
 *   `npm run dev`: Builds, prepares the demo documentation, and serves it locally. Best for visual testing.
 *   `npm run lint` / `npm run format`: Keep the code clean!
 

@@ -1,9 +1,9 @@
 import { LitElement, html, CSSResultGroup, css, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import themeCss from "./theme.css";
-import coreCss from "./core.css";
-import fontCss from "./font.css";
-import type { HomeAssistant, LovelaceCard } from "../../types/home-assistant";
+import themeCss from './styles/theme.css';
+import coreCss from './styles/core.css';
+import fontCss from './styles/font.css';
+import type { HomeAssistant, LovelaceCard } from '../../types/home-assistant';
 
 export abstract class BaseDihorCard<ConfigType> extends LitElement implements LovelaceCard {
   @property({ attribute: false }) public hass!: HomeAssistant;

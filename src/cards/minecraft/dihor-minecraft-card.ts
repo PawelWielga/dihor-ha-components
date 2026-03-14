@@ -1,8 +1,8 @@
 import { html, css, unsafeCSS } from "lit";
-import { BaseDihorCard } from "../base";
+import { BaseDihorCard } from "../../shared/base-card";
 
 // Import CSS as string (handled by rollup-plugin-string)
-import coreCss from "../core.css";
+import coreCss from "../../shared/styles/core.css";
 import cardCssStr from "./dihor-minecraft-card.css";
 
 // We will inline the HTML template logic into render() instead of importing the HTML file

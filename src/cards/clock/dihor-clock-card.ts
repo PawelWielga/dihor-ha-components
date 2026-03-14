@@ -1,6 +1,6 @@
 import { html, css, unsafeCSS } from "lit";
 import { state } from "lit/decorators.js";
-import { BaseDihorCard } from "../base";
+import { BaseDihorCard } from "../../shared/base-card";
 import cardCssStr from "./dihor-clock-card.css";
 
 export interface ClockCardConfig {

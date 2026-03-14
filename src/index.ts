@@ -1,6 +1,6 @@
-import "./cards/theme.css";
-import "./cards/core.css";
-import "./cards/font.css";
+import "./shared/styles/theme.css";
+import "./shared/styles/core.css";
+import "./shared/styles/font.css";
 
 import "./cards/person/dihor-person-card";
 import "./cards/minecraft/dihor-minecraft-card";

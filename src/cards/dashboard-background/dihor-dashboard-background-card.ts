@@ -1,5 +1,5 @@
 import { html, css, unsafeCSS } from "lit";
-import { BaseDihorCard } from "../base";
+import { BaseDihorCard } from "../../shared/base-card";
 import cardCssStr from "./dihor-dashboard-background-card.css";
 
 const DEFAULT_BACKGROUND_IMAGE = "https://images.unsplash.com/photo-1761880743944-af860cbcc211?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";

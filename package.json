@@ -3,7 +3,8 @@
   "version": "3.0.2",
   "scripts": {
     "build": "rollup -c",
-    "prepare-docs": "node prepare-docs.js",
+    "prepare-docs": "node scripts/prepare-docs.js",
+    "check-docs-manifest": "node scripts/check-docs-manifest.js",
     "preview": "npx serve docs",
     "dev": "npm run prepare-docs && npm run preview",
     "semantic-release": "semantic-release",

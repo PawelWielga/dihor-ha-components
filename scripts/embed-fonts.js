@@ -17,7 +17,7 @@ const fonts = [
     },
 ];
 
-const outputDir = path.resolve(__dirname, '../src/cards');
+const outputDir = path.resolve(__dirname, '../src/shared/styles');
 const outputFile = path.join(outputDir, 'font.css');
 
 function downloadFile(url) {

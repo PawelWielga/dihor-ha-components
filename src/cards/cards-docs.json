@@ -5,7 +5,6 @@
     "name": "dihor-minecraft-card",
     "icon": "🎮",
     "preview": {
-      "html": "dihor-minecraft-card.html",
       "css": "dihor-minecraft-card.css"
     },
     "subtitle": {
@@ -33,7 +32,6 @@
     "name": "dihor-clock-card",
     "icon": "🕒",
     "preview": {
-      "html": "dihor-clock-card.html",
       "css": "dihor-clock-card.css"
     },
     "subtitle": {
@@ -57,7 +55,6 @@
     "name": "dihor-dashboard-background-card",
     "icon": "🖼️",
     "preview": {
-      "html": "dihor-dashboard-background-card.html",
       "css": "dihor-dashboard-background-card.css"
     },
     "subtitle": {
@@ -89,7 +86,6 @@
     "name": "dihor-toggle-button-card",
     "icon": "🔘",
     "preview": {
-      "html": "dihor-toggle-button-card.html",
       "css": "dihor-toggle-button-card.css"
     },
     "subtitle": {
