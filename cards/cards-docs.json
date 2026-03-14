@@ -5,7 +5,6 @@
     "name": "dihor-minecraft-card",
     "icon": "🎮",
     "preview": {
-      "html": "dihor-minecraft-card.html",
       "css": "dihor-minecraft-card.css"
     },
     "subtitle": {
@@ -33,7 +32,6 @@
     "name": "dihor-clock-card",
     "icon": "🕒",
     "preview": {
-      "html": "dihor-clock-card.html",
       "css": "dihor-clock-card.css"
     },
     "subtitle": {
@@ -52,34 +50,25 @@
     ]
   },
   {
-    "id": "dashboard-background",
-    "folder": "dashboard-background",
-    "name": "dihor-dashboard-background-card",
-    "icon": "🖼️",
+    "id": "person",
+    "folder": "person",
+    "name": "dihor-person-card",
+    "icon": "👤",
     "preview": {
-      "html": "dihor-dashboard-background-card.html",
-      "css": "dihor-dashboard-background-card.css"
+      "css": "dihor-person-card.css"
     },
     "subtitle": {
-      "pl": "Nadaj widokom tło przy pomocy kolorów, gradientów lub obrazów",
-      "en": "Take over a view background with colors, gradients or images"
+      "pl": "Karta osoby Home Assistant",
+      "en": "Home Assistant person card"
     },
     "usage": [
       {
         "key": "type",
-        "value": "custom:dihor-dashboard-background-card"
+        "value": "custom:dihor-person-card"
       },
       {
-        "key": "image_url",
-        "value": "https://images.unsplash.com/photo-1761880743944-af860cbcc211?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      },
-      {
-        "key": "gradient",
-        "value": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-      },
-      {
-        "key": "blend_mode",
-        "value": "overlay"
+        "key": "entity",
+        "value": "person.example"
       }
     ]
   },
@@ -89,7 +78,6 @@
     "name": "dihor-toggle-button-card",
     "icon": "🔘",
     "preview": {
-      "html": "dihor-toggle-button-card.html",
       "css": "dihor-toggle-button-card.css"
     },
     "subtitle": {
