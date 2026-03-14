@@ -1,3 +1,13 @@
+# [4.0.0](https://github.com/PawelWielga/dihor-ha-components/compare/v3.0.2...v4.0.0) (2026-03-14)
+
+
+* feat!: move dashboard background handling to BaseDihorCard ([2b7637f](https://github.com/PawelWielga/dihor-ha-components/commit/2b7637f4a8be00181053cf825b995eed54b5ca8e))
+
+
+### BREAKING CHANGES
+
+* dihor-dashboard-background-card was removed. Configure view background via the background object on any card config.
+
 ## [3.0.2](https://github.com/PawelWielga/dihor-ha-components/compare/v3.0.1...v3.0.2) (2026-01-29)
 
 
