@@ -2,9 +2,6 @@ import { html, nothing, css, unsafeCSS } from 'lit';
 import {
   BaseCardConfig,
   BaseDihorCard,
-  getBackgroundConfigHelper,
-  getBackgroundConfigLabel,
-  getBackgroundConfigSchema,
 } from '../../shared/base-card';
 import cardCssStr from "./dihor-person-card.css";
 
@@ -45,19 +42,14 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
               domain: "person"
             }
           }
-        },
-        ...getBackgroundConfigSchema()
+        }
       ],
       computeLabel: (schema: any) => {
         if (schema.name === "entity") return "Person Entity";
-        const backgroundLabel = getBackgroundConfigLabel(schema.name);
-        if (backgroundLabel) return backgroundLabel;
         return undefined;
       },
       computeHelper: (schema: any) => {
         if (schema.name === "entity") return "Select the person entity to display";
-        const backgroundHelper = getBackgroundConfigHelper(schema.name);
-        if (backgroundHelper) return backgroundHelper;
         return undefined;
       }
     };

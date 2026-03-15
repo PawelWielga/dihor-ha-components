@@ -1,232 +1,182 @@
-﻿# đźš€ Dihor HA Components
+# Dihor HA Components
 
-**Dihor HA Components** is a collection of modern, custom UI cards for Home Assistant, built with performance and aesthetics in mind.
+PL: Kolekcja nowoczesnych kart customowych dla Home Assistant, zbudowana na Lit + TypeScript.  
+EN: A collection of modern custom cards for Home Assistant, built with Lit + TypeScript.
 
-> **Note for Users:** Installation instructions, configuration examples, and live previews are available on the **[Demo Page](docs/index.html)**.
+## Demo
 
-## đź“¦ Components
+PL: Instalacja, przyklady konfiguracji i podglad kart: [Demo Page](docs/index.html)  
+EN: Installation, configuration examples, and live preview: [Demo Page](docs/index.html)
 
-This library includes the following cards, now built with **Lit** for better performance and security:
+## Components / Komponenty
 
-1.  **đź• Dihor Clock Card** - Customizable digital clock.
-2.  **đźŽ® Dihor Minecraft Card** - Server status monitor.
-3.  **đź‘¤ Dihor Person Card** - Elegant person entity display.
-4.  **🔘 Dihor Toggle Button Card** - Friendly toggle switch.
+1. `dihor-clock-card`  
+PL: Konfigurowalny zegar cyfrowy.  
+EN: Configurable digital clock.
 
-## đź› ď¸Ź Technology Stack
+2. `dihor-minecraft-card`  
+PL: Monitor statusu serwera Minecraft.  
+EN: Minecraft server status monitor.
 
-*   **[Lit](https://lit.dev/)**: Lightweight web components library.
-*   **[TypeScript](https://www.typescriptlang.org/)**: Static typing for reliability.
-*   **[Rollup](https://rollupjs.org/)**: Efficient module bundling.
-*   **ESLint & Prettier**: Code quality and formatting.
+3. `dihor-person-card`  
+PL: Karta encji `person` z Home Assistant.  
+EN: Home Assistant `person` entity card.
 
-## ďż˝â€Ťđź’» Developer Guide
+4. `dihor-toggle-button-card`  
+PL: Przycisk toggle dla pojedynczej encji.  
+EN: Toggle button for a single entity.
 
-This section is designed to be a future-proof reference for developers (including you, future-self! đź‘‹).
+## Tech Stack
 
-### đźŹ—ď¸Ź Architecture & Technology Stack
+PL:
+- `Lit` - web components i reaktywne renderowanie
+- `TypeScript` - typowanie i bezpieczenstwo zmian
+- `Rollup` - bundling do `dist/dihor-ha-components.js`
+- `ESLint` + `Prettier` - jakosc i format kodu
 
-We chose specific tools to balance **performance**, **maintainability**, and **developer experience**.
+EN:
+- `Lit` - web components and reactive rendering
+- `TypeScript` - typing and safer refactors
+- `Rollup` - bundling into `dist/dihor-ha-components.js`
+- `ESLint` + `Prettier` - code quality and formatting
 
-*   **[Lit](https://lit.dev/)**:
-    *   **Why?** It's a lightweight wrapper around standard Web Components. It provides a declarative reactive state system (like React/Vue) but outputs standard HTML Custom Elements that work natively in Home Assistant.
-    *   **Usage**: All cards extend `BaseDihorCard` (which extends `LitElement`). We use `@property` for inputs from HA and `@state` for internal logic.
-*   **[TypeScript](https://www.typescriptlang.org/)**:
-    *   **Why?** Home Assistant objects (`hass`, `config`) are complex. strict typing prevents "undefined is not a function" errors and provides excellent autocompletion.
-*   **[Rollup](https://rollupjs.org/)**:
-    *   **Why?** It creates very small, efficient ES module bundles perfect for modern browsers.
-    *   **Plugins**: We use `rollup-plugin-string` to import `.css` files as strings, which we then feed into Lit's `unsafeCSS`.
+## Project Structure / Struktura projektu
 
-### đź§­ Target Structure (Iteration 1)
+- `src/cards/*` - implementacje kart
+- `src/shared/base-card.ts` - wspolna baza kart
+- `src/shared/styles/*` - wspolne style
+- `scripts/*` - skrypty pomocnicze
+- `docs/*` - preview i artefakty dla docs
 
-The project is organized to keep responsibilities clear:
+## Build and Preview / Build i podglad
 
-- `src/cards/*`: feature card implementations (`*.ts`, `*.css`).
-- `src/shared/base-card.ts`: shared base class for all cards.
-- `src/shared/styles/*`: shared styles loaded by the base card and entrypoint.
-- `scripts/*`: operational scripts (docs prep, helpers).
-- `docs/*`: preview app and gh-pages artifacts.
+- `npm install`
+- `npm run lint`
+- `npm run build`
+- `npm run prepare-docs`
+- `npm run preview`
 
-### đź” Migration Note (Old -> New Paths)
+PL: `npm run dev` uruchamia przygotowanie docs i preview lokalnie.  
+EN: `npm run dev` prepares docs and starts local preview.
 
-| Old Path | New Path |
-| --- | --- |
-| `src/cards/base.ts` | `src/shared/base-card.ts` |
-| `src/cards/theme.css` | `src/shared/styles/theme.css` |
-| `src/cards/core.css` | `src/shared/styles/core.css` |
-| `src/cards/font.css` | `src/shared/styles/font.css` |
-| `prepare-docs.js` | `scripts/prepare-docs.js` |
+## Dashboard Background (Supported)
 
-### đźšš Publishing Flow
+PL: Ten projekt nie ustawia juz tla dashboardu z poziomu konfiguracji karty. Uzywamy oficjalnych mechanizmow Home Assistant.  
+EN: This project no longer sets dashboard background from card config. Use official Home Assistant mechanisms.
 
-Dual-output contract:
-
-- **Runtime artifact (Home Assistant):**
-  - `npm run build` -> `dist/dihor-ha-components.js`
-- **Preview artifact (gh-pages):**
-  - `npm run prepare-docs` copies bundle/assets to `docs/`
-  - `npm run preview` serves `docs/index.html`
-
-### đź›ź Rollback Checklist (Migration Work)
-
-For structural migration work, keep one safety checkpoint per stage:
-
-1. Run checks in order: `npm run lint` -> `npm run build` -> `npm run prepare-docs`.
-2. Verify preview card loading (`npm run preview`).
-3. Create a commit checkpoint before starting the next stage.
-4. If shared-layer migration fails and quick fix is not obvious, roll back to last stable checkpoint and continue in smaller increments.
-
-### đź§© Core Patterns
-
-1.  **BaseDihorCard (`src/shared/base-card.ts`)**:
-    *   The abstract base class for all cards.
-    *   **Handles**: `hass` property updates, `setConfig`, and attaching core styles (`theme.css`, `core.css`).
-    *   **You Implement**: `renderCard()` (returns `html`) and `getCardSize()`.
-
-2.  **Styling**:
-    *   Styles are written in separate `.css` files.
-    *   imported as strings: `import cardCssStr from "./my-card.css";`
-    *   Applied via Lit's static styles:
-        ```typescript
-        static get styles() {
-          return [
-            super.styles,
-            css`${unsafeCSS(cardCssStr)}`
-          ];
-        }
-        ```
-
-### Dashboard Background From Any Card
-
-Background configuration is now available in `BaseDihorCard`, so you can set view background directly from any card config.
-
-Example YAML:
+### Method 1: View background / Tlo widoku
 
 ```yaml
-type: custom:dihor-clock-card
-size: 2
-background:
-  image_url: https://images.unsplash.com/photo-1761880743944-af860cbcc211?q=80&w=2071&auto=format&fit=crop
-  gradient: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.65))
-  blend_mode: overlay
-  position: center
-  size: cover
-  repeat: no-repeat
+views:
+  - title: Home
+    path: home
+    background: center / cover no-repeat fixed url("/local/backgrounds/home.jpg")
+    cards:
+      - type: custom:dihor-clock-card
+        size: 2
 ```
 
-Supported keys in `background`:
-- `color`
-- `image` or `image_url`
-- `gradient`
-- `transition`
-- `size`
-- `position`
-- `repeat`
-- `blend_mode`
-- `attachment`
+### Method 2: Global theme background / Tlo globalne przez motyw
 
-### đź†• How to Add a New Card
-
-Want to add a new card? Follow this copy-pasteable recipe:
-
-1.  **Create Directory**: `src/cards/my-new-feature`
-2.  **Create Assets**:
-    *   `dihor-my-new-card.ts` (Logic)
-    *   `dihor-my-new-card.css` (Styles)
-    *   `dihor-my-new-card.html` (Optional preview template, if needed)
-3.  **Implement Class (`dihor-my-new-card.ts`)**:
-    ```typescript
-    import { html, css, unsafeCSS } from "lit";
-    import { state } from "lit/decorators.js";
-    import { BaseDihorCard } from "../../shared/base-card";
-    import cardCssStr from "./dihor-my-new-card.css";
-
-    export interface MyNewCardConfig {
-      header?: string;
-    }
-
-    export class MyNewCard extends BaseDihorCard<MyNewCardConfig> {
-      static get styles() {
-        return [super.styles, css`${unsafeCSS(cardCssStr)}`];
-      }
-
-      protected renderCard() {
-        return html`
-          <ha-card header=${this._config.header || "My New Card"}>
-            <div class="card-content">
-              Hello from Lit!
-            </div>
-          </ha-card>
-        `;
-      }
-    }
-
-    customElements.define("dihor-my-new-card", MyNewCard);
-    
-    // Register for HACS/Lovelace Picker
-    (window as any).customCards = (window as any).customCards || [];
-    (window as any).customCards.push({
-      type: "dihor-my-new-card",
-      name: "Dihor My New Card",
-      description: "A fresh new card",
-      preview: true
-    });
-    ```
-4.  **Add Visual Editor**: Create a static `getConfigForm()` method to enable visual UI configuration:
-    ```typescript
-    static getStubConfig() {
-      return { header: "My New Card" };
-    }
-
-    static getConfigForm() {
-      return {
-        schema: [
-          { name: "header", selector: { text: {} } }
-        ],
-        computeLabel: (schema) => {
-          if (schema.name === "header") return "Card Header";
-        }
-      };
-    }
-    ```
-    Available selector types: `text`, `number`, `entity`, `icon`, `ui_color`, `select`. See [HA selectors](https://www.home-assistant.io/docs/blueprint/selectors/).
-5.  **Register Export**: Add `export * from "./cards/my-new-feature/dihor-my-new-card";` to `src/index.ts`.
-6.  **Build**: Run `npm run build`.
-
-### đź› ď¸Ź Build & Commands
-
-*   `npm install`: Install dependencies.
-*   `npm run build`: Compiles everything to `dist/dihor-ha-components.js`. Use this before releasing.
-*   `npm run prepare-docs`: Copies runtime bundle and card assets into `docs/` for preview/gh-pages.
-*   `npm run dev`: Builds, prepares the demo documentation, and serves it locally. Best for visual testing.
-*   `npm run lint` / `npm run format`: Keep the code clean!
-
-## đź¤ť Contributing
-
-We welcome contributions!
-1.  Fork the repository.
-2.  Create a feature branch.
-3.  Commit your changes (please follow the existing style).
-4.  Push to the branch.
-5.  Open a Pull Request.
-
-### Commit Messages & Versioning
-This project uses **[Semantic Release](https://github.com/semantic-release/semantic-release)** to automatically generate version numbers and changelogs. Please use **[Conventional Commits](https://www.conventionalcommits.org/)**:
-
-*   `feat: ...` -> Triggers a **Minor** release (e.g., 1.1.0 -> 1.2.0). Used for new features.
-*   `fix: ...` -> Triggers a **Patch** release (e.g., 1.1.0 -> 1.1.1). Used for bug fixes.
-*   `docs: ...`, `style: ...`, `refactor: ...`, `chore: ...` -> No release trigger (usually). Used for maintenance.
-*   `BREAKING CHANGE: ...` in the footer -> Triggers a **Major** release (e.g., 1.0.0 -> 2.0.0).
-
-Example:
-```text
-feat(minecraft): add new player count sensor
+```yaml
+frontend:
+  themes:
+    Dihor Theme:
+      lovelace-background: 'center / cover no-repeat fixed url("/local/backgrounds/global.jpg")'
 ```
 
-## đź“ś License
+### Migration / Migracja
 
-This project is licensed under the **MIT License**.
+PL:
+1. Przenies obraz do `config/www/backgrounds/`.
+2. Zmien stare `background:` z konfiguracji karty na `views[].background` albo `lovelace-background`.
+3. Odswiez frontend Home Assistant.
 
----
-Made with âť¤ď¸Ź by [Pawel Wielga](https://github.com/PawelWielga)
+EN:
+1. Put image into `config/www/backgrounds/`.
+2. Replace old card-level `background:` with `views[].background` or `lovelace-background`.
+3. Refresh Home Assistant frontend.
 
+## Add New Card / Dodawanie nowej karty
+
+1. Utworz katalog `src/cards/my-card`
+2. Dodaj pliki:
+   - `dihor-my-card.ts`
+   - `dihor-my-card.css`
+3. Rozszerz `BaseDihorCard`
+4. Dodaj eksport w `src/index.ts`
+5. Zbuduj projekt `npm run build`
+
+Minimal template:
+
+```ts
+import { html, css, unsafeCSS } from "lit";
+import { BaseDihorCard } from "../../shared/base-card";
+import cardCssStr from "./dihor-my-card.css";
+
+interface MyCardConfig {
+  title?: string;
+}
+
+export class MyCard extends BaseDihorCard<MyCardConfig> {
+  static get styles() {
+    return [super.styles, css`${unsafeCSS(cardCssStr)}`];
+  }
+
+  static getStubConfig() {
+    return { title: "My Card" };
+  }
+
+  static getConfigForm() {
+    return {
+      schema: [{ name: "title", selector: { text: {} } }],
+    };
+  }
+
+  protected renderCard() {
+    return html`<ha-card>${this._config?.title ?? "My Card"}</ha-card>`;
+  }
+}
+
+if (!customElements.get("dihor-my-card")) {
+  customElements.define("dihor-my-card", MyCard);
+}
+```
+
+## Publishing Flow
+
+PL:
+- Runtime artifact: `dist/dihor-ha-components.js`
+- Preview artifact: `docs/` po `npm run prepare-docs`
+
+EN:
+- Runtime artifact: `dist/dihor-ha-components.js`
+- Preview artifact: `docs/` after `npm run prepare-docs`
+
+## Contributing
+
+PL:
+1. Fork repozytorium
+2. Stworz branch
+3. Wprowadz zmiany
+4. Push
+5. Otworz PR
+
+EN:
+1. Fork repository
+2. Create branch
+3. Commit changes
+4. Push branch
+5. Open PR
+
+### Commit Messages / Komunikaty commitow
+
+Use Conventional Commits:
+- `feat:` new features
+- `fix:` bug fixes
+- `docs:`, `refactor:`, `chore:` maintenance changes
+- `BREAKING CHANGE:` major release trigger
+
+## License
+
+MIT

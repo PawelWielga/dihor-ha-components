@@ -2,9 +2,6 @@ import { html, css, unsafeCSS } from "lit";
 import {
   BaseCardConfig,
   BaseDihorCard,
-  getBackgroundConfigHelper,
-  getBackgroundConfigLabel,
-  getBackgroundConfigSchema,
 } from "../../shared/base-card";
 import cardCssStr from "./dihor-toggle-button-card.css";
 
@@ -77,8 +74,7 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
               }
             }
           ]
-        },
-        ...getBackgroundConfigSchema()
+        }
       ],
       computeLabel: (schema: any) => {
         switch (schema.name) {
@@ -88,8 +84,6 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
           case "show_label_under": return "Show Label Under Button";
           case "active_color": return "Active Color";
         }
-        const backgroundLabel = getBackgroundConfigLabel(schema.name);
-        if (backgroundLabel) return backgroundLabel;
         return undefined;
       },
       computeHelper: (schema: any) => {
@@ -100,8 +94,6 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
           case "show_label_under": return "Display label below the button instead of inside";
           case "active_color": return "Active Color (Background & Border)";
         }
-        const backgroundHelper = getBackgroundConfigHelper(schema.name);
-        if (backgroundHelper) return backgroundHelper;
         return undefined;
       }
     };

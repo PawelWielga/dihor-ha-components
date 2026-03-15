@@ -2,9 +2,6 @@ import { html, css, unsafeCSS } from "lit";
 import {
   BaseCardConfig,
   BaseDihorCard,
-  getBackgroundConfigHelper,
-  getBackgroundConfigLabel,
-  getBackgroundConfigSchema,
 } from "../../shared/base-card";
 
 // Import CSS as string (handled by rollup-plugin-string)
@@ -67,14 +64,11 @@ export class MinecraftCard extends BaseDihorCard<MinecraftCardConfig> {
           selector: {
             text: {}
           }
-        },
-        ...getBackgroundConfigSchema()
+        }
       ],
       computeLabel: (schema: any) => {
         if (schema.name === "entity_prefix") return "Entity Prefix";
         if (schema.name === "title") return "Card Title";
-        const backgroundLabel = getBackgroundConfigLabel(schema.name);
-        if (backgroundLabel) return backgroundLabel;
         return undefined;
       },
       computeHelper: (schema: any) => {
@@ -84,8 +78,6 @@ export class MinecraftCard extends BaseDihorCard<MinecraftCardConfig> {
         if (schema.name === "title") {
           return "Optional title for the card (defaults to 'Minecraft Server')";
         }
-        const backgroundHelper = getBackgroundConfigHelper(schema.name);
-        if (backgroundHelper) return backgroundHelper;
         return undefined;
       }
     };
