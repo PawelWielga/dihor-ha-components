@@ -155,6 +155,38 @@
           <pre id="yaml-output">Wybierz kartę, aby zobaczyć YAML.</pre>
         </div>
 
+        <div class="info-card guide-card">
+          <div class="info-card-header">
+            <h3 id="bg-guide-title">Ustawianie tła (nowa metoda)</h3>
+            <p id="bg-guide-description">Tło ustawiamy w konfiguracji HA, nie w konfiguracji karty.</p>
+          </div>
+          <ol id="bg-guide-steps">
+            <li>Wrzuć obraz do <code>config/www/backgrounds/</code>.</li>
+            <li>Dla jednego widoku ustaw <code>views[].background</code>.</li>
+            <li>Dla całego dashboardu ustaw <code>lovelace-background</code> w motywie.</li>
+          </ol>
+          <div class="snippet-header">
+            <p id="bg-guide-view-label">Przykład (per view):</p>
+            <button class="copy-yaml-btn" data-target="bg-guide-view-yaml" id="copy-view-yaml">Kopiuj YAML</button>
+          </div>
+          <pre id="bg-guide-view-yaml">views:
+  - title: Home
+    path: home
+    background: center / cover no-repeat fixed url("/local/backgrounds/home.jpg")
+    cards:
+      - type: custom:dihor-clock-card
+        size: 2</pre>
+          <div class="snippet-header">
+            <p id="bg-guide-theme-label">Przykład (theme globalny):</p>
+            <button class="copy-yaml-btn" data-target="bg-guide-theme-yaml" id="copy-theme-yaml">Kopiuj YAML</button>
+          </div>
+          <pre id="bg-guide-theme-yaml">frontend:
+  themes:
+    Dihor Theme:
+      lovelace-background: 'center / cover no-repeat fixed url("/local/backgrounds/global.jpg")'</pre>
+          <p class="info-note" id="bg-guide-migration">Stare <code>background:</code> w karcie nie jest już wspierane.</p>
+        </div>
+
         <footer class="version-footer">
           <span id="version-label">Wersja</span>: <span id="docs-version">?</span>
         </footer>
@@ -187,6 +219,19 @@
         yamlTitle: 'Konfiguracja YAML',
         yamlHint: 'Kliknij kartę po lewej, aby zobaczyć przykładową konfigurację.',
         yamlPlaceholder: 'Wybierz kartę, aby zobaczyć YAML.',
+        bgGuideTitle: 'Ustawianie tła (nowa metoda)',
+        bgGuideDescription: 'Tło ustawiamy w konfiguracji HA, nie w konfiguracji karty.',
+        bgGuideSteps: [
+          'Wrzuć obraz do config/www/backgrounds/.',
+          'Dla jednego widoku ustaw views[].background.',
+          'Dla całego dashboardu ustaw lovelace-background w motywie.',
+        ],
+        bgGuideViewLabel: 'Przykład (per view):',
+        bgGuideThemeLabel: 'Przykład (theme globalny):',
+        bgGuideMigration: 'Stare background: w karcie nie jest już wspierane.',
+        copyYaml: 'Kopiuj YAML',
+        copyYamlDone: 'Skopiowano',
+        copyYamlError: 'Błąd kopiowania',
       },
       en: {
         comingSoon: 'More components coming soon!',
@@ -206,6 +251,19 @@
         yamlTitle: 'YAML configuration',
         yamlHint: 'Select a card on the left to preview its sample YAML.',
         yamlPlaceholder: 'Select a card to inspect the YAML.',
+        bgGuideTitle: 'Dashboard background (new method)',
+        bgGuideDescription: 'Set background in Home Assistant config, not in card config.',
+        bgGuideSteps: [
+          'Upload image to config/www/backgrounds/.',
+          'For one view, set views[].background.',
+          'For whole dashboard, set lovelace-background in active theme.',
+        ],
+        bgGuideViewLabel: 'Example (per view):',
+        bgGuideThemeLabel: 'Example (global theme):',
+        bgGuideMigration: 'Old card-level background: config is no longer supported.',
+        copyYaml: 'Copy YAML',
+        copyYamlDone: 'Copied',
+        copyYamlError: 'Copy failed',
       },
     };
 
@@ -218,6 +276,13 @@
     const hacsStepsEl = document.getElementById('hacs-steps');
     const hacsNoteEl = document.getElementById('hacs-note');
     const versionLabelEl = document.getElementById('version-label');
+    const bgGuideTitleEl = document.getElementById('bg-guide-title');
+    const bgGuideDescriptionEl = document.getElementById('bg-guide-description');
+    const bgGuideStepsEl = document.getElementById('bg-guide-steps');
+    const bgGuideViewLabelEl = document.getElementById('bg-guide-view-label');
+    const bgGuideThemeLabelEl = document.getElementById('bg-guide-theme-label');
+    const bgGuideMigrationEl = document.getElementById('bg-guide-migration');
+    const copyYamlButtons = document.querySelectorAll('.copy-yaml-btn');
 
     let currentTheme = localStorage.getItem('theme') || 'light';
     let currentLang = localStorage.getItem('lang') || 'pl';
@@ -397,6 +462,14 @@
       if (yamlTitleEl) yamlTitleEl.textContent = t.yamlTitle;
       if (yamlHintEl) yamlHintEl.textContent = t.yamlHint;
       if (versionLabelEl) versionLabelEl.textContent = t.versionLabel;
+      if (bgGuideTitleEl) bgGuideTitleEl.textContent = t.bgGuideTitle;
+      if (bgGuideDescriptionEl) bgGuideDescriptionEl.textContent = t.bgGuideDescription;
+      if (bgGuideViewLabelEl) bgGuideViewLabelEl.textContent = t.bgGuideViewLabel;
+      if (bgGuideThemeLabelEl) bgGuideThemeLabelEl.textContent = t.bgGuideThemeLabel;
+      if (bgGuideMigrationEl) bgGuideMigrationEl.textContent = t.bgGuideMigration;
+      copyYamlButtons.forEach((btn) => {
+        btn.textContent = t.copyYaml;
+      });
       if (hacsStepsEl) {
         hacsStepsEl.innerHTML = '';
         t.hacsSteps.forEach((step) => {
@@ -405,11 +478,62 @@
           hacsStepsEl.appendChild(li);
         });
       }
+      if (bgGuideStepsEl) {
+        bgGuideStepsEl.innerHTML = '';
+        t.bgGuideSteps.forEach((step) => {
+          const li = document.createElement('li');
+          li.textContent = step;
+          bgGuideStepsEl.appendChild(li);
+        });
+      }
       const comingText = document.querySelector('.coming-soon-text');
       if (comingText) comingText.textContent = t.comingSoon;
       const comingSubtitle = document.querySelector('.coming-soon-subtitle');
       if (comingSubtitle) comingSubtitle.textContent = t.comingSoonSub;
       updateYamlOutput(activeCard);
+    }
+
+    async function copyTextToClipboard(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      const success = document.execCommand('copy');
+      document.body.removeChild(textArea);
+      if (!success) throw new Error('execCommand copy failed');
+    }
+
+    function setupCopyButtons() {
+      copyYamlButtons.forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const targetId = btn.getAttribute('data-target');
+          if (!targetId) return;
+          const pre = document.getElementById(targetId);
+          if (!pre) return;
+          try {
+            await copyTextToClipboard(pre.textContent || '');
+            const original = translations[currentLang].copyYaml;
+            btn.textContent = translations[currentLang].copyYamlDone;
+            window.setTimeout(() => {
+              btn.textContent = original;
+            }, 1200);
+          } catch (error) {
+            console.warn('Copy failed', error);
+            const original = translations[currentLang].copyYaml;
+            btn.textContent = translations[currentLang].copyYamlError;
+            window.setTimeout(() => {
+              btn.textContent = original;
+            }, 1400);
+          }
+        });
+      });
     }
 
     function setupLanguageToggle() {
@@ -463,6 +587,7 @@
       window.__cardsBasePath = isLocal ? '/cards' : './cards';
 
       setupThemeToggle();
+      setupCopyButtons();
       displayDocsVersion();
       resolveManifestPromise().then((cards) => {
         if (cards && cards.length) {

@@ -448,6 +448,56 @@ body.dark #hacs-steps {
   border: 1px solid rgba(148, 163, 184, 0.3);
 }
 
+.guide-card pre {
+  background: #020617;
+  border-radius: 12px;
+  padding: 0.9rem;
+  color: #e2e8f0;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.82rem;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  margin-top: 0.45rem;
+}
+
+#bg-guide-steps {
+  margin: 0.5rem 0 0 1.1rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+body.dark #bg-guide-steps {
+  color: #cbd5f5;
+}
+
+.snippet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-top: 0.55rem;
+}
+
+.snippet-header p {
+  margin: 0;
+}
+
+.copy-yaml-btn {
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  background: rgba(15, 23, 42, 0.72);
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.copy-yaml-btn:hover {
+  border-color: rgba(56, 189, 248, 0.8);
+}
+
 .version-footer {
   text-align: right;
   color: rgba(255, 255, 255, 0.75);
