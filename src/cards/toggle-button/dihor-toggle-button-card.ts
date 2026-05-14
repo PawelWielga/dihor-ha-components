@@ -116,6 +116,9 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
 
   private async toggleEntity() {
     if (!this._config?.entity) return;
+    const stateObj = this.hass.states[this._config.entity];
+    if (!stateObj || stateObj.state === "unavailable" || stateObj.state === "unknown") return;
+
     try {
       await this.hass.callService("homeassistant", "toggle", {
         entity_id: this._config.entity,
@@ -139,12 +142,12 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
       "mdi:toggle-switch";
 
     const isOn = stateObj?.state === "on";
+    const isUnavailable = !stateObj || stateObj.state === "unavailable" || stateObj.state === "unknown";
     const showLabelUnder = this._config.show_label_under ?? false;
     const activeColor = this.getSafeColor(this._config.active_color);
     const customStyle = activeColor
       ? {
         "--dihor-toggle-active-color": activeColor,
-        "--dihor-toggle-active-glow": `${activeColor}66`,
       }
       : {};
 
@@ -153,11 +156,12 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
         <div class="glass-button-wrapper">
           <button
             type="button"
-            class="glass-button ${isOn ? 'pressed' : ''} ${showLabelUnder ? 'has-label-under' : 'has-inline-label'}"
+            class="glass-button ${isOn ? 'pressed' : ''} ${isUnavailable ? 'unavailable' : ''} ${showLabelUnder ? 'has-label-under' : 'has-inline-label'}"
             style=${styleMap(customStyle)}
             @click=${this.toggleEntity}
             aria-label=${label || fallbackLabel}
             aria-pressed=${isOn ? "true" : "false"}
+            ?disabled=${isUnavailable}
           >
             ${icon ? html`<ha-icon icon="${icon}" class="glass-icon"></ha-icon>` : nothing}
             ${!showLabelUnder && label ? html`<span class="glass-label-inside">${label}</span>` : nothing}
@@ -176,10 +180,10 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
   getGridOptions() {
     return {
       rows: 1,
-      columns: 2,
+      columns: 3,
       min_rows: 1,
-      min_columns: 1,
-      max_columns: 4,
+      min_columns: 3,
+      max_columns: 6,
     };
   }
 
