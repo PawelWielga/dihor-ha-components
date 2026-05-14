@@ -4,6 +4,7 @@
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
+  width: 100%;
 }
 
 .glass-button-wrapper {
@@ -19,17 +20,30 @@
   width: 100%;
   max-width: 128px;
   aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  appearance: none;
+  padding: 0;
   cursor: pointer;
+  color: var(--dihor-toggle-icon-color);
+  border-radius: 24px;
+  touch-action: manipulation;
 }
 
 .glass-button:hover {
-  transform: scale(1.05);
-  /* Specific scaling for button */
+  transform: translateY(-1px) scale(1.03);
 }
 
 .glass-button.pressed {
-  /* Specific styling for pressed toggle button */
-  transform: scale(0.95);
+  transform: scale(0.97);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--dihor-toggle-active-color) 35%, transparent),
+    0 16px 36px var(--dihor-toggle-active-glow);
+}
+
+.glass-button:focus-visible {
+  outline: 2px solid var(--dihor-focus-ring);
+  outline-offset: 3px;
 }
 
 
@@ -38,41 +52,43 @@
   font-size: 2.5rem;
   width: 40px;
   height: 40px;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--dihor-toggle-icon-color);
   transition: color 0.3s ease;
   z-index: 1;
 }
 
 .glass-button.pressed .glass-icon {
-  color: rgb(167, 243, 255);
-  /* cyan-300 */
+  color: var(--dihor-toggle-active-color);
 }
 
 /* Label inside button (when no icon) */
 .glass-label-inside {
   font-size: 1.125rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--dihor-toggle-label-color);
   transition: color 0.3s ease;
   z-index: 1;
+  max-width: calc(100% - 16px);
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .glass-button.pressed .glass-label-inside {
-  color: rgb(207, 250, 254);
-  /* cyan-200 */
+  color: var(--dihor-toggle-active-color);
 }
 
 /* Label under button */
 .glass-label-under {
   font-size: 1rem;
   font-weight: 500;
-  letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0;
+  color: var(--dihor-toggle-label-color);
   transition: color 0.3s ease;
+  max-width: 100%;
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .glass-button.pressed~.glass-label-under {
-  color: rgb(167, 243, 255);
-  /* cyan-300 */
+  color: var(--dihor-toggle-active-color);
 }

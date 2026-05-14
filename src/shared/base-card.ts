@@ -2,8 +2,7 @@ import { LitElement, html, CSSResultGroup, css, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import themeCss from './styles/theme.css';
 import coreCss from './styles/core.css';
-import fontCss from './styles/font.css';
-import type { HomeAssistant, LovelaceCard } from '../../types/home-assistant';
+import type { HomeAssistant, LovelaceCard, LovelaceGridOptions } from '../../types/home-assistant';
 
 export interface BaseCardConfig {
   [key: string]: unknown;
@@ -28,7 +27,6 @@ export abstract class BaseDihorCard<ConfigType extends BaseCardConfig> extends L
     return css`
       ${unsafeCSS(themeCss)}
       ${unsafeCSS(coreCss)}
-      ${unsafeCSS(fontCss)}
     `;
   }
 
@@ -49,5 +47,13 @@ export abstract class BaseDihorCard<ConfigType extends BaseCardConfig> extends L
   public getCardSize(): number {
     return 1;
   }
-}
 
+  public getGridOptions(): LovelaceGridOptions {
+    return {
+      rows: 2,
+      columns: 6,
+      min_rows: 1,
+      min_columns: 3,
+    };
+  }
+}

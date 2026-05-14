@@ -3,6 +3,7 @@ import {
   BaseCardConfig,
   BaseDihorCard,
 } from '../../shared/base-card';
+import { registerCustomCard } from '../../shared/custom-card-registry';
 import cardCssStr from "./dihor-person-card.css";
 
 export interface PersonCardConfig extends BaseCardConfig {
@@ -19,9 +20,7 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
   }
 
   setConfig(config: PersonCardConfig) {
-    if (!config.entity) {
-      throw new Error('Entity is required');
-    }
+    PersonCard.validateConfig(config);
     super.setConfig(config);
   }
 
@@ -51,6 +50,9 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
       computeHelper: (schema: any) => {
         if (schema.name === "entity") return "Select the person entity to display";
         return undefined;
+      },
+      assertConfig: (config: PersonCardConfig) => {
+        PersonCard.validateConfig(config);
       }
     };
   }
@@ -88,15 +90,29 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
   getCardSize() {
     return 1;
   }
+
+  getGridOptions() {
+    return {
+      rows: 2,
+      columns: 3,
+      min_rows: 2,
+      min_columns: 3,
+      max_columns: 6,
+    };
+  }
+
+  private static validateConfig(config: PersonCardConfig) {
+    if (!config.entity || typeof config.entity !== "string") {
+      throw new Error('Entity is required');
+    }
+  }
 }
 
 if (!customElements.get('dihor-person-card')) {
   customElements.define('dihor-person-card', PersonCard);
 }
 
-// Register for Lovelace editor preview and HACS UI
-; (window as any).customCards = (window as any).customCards || [];
-; (window as any).customCards.push({
+registerCustomCard({
   type: 'dihor-person-card',
   name: 'Dihor Person Card',
   preview: true,

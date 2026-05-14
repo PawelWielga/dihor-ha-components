@@ -4,47 +4,91 @@ Podstawowe zasady pracy agentów w repozytorium `dihor-ha-components`.
 
 ## 1) Kontekst projektu
 - Projekt: `dihor-ha-components`
-- Stack: TypeScript + Lit + Rollup
+- Cel: biblioteka custom cards dla Home Assistant.
+- Stack: TypeScript + Lit + Rollup.
+- Typ dystrybucji: moduł ES dla HACS/Home Assistant.
 - Główne artefakty:
   - runtime: `dist/dihor-ha-components.js`
   - preview/docs: `docs/`
-- BMAD output: `_bmad-output/`
+  - manifest HACS: `hacs.json`
 
 ## 2) Język i styl komunikacji
-- Komunikacja z użytkownikiem: **Polski**
-- Styl: konkretny, krótki, techniczny
-- Zmiany w dokumentach mogą być po angielsku, jeśli wynika to z kontekstu pliku
+- Komunikacja z użytkownikiem: **Polski**.
+- Styl: konkretny, krótki, techniczny.
+- Zmiany w dokumentach mogą być po angielsku, jeśli wynika to z kontekstu pliku.
+- Dokumentacja user-facing powinna pozostać dwujęzyczna: **Polski + English**.
 
-## 2a) Standard dokumentacji (PL + EN)
-- Dokumentacja user-facing (minimum: `README.md`, instrukcje instalacji, konfiguracji i migracji) ma być prowadzona dwujęzycznie: **Polski + English**.
-- Przy dodawaniu nowej sekcji należy dodać obie wersje językowe tej samej treści.
-- Przy edycji istniejącej sekcji należy zsynchronizować obie wersje, aby nie rozjeżdżały się merytorycznie.
+## 3) Architektura i ważne pliki
+- Entry point: `src/index.ts`.
+- Wspólna baza kart: `src/shared/base-card.ts`.
+- Typy Home Assistant: `types/home-assistant.d.ts`.
+- Import CSS jako string: `types/raw.d.ts` + `rollup-plugin-string`.
+- Globalne style:
+  - `src/shared/styles/theme.css`
+  - `src/shared/styles/core.css`
+  - `src/shared/styles/font.css`
+- Karty:
+  - `src/cards/clock/dihor-clock-card.ts`
+  - `src/cards/minecraft/dihor-minecraft-card.ts`
+  - `src/cards/person/dihor-person-card.ts`
+  - `src/cards/toggle-button/dihor-toggle-button-card.ts`
+- Manifest preview/docs: `src/cards/cards-docs.json`.
+- Skrypty operacyjne: `scripts/*`.
 
-## 3) Szybki start BMAD
-1. Uruchom: `bmad-init`
-2. Gdy nie wiesz co dalej: użyj `bmad-help` z pytaniem o następny krok
-3. Do zmian implementacyjnych (kod/refactor/fix): preferuj `bmad-quick-dev-new-preview`
+## 4) Zasady implementacji
+- Wprowadzaj zmiany minimalne i zgodne z istniejącą strukturą.
+- Nie przebudowuj architektury bez wyraźnej prośby.
+- Nie cofaj zmian użytkownika bez zgody.
+- Nowe karty dodawaj jako osobny katalog w `src/cards/<nazwa>/`.
+- Każda karta powinna:
+  - rozszerzać `BaseDihorCard`
+  - definiować custom element tylko, gdy jeszcze nie istnieje
+  - mieć własny plik CSS importowany jako string
+  - zostać zaimportowana i wyeksportowana w `src/index.ts`
+  - zostać dopisana do `src/cards/cards-docs.json`, jeśli ma być widoczna w preview
+- Nie edytuj ręcznie wygenerowanych artefaktów, jeśli zmiana powinna powstać przez `npm run build` albo `npm run prepare-docs`.
 
-## 4) Zakres odpowiedzialności agenta
-- Wprowadzaj zmiany minimalne, celowane i zgodne z istniejącą strukturą projektu
-- Nie przebudowuj architektury bez wyraźnej prośby
-- Nie cofaj zmian użytkownika bez zgody
-- Weryfikuj rezultat komendami projektu przed zakończeniem zadania
+## 5) Dokumentacja i preview
+- `README.md` oraz instrukcje instalacji/konfiguracji/migracji prowadź dwujęzycznie: PL + EN.
+- Przy dodawaniu nowej sekcji dokumentacji dodaj obie wersje językowe tej samej treści.
+- Przy edycji istniejącej sekcji zsynchronizuj PL i EN merytorycznie.
+- `npm run prepare-docs` kopiuje:
+  - `dist/dihor-ha-components.js` do `docs/dihor-ha-components.js`
+  - manifest kart do `docs/cards/cards-docs.json`
+  - CSS kart i style współdzielone do `docs/cards/`
+  - `docs/version.json` oraz `docs/.nojekyll`
+- Po zmianach w manifestach lub preview sprawdź `npm run check-docs-manifest`.
 
-## 5) Standard weryfikacji zmian
-Po zmianach uruchom (jeśli dotyczy):
+## 6) Komendy projektu
+- Instalacja zależności: `npm install`.
+- Lint: `npm run lint`.
+- Build runtime: `npm run build`.
+- Przygotowanie docs: `npm run prepare-docs`.
+- Walidacja assets docs: `npm run check-docs-manifest`.
+- Lokalny preview: `npm run preview`.
+- Dev preview: `npm run dev`.
+- Formatowanie kodu: `npm run format`.
+
+## 7) Standard weryfikacji zmian
+Po zmianach uruchom, jeśli dotyczy:
 1. `npm run lint`
 2. `npm run build`
 3. `npm run prepare-docs`
+4. `npm run check-docs-manifest`
 
-## 6) Gdzie pracować
-- Kod kart: `src/cards/*`
-- Warstwa współdzielona: `src/shared/*`
-- Skrypty operacyjne: `scripts/*`
-- Dokumentacja i preview: `docs/*`
-- Konfiguracja BMAD: `_bmad/*` i `.agents/skills/*`
+Dla zmian wyłącznie w dokumentacji lub instrukcjach repozytorium wystarczy weryfikacja zakresu diffa i brak niechcianych referencji.
 
-## 7) Definition of Done (minimum)
-- Zmiana działa i nie łamie builda
-- README/dokumentacja zaktualizowane, jeśli zmiana wpływa na użycie
-- Zmiany są czytelne i gotowe do review
+## 8) Gdzie pracować
+- Kod kart: `src/cards/*`.
+- Warstwa współdzielona: `src/shared/*`.
+- Typy: `types/*`.
+- Skrypty operacyjne: `scripts/*`.
+- Dokumentacja i preview: `docs/*`, `README.md`.
+- Build/release config: `rollup.config.js`, `tsconfig.json`, `.eslintrc.json`, `.releaserc.json`, `hacs.json`.
+
+## 9) Definition of Done
+- Zmiana działa i nie łamie builda, jeśli dotyczy kodu runtime.
+- README/docs są zaktualizowane, jeśli zmiana wpływa na użycie.
+- Manifest preview jest zsynchronizowany z kartami, jeśli zmiana dotyczy listy kart.
+- Wygenerowane artefakty są odświeżone tylko wtedy, gdy wymagają tego zmiany.
+- Zmiany są czytelne i gotowe do review.

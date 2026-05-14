@@ -4,6 +4,7 @@ import {
   BaseCardConfig,
   BaseDihorCard,
 } from "../../shared/base-card";
+import { registerCustomCard } from "../../shared/custom-card-registry";
 import cardCssStr from "./dihor-clock-card.css";
 
 export interface ClockCardConfig extends BaseCardConfig {
@@ -48,8 +49,19 @@ export class ClockCard extends BaseDihorCard<ClockCardConfig> {
       computeHelper: (schema: any) => {
         if (schema.name === "size") return "Size of the clock display (1-5, default: 2)";
         return undefined;
+      },
+      assertConfig: (config: ClockCardConfig) => {
+        ClockCard.validateConfig(config);
       }
     };
+  }
+
+  setConfig(config: ClockCardConfig) {
+    ClockCard.validateConfig(config);
+    super.setConfig({
+      ...config,
+      size: ClockCard.normalizeSize(config.size),
+    });
   }
 
   connectedCallback() {
@@ -79,7 +91,7 @@ export class ClockCard extends BaseDihorCard<ClockCardConfig> {
 
   protected renderCard() {
     return html`
-      <ha-card class="clock-card glass-card" style="font-size: ${this.getCardSize() * 2}rem;">
+      <ha-card class="clock-card glass-card" style="--dihor-clock-scale: ${this.getClockScale()};">
         <div class="glass-shine"></div>
         <div class="card-content">
            <div class="clock-face">
@@ -93,15 +105,46 @@ export class ClockCard extends BaseDihorCard<ClockCardConfig> {
   getCardSize() {
     return this._config?.size ?? 2;
   }
+
+  getGridOptions() {
+    const rows = Math.max(2, Math.ceil(this.getCardSize()));
+    return {
+      rows,
+      columns: 6,
+      min_rows: 2,
+      max_rows: 5,
+      min_columns: 3,
+      max_columns: 12,
+    };
+  }
+
+  private getClockScale() {
+    return ClockCard.normalizeSize(this._config?.size);
+  }
+
+  private static normalizeSize(size: unknown): number {
+    if (size === undefined || size === null || size === "") return 2;
+    const numericSize = Number(size);
+    if (!Number.isFinite(numericSize)) return 2;
+    return Math.min(5, Math.max(1, numericSize));
+  }
+
+  private static validateConfig(config: ClockCardConfig) {
+    const size = config.size as unknown;
+    if (size === undefined || size === null || size === "") return;
+
+    const numericSize = Number(size);
+    if (!Number.isFinite(numericSize) || numericSize < 1 || numericSize > 5) {
+      throw new Error("size must be a number between 1 and 5");
+    }
+  }
 }
 
 if (!customElements.get('dihor-clock-card')) {
   customElements.define('dihor-clock-card', ClockCard);
 }
 
-// Register for Lovelace editor preview and HACS UI
-; (window as any).customCards = (window as any).customCards || [];
-; (window as any).customCards.push({
+registerCustomCard({
   type: 'dihor-clock-card',
   name: 'Dihor Clock Card',
   preview: true,

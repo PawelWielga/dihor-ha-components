@@ -13,9 +13,19 @@ export interface HomeAssistant {
   ): Promise<void>;
 }
 
+export interface LovelaceGridOptions {
+  rows?: number;
+  min_rows?: number;
+  max_rows?: number;
+  columns?: number | 'full';
+  min_columns?: number;
+  max_columns?: number;
+}
+
 export interface LovelaceCard {
   readonly card: HTMLElement;
   readonly hass: HomeAssistant;
   setConfig(config: any): void;
   getCardSize(): number;
+  getGridOptions?(): LovelaceGridOptions;
 }

@@ -3,6 +3,7 @@ import {
   BaseCardConfig,
   BaseDihorCard,
 } from "../../shared/base-card";
+import { registerCustomCard } from "../../shared/custom-card-registry";
 
 // Import CSS as string (handled by rollup-plugin-string)
 import coreCss from "../../shared/styles/core.css";
@@ -79,8 +80,27 @@ export class MinecraftCard extends BaseDihorCard<MinecraftCardConfig> {
           return "Optional title for the card (defaults to 'Minecraft Server')";
         }
         return undefined;
+      },
+      assertConfig: (config: MinecraftCardConfig) => {
+        MinecraftCard.validateConfig(config);
       }
     };
+  }
+
+  getGridOptions() {
+    return {
+      rows: 3,
+      columns: 6,
+      min_rows: 3,
+      min_columns: 3,
+      max_columns: 12,
+    };
+  }
+
+  private static validateConfig(config: MinecraftCardConfig) {
+    if (!config.entity_prefix || typeof config.entity_prefix !== "string") {
+      throw new Error("entity_prefix is required");
+    }
   }
 
   protected renderCard() {
@@ -118,7 +138,7 @@ export class MinecraftCard extends BaseDihorCard<MinecraftCardConfig> {
         <div class="glass-shine"></div>
         <div class="dihor-card-header">
           <div class="dihor-card-title">
-             <span class="dihor-icon">🎮</span> ${this._config.title || "Minecraft Server"}
+             <ha-icon class="dihor-icon" icon="mdi:minecraft"></ha-icon> ${this._config.title || "Minecraft Server"}
           </div>
           <div id="status" class="dihor-badge ${statusClass}">${statusText}</div>
         </div>
@@ -157,9 +177,7 @@ if (!customElements.get("dihor-minecraft-card")) {
   customElements.define("dihor-minecraft-card", MinecraftCard);
 }
 
-// Register for Lovelace editor preview and HACS UI
-; (window as any).customCards = (window as any).customCards || [];
-; (window as any).customCards.push({
+registerCustomCard({
   type: 'dihor-minecraft-card',
   name: 'Dihor Minecraft Card',
   preview: true,

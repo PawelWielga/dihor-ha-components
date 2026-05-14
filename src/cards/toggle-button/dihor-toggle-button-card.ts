@@ -1,8 +1,10 @@
-import { html, css, unsafeCSS } from "lit";
+import { html, css, unsafeCSS, nothing } from "lit";
+import { styleMap } from "lit/directives/style-map.js";
 import {
   BaseCardConfig,
   BaseDihorCard,
 } from "../../shared/base-card";
+import { registerCustomCard } from "../../shared/custom-card-registry";
 import cardCssStr from "./dihor-toggle-button-card.css";
 
 export interface ToggleButtonCardConfig extends BaseCardConfig {
@@ -19,10 +21,12 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
     return [
       super.styles,
       css`${unsafeCSS(cardCssStr)}`,
-      // Dynamic styles need to be handled differently in Lit or via style map,
-      // but for now we can inline them in render or use a host style.
-      // Or we can simple keep them in render properties.
     ];
+  }
+
+  setConfig(config: ToggleButtonCardConfig) {
+    ToggleButtonCard.validateConfig(config);
+    super.setConfig(config);
   }
 
   static getStubConfig() {
@@ -95,6 +99,9 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
           case "active_color": return "Active Color (Background & Border)";
         }
         return undefined;
+      },
+      assertConfig: (config: ToggleButtonCardConfig) => {
+        ToggleButtonCard.validateConfig(config);
       }
     };
   }
@@ -125,38 +132,34 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
 
     const isOn = stateObj?.state === "on";
     const showLabelUnder = this._config.show_label_under ?? false;
-
-    // Dynamic color styles (optional override)
-    const activeColor = this._config.active_color;
-
-    let customStyle = "";
-    if (isOn && activeColor) {
-      customStyle = `background:${activeColor}; border-color:${activeColor}; box-shadow: 0 0 15px ${activeColor}66;`;
-    }
+    const activeColor = this.getSafeColor(this._config.active_color);
+    const customStyle = activeColor
+      ? {
+        "--dihor-toggle-active-color": activeColor,
+        "--dihor-toggle-active-glow": `${activeColor}66`,
+      }
+      : {};
 
     return html`
       <ha-card class="glass-button-container">
         <div class="glass-button-wrapper">
           <button 
             class="glass-card glass-button ${isOn ? 'pressed' : ''}"
-            style="${customStyle}"
+            style=${styleMap(customStyle)}
             @click=${this.toggleEntity}
+            aria-label=${label}
+            aria-pressed=${isOn ? "true" : "false"}
           >
-            <!-- Gradient overlay for glass effect -->
             <div class="glass-shine"></div>
             
-            <!-- Active glow effect -->
-            ${isOn ? html`<div class="glass-glow"></div>` : ''}
+            ${isOn ? html`<div class="glass-glow"></div>` : nothing}
             
-            <!-- Icon -->
-            ${icon ? html`<ha-icon icon="${icon}" class="glass-icon"></ha-icon>` : ''}
+            ${icon ? html`<ha-icon icon="${icon}" class="glass-icon"></ha-icon>` : nothing}
             
-            <!-- Label inside button (if not showing under) -->
-            ${!showLabelUnder && label && !icon ? html`<span class="glass-label-inside">${label}</span>` : ''}
+            ${!showLabelUnder && label && !icon ? html`<span class="glass-label-inside">${label}</span>` : nothing}
           </button>
 
-          <!-- Label under button -->
-          ${showLabelUnder && label ? html`<span class="glass-label-under">${label}</span>` : ''}
+          ${showLabelUnder && label ? html`<span class="glass-label-under">${label}</span>` : nothing}
         </div>
       </ha-card>
     `;
@@ -165,15 +168,38 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
   getCardSize() {
     return 2;
   }
+
+  getGridOptions() {
+    return {
+      rows: 2,
+      columns: 3,
+      min_rows: 2,
+      min_columns: 3,
+      max_columns: 6,
+    };
+  }
+
+  private getSafeColor(color: string | undefined) {
+    if (!color) return undefined;
+    return CSS.supports("color", color) ? color : undefined;
+  }
+
+  private static validateConfig(config: ToggleButtonCardConfig) {
+    if (!config.entity || typeof config.entity !== "string") {
+      throw new Error("entity is required");
+    }
+
+    if (config.active_color && !CSS.supports("color", config.active_color)) {
+      throw new Error("active_color must be a valid CSS color");
+    }
+  }
 }
 
 if (!customElements.get("dihor-toggle-button-card")) {
   customElements.define("dihor-toggle-button-card", ToggleButtonCard);
 }
 
-// Register for Lovelace editor preview and HACS UI
-; (window as any).customCards = (window as any).customCards || [];
-; (window as any).customCards.push({
+registerCustomCard({
   type: "dihor-toggle-button-card",
   name: "Dihor Toggle Button Card",
   preview: true,
