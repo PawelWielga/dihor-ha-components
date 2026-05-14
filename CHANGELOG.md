@@ -1,3 +1,10 @@
+## [4.0.2](https://github.com/PawelWielga/dihor-ha-components/compare/v4.0.1...v4.0.2) (2026-05-14)
+
+
+### Bug Fixes
+
+* **ui:** improve toggle button states ([8b64a05](https://github.com/PawelWielga/dihor-ha-components/commit/8b64a05b2e83ac1c34597ff2e9fed469c9aec2a0))
+
 ## [4.0.1](https://github.com/PawelWielga/dihor-ha-components/compare/v4.0.0...v4.0.1) (2026-03-14)
 
 
