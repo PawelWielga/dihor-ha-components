@@ -5,6 +5,7 @@
 }
 
 ha-card {
+  display: block;
   box-sizing: border-box;
   color: var(--dihor-title-color);
 }
@@ -17,7 +18,7 @@ ha-card {
   -webkit-backdrop-filter: blur(var(--dihor-glass-blur)) saturate(145%);
   border-radius: var(--dihor-card-border-radius);
   box-sizing: border-box;
-  padding: 18px;
+  padding: var(--dihor-card-padding);
   box-shadow: var(--dihor-card-shadow);
   border: var(--dihor-card-border-size) solid var(--dihor-card-border-color);
 }
@@ -73,7 +74,7 @@ ha-card {
       transparent 72%);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.9;
+  opacity: var(--dihor-shine-opacity);
 }
 
 @supports not (background: color-mix(in srgb, white, black)) {

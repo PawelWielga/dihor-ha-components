@@ -1,10 +1,10 @@
 .clock-card {
   width: 100%;
-  min-height: 120px;
+  min-height: var(--dihor-clock-min-height);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: var(--dihor-card-padding);
 }
 
 .clock-face,
@@ -18,7 +18,7 @@
 
 .time-display,
 .dihor-digital-clock {
-  font-size: calc(1.4rem + (var(--dihor-clock-scale, 2) * 0.55rem));
+  font-size: calc(1.25rem + (var(--dihor-clock-scale, 2) * var(--dihor-clock-scale-step)));
   font-weight: 600;
   letter-spacing: 0;
   color: var(--dihor-title-color);

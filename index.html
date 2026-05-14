@@ -14,9 +14,7 @@
 
   <!-- Dołączenie CSS komponentów -->
   <script>
-    const isLocal =
-      location.hostname === 'localhost' || location.protocol === 'file:';
-    const basePath = isLocal ? '/cards' : './cards';
+    const basePath = './cards';
     const manifestPath = `${basePath}/cards-docs.json`;
     window.__cardsBasePath = basePath;
     window.__cardsManifestPromise = fetch(manifestPath)
@@ -47,6 +45,36 @@
       class HuiView extends HTMLElement { }
       customElements.define('hui-view', HuiView);
     }
+
+    // Minimal Home Assistant icon shim for standalone docs preview.
+    if (!customElements.get('ha-icon')) {
+      class HaIcon extends HTMLElement {
+        static get observedAttributes() {
+          return ['icon'];
+        }
+
+        connectedCallback() {
+          this.render();
+        }
+
+        attributeChangedCallback() {
+          this.render();
+        }
+
+        render() {
+          const icon = this.getAttribute('icon') || '';
+          const paths = {
+            'mdi:fan': 'M12 11a1 1 0 1 0 0 2 1 1 0 0 0 0-2m.5-9c2.8 0 4.5 2.2 3.6 4.9-.4 1.4-1.7 3.1-3.1 4h-.1c-.4-.9-.9-3.1-.6-5 .2-1.2.2-2.5-.3-3.9h.5m-8.1 4.8c1.4-2.4 4.2-2.9 6.1-.8 1 1 1.7 3.1 1.7 4.7v.1c-1 .1-3.2-.5-4.7-1.7-1-.8-2.1-1.4-3.6-1.6l.5-.7M2.5 16.2c-1.4-2.4-.4-5.1 2.3-5.7 1.4-.4 3.5 0 4.9.8h.1c-.5.8-2.2 2.4-4 3.1-1.2.5-2.2 1.2-3 2.5l-.3-.7m9 5.8c-2.8 0-4.5-2.2-3.6-4.9.4-1.4 1.7-3.1 3.1-4h.1c.4.9.9 3.1.6 5-.2 1.2-.2 2.5.3 3.9h-.5m8.1-4.8c-1.4 2.4-4.2 2.9-6.1.8-1-1-1.7-3.1-1.7-4.7v-.1c1-.1 3.2.5 4.7 1.7 1 .8 2.1 1.4 3.6 1.6l-.5.7m1.9-9.4c1.4 2.4.4 5.1-2.3 5.7-1.4.4-3.5 0-4.9-.8h-.1c.5-.8 2.2-2.4 4-3.1 1.2-.5 2.2-1.2 3-2.5l.3.7Z',
+            'mdi:lightbulb-on-outline': 'M9 21h6v-1.5H9V21m3-19a6 6 0 0 0-3.8 10.64c.52.43.8 1.04.8 1.7V17h6v-2.66c0-.66.3-1.28.82-1.7A6 6 0 0 0 12 2m0 2a4 4 0 0 1 2.55 7.08A4.25 4.25 0 0 0 13 14.34V15h-2v-.66a4.2 4.2 0 0 0-1.53-3.25A4 4 0 0 1 12 4Z',
+            'mdi:power': 'M13 3h-2v10h2V3m4.83 2.17-1.42 1.42A7 7 0 1 1 7.59 6.6L6.17 5.17A9 9 0 1 0 17.83 5.17Z',
+            'mdi:toggle-switch': 'M17 7H7a5 5 0 0 0 0 10h10a5 5 0 0 0 0-10m0 8H7a3 3 0 0 1 0-6h10a3 3 0 0 1 0 6m0-5.5A2.5 2.5 0 1 0 17 14a2.5 2.5 0 0 0 0-5Z',
+          };
+          const path = paths[icon] || paths['mdi:toggle-switch'];
+          this.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="${path}"></path></svg>`;
+        }
+      }
+      customElements.define('ha-icon', HaIcon);
+    }
   </script>
   <style>
     hui-view {
@@ -59,10 +87,10 @@
 <body>
   <div class="app-shell">
     <nav class="navbar">
-      <div class="navbar-title">đź“¦ Custom Cards Preview</div>
+      <div class="navbar-title">Custom Cards Preview</div>
       <div class="navbar-buttons">
-        <button id="toggle-language" title="Zmień język">đź‡µđź‡±</button>
-        <button id="toggle-theme" title="Zmień motyw">đźŚ™</button>
+        <button id="toggle-language" type="button" title="Zmień język" aria-label="Zmień język">PL</button>
+        <button id="toggle-theme" type="button" title="Zmień motyw" aria-label="Zmień motyw">Dark</button>
       </div>
     </nav>
 
@@ -112,7 +140,11 @@
               <p class="phone-app-title">dihor-ha-components (test view)</p>
               <div class="phone-cards" id="phone-cards">
                 <div class="coming-soon-section">
-                  <div class="coming-soon-icon">đźš€</div>
+                  <div class="coming-soon-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <path fill="currentColor" d="M12 2 3 7v10l9 5 9-5V7l-9-5Zm0 2.27L18.6 8 12 11.73 5.4 8 12 4.27ZM5 9.7l6 3.4v6.2l-6-3.34V9.7Zm8 9.6v-6.2l6-3.4v6.26L13 19.3Z" />
+                    </svg>
+                  </div>
                   <div class="coming-soon-text">Kolejne komponenty wkrótce!</div>
                   <div class="coming-soon-subtitle">
                     Pracujemy nad nowymi kartami dla Home Assistant
@@ -155,38 +187,6 @@
           <pre id="yaml-output">Wybierz kartę, aby zobaczyć YAML.</pre>
         </div>
 
-        <div class="info-card guide-card">
-          <div class="info-card-header">
-            <h3 id="bg-guide-title">Ustawianie tła (nowa metoda)</h3>
-            <p id="bg-guide-description">Tło ustawiamy w konfiguracji HA, nie w konfiguracji karty.</p>
-          </div>
-          <ol id="bg-guide-steps">
-            <li>Wrzuć obraz do <code>config/www/backgrounds/</code>.</li>
-            <li>Dla jednego widoku ustaw <code>views[].background</code>.</li>
-            <li>Dla całego dashboardu ustaw <code>lovelace-background</code> w motywie.</li>
-          </ol>
-          <div class="snippet-header">
-            <p id="bg-guide-view-label">Przykład (per view):</p>
-            <button class="copy-yaml-btn" data-target="bg-guide-view-yaml" id="copy-view-yaml">Kopiuj YAML</button>
-          </div>
-          <pre id="bg-guide-view-yaml">views:
-  - title: Home
-    path: home
-    background: center / cover no-repeat fixed url("/local/backgrounds/home.jpg")
-    cards:
-      - type: custom:dihor-clock-card
-        size: 2</pre>
-          <div class="snippet-header">
-            <p id="bg-guide-theme-label">Przykład (theme globalny):</p>
-            <button class="copy-yaml-btn" data-target="bg-guide-theme-yaml" id="copy-theme-yaml">Kopiuj YAML</button>
-          </div>
-          <pre id="bg-guide-theme-yaml">frontend:
-  themes:
-    Dihor Theme:
-      lovelace-background: 'center / cover no-repeat fixed url("/local/backgrounds/global.jpg")'</pre>
-          <p class="info-note" id="bg-guide-migration">Stare <code>background:</code> w karcie nie jest już wspierane.</p>
-        </div>
-
         <footer class="version-footer">
           <span id="version-label">Wersja</span>: <span id="docs-version">?</span>
         </footer>
@@ -219,19 +219,6 @@
         yamlTitle: 'Konfiguracja YAML',
         yamlHint: 'Kliknij kartę po lewej, aby zobaczyć przykładową konfigurację.',
         yamlPlaceholder: 'Wybierz kartę, aby zobaczyć YAML.',
-        bgGuideTitle: 'Ustawianie tła (nowa metoda)',
-        bgGuideDescription: 'Tło ustawiamy w konfiguracji HA, nie w konfiguracji karty.',
-        bgGuideSteps: [
-          'Wrzuć obraz do config/www/backgrounds/.',
-          'Dla jednego widoku ustaw views[].background.',
-          'Dla całego dashboardu ustaw lovelace-background w motywie.',
-        ],
-        bgGuideViewLabel: 'Przykład (per view):',
-        bgGuideThemeLabel: 'Przykład (theme globalny):',
-        bgGuideMigration: 'Stare background: w karcie nie jest już wspierane.',
-        copyYaml: 'Kopiuj YAML',
-        copyYamlDone: 'Skopiowano',
-        copyYamlError: 'Błąd kopiowania',
       },
       en: {
         comingSoon: 'More components coming soon!',
@@ -251,19 +238,6 @@
         yamlTitle: 'YAML configuration',
         yamlHint: 'Select a card on the left to preview its sample YAML.',
         yamlPlaceholder: 'Select a card to inspect the YAML.',
-        bgGuideTitle: 'Dashboard background (new method)',
-        bgGuideDescription: 'Set background in Home Assistant config, not in card config.',
-        bgGuideSteps: [
-          'Upload image to config/www/backgrounds/.',
-          'For one view, set views[].background.',
-          'For whole dashboard, set lovelace-background in active theme.',
-        ],
-        bgGuideViewLabel: 'Example (per view):',
-        bgGuideThemeLabel: 'Example (global theme):',
-        bgGuideMigration: 'Old card-level background: config is no longer supported.',
-        copyYaml: 'Copy YAML',
-        copyYamlDone: 'Copied',
-        copyYamlError: 'Copy failed',
       },
     };
 
@@ -276,13 +250,6 @@
     const hacsStepsEl = document.getElementById('hacs-steps');
     const hacsNoteEl = document.getElementById('hacs-note');
     const versionLabelEl = document.getElementById('version-label');
-    const bgGuideTitleEl = document.getElementById('bg-guide-title');
-    const bgGuideDescriptionEl = document.getElementById('bg-guide-description');
-    const bgGuideStepsEl = document.getElementById('bg-guide-steps');
-    const bgGuideViewLabelEl = document.getElementById('bg-guide-view-label');
-    const bgGuideThemeLabelEl = document.getElementById('bg-guide-theme-label');
-    const bgGuideMigrationEl = document.getElementById('bg-guide-migration');
-    const copyYamlButtons = document.querySelectorAll('.copy-yaml-btn');
 
     let currentTheme = localStorage.getItem('theme') || 'light';
     let currentLang = localStorage.getItem('lang') || 'pl';
@@ -301,6 +268,18 @@
         "switch.living_room": {
           state: "on",
           attributes: { friendly_name: "Living Room Light" }
+        },
+        "switch.kitchen": {
+          state: "off",
+          attributes: { friendly_name: "Kitchen" }
+        },
+        "switch.bedroom": {
+          state: "on",
+          attributes: { friendly_name: "Fan" }
+        },
+        "switch.scene": {
+          state: "on",
+          attributes: { friendly_name: "Scene" }
         },
         // Minecraft Mock Data
         "server_minecraft_status": { state: "online" },
@@ -336,12 +315,12 @@
     function setupThemeToggle() {
       const themeButton = document.getElementById('toggle-theme');
       if (!themeButton) return;
-      themeButton.textContent = currentTheme === 'dark' ? 'â˜€ď¸Ź' : 'đźŚ™';
+      themeButton.textContent = currentTheme === 'dark' ? 'Light' : 'Dark';
       applyThemeToCards();
       themeButton.addEventListener('click', () => {
         currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
         localStorage.setItem('theme', currentTheme);
-        themeButton.textContent = currentTheme === 'dark' ? 'â˜€ď¸Ź' : 'đźŚ™';
+        themeButton.textContent = currentTheme === 'dark' ? 'Light' : 'Dark';
         applyThemeToCards();
       });
     }
@@ -378,13 +357,12 @@
       updateYamlOutput(card);
     }
 
-    function createLiveCard(cardDef) {
-      // Parse usage to get type and config
+    function parseUsage(usage) {
       let type = '';
       const config = {};
 
-      if (cardDef.usage) {
-        cardDef.usage.forEach(item => {
+      if (usage) {
+        usage.forEach(item => {
           if (item.key === 'type') {
             type = item.value.replace('custom:', '');
           } else {
@@ -392,6 +370,12 @@
           }
         });
       }
+
+      return { type, config };
+    }
+
+    function createLiveCard(cardDef, usage = cardDef.usage) {
+      const { type, config } = parseUsage(usage);
 
       if (!type) {
         const div = document.createElement('div');
@@ -402,8 +386,6 @@
       try {
         const element = document.createElement(type);
         element.classList.add('dihor-card-live');
-        // Small delay to ensure prototype is ready if bundle loads async, 
-        // though module script should handle it.
         if (element.setConfig) {
           element.setConfig(config);
         }
@@ -437,9 +419,18 @@
         previewContainer.className = 'phone-card-preview';
         previewContainer.id = `${card.id}-card-preview`;
 
-        // Create LIVE component
-        const liveComponent = createLiveCard(card);
-        previewContainer.appendChild(liveComponent);
+        const variants = Array.isArray(card.variants) && card.variants.length
+          ? card.variants
+          : [{ usage: card.usage }];
+
+        if (variants.length > 1) {
+          previewContainer.classList.add('is-variant-grid');
+        }
+
+        variants.forEach((variant) => {
+          const liveComponent = createLiveCard(card, variant.usage);
+          previewContainer.appendChild(liveComponent);
+        });
 
         cardElement.appendChild(previewContainer);
 
@@ -462,28 +453,12 @@
       if (yamlTitleEl) yamlTitleEl.textContent = t.yamlTitle;
       if (yamlHintEl) yamlHintEl.textContent = t.yamlHint;
       if (versionLabelEl) versionLabelEl.textContent = t.versionLabel;
-      if (bgGuideTitleEl) bgGuideTitleEl.textContent = t.bgGuideTitle;
-      if (bgGuideDescriptionEl) bgGuideDescriptionEl.textContent = t.bgGuideDescription;
-      if (bgGuideViewLabelEl) bgGuideViewLabelEl.textContent = t.bgGuideViewLabel;
-      if (bgGuideThemeLabelEl) bgGuideThemeLabelEl.textContent = t.bgGuideThemeLabel;
-      if (bgGuideMigrationEl) bgGuideMigrationEl.textContent = t.bgGuideMigration;
-      copyYamlButtons.forEach((btn) => {
-        btn.textContent = t.copyYaml;
-      });
       if (hacsStepsEl) {
         hacsStepsEl.innerHTML = '';
         t.hacsSteps.forEach((step) => {
           const li = document.createElement('li');
           li.textContent = step;
           hacsStepsEl.appendChild(li);
-        });
-      }
-      if (bgGuideStepsEl) {
-        bgGuideStepsEl.innerHTML = '';
-        t.bgGuideSteps.forEach((step) => {
-          const li = document.createElement('li');
-          li.textContent = step;
-          bgGuideStepsEl.appendChild(li);
         });
       }
       const comingText = document.querySelector('.coming-soon-text');
@@ -493,58 +468,15 @@
       updateYamlOutput(activeCard);
     }
 
-    async function copyTextToClipboard(text) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(text);
-        return;
-      }
-      const textArea = document.createElement('textarea');
-      textArea.value = text;
-      textArea.style.position = 'fixed';
-      textArea.style.opacity = '0';
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      const success = document.execCommand('copy');
-      document.body.removeChild(textArea);
-      if (!success) throw new Error('execCommand copy failed');
-    }
-
-    function setupCopyButtons() {
-      copyYamlButtons.forEach((btn) => {
-        btn.addEventListener('click', async () => {
-          const targetId = btn.getAttribute('data-target');
-          if (!targetId) return;
-          const pre = document.getElementById(targetId);
-          if (!pre) return;
-          try {
-            await copyTextToClipboard(pre.textContent || '');
-            const original = translations[currentLang].copyYaml;
-            btn.textContent = translations[currentLang].copyYamlDone;
-            window.setTimeout(() => {
-              btn.textContent = original;
-            }, 1200);
-          } catch (error) {
-            console.warn('Copy failed', error);
-            const original = translations[currentLang].copyYaml;
-            btn.textContent = translations[currentLang].copyYamlError;
-            window.setTimeout(() => {
-              btn.textContent = original;
-            }, 1400);
-          }
-        });
-      });
-    }
-
     function setupLanguageToggle() {
       const langButton = document.getElementById('toggle-language');
       if (!langButton) return;
       const render = () => applyTranslations();
-      langButton.textContent = currentLang === 'pl' ? 'đź‡µđź‡±' : 'đź‡¬đź‡§';
+      langButton.textContent = currentLang === 'pl' ? 'PL' : 'EN';
       langButton.addEventListener('click', () => {
         currentLang = currentLang === 'pl' ? 'en' : 'pl';
         localStorage.setItem('lang', currentLang);
-        langButton.textContent = currentLang === 'pl' ? 'đź‡µđź‡±' : 'đź‡¬đź‡§';
+        langButton.textContent = currentLang === 'pl' ? 'PL' : 'EN';
         render();
       });
       render();
@@ -582,12 +514,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Determine base path for manifest
-      const isLocal = location.hostname === 'localhost' || location.protocol === 'file:';
-      window.__cardsBasePath = isLocal ? '/cards' : './cards';
+      window.__cardsBasePath = './cards';
 
       setupThemeToggle();
-      setupCopyButtons();
       displayDocsVersion();
       resolveManifestPromise().then((cards) => {
         if (cards && cards.length) {

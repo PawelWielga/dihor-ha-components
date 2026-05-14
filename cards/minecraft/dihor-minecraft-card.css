@@ -1,167 +1,47 @@
-/* NAGŁÓWEK */
+/* Header */
 .dihor-card-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
+  align-items: flex-start;
+  gap: var(--dihor-control-gap);
+  margin-bottom: var(--dihor-content-gap);
+  padding-bottom: var(--dihor-content-gap);
   border-bottom: 1px solid var(--dihor-divider-color);
-}
-
-.dihor-header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 4px;
 }
 
 .dihor-card-title {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--dihor-title-color);
-  margin: 0;
+  gap: calc(var(--dihor-control-gap) * 0.75);
   min-width: 0;
+  margin: 0;
+  color: var(--dihor-title-color);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.2;
   overflow-wrap: anywhere;
 }
 
 .dihor-icon {
   display: inline-flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   color: var(--dihor-toggle-active-color);
   filter: drop-shadow(0 6px 12px var(--dihor-toggle-active-glow));
 }
 
-.dihor-card-subtitle {
-  font-size: 14px;
-  color: var(--dihor-subtitle-color);
-  font-weight: 500;
-}
-
-/* SIATKA STATYSTYK */
-.dihor-grid-3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* POJEDYNCZA STATYSTYKA */
-.dihor-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 0;
-  background: var(--dihor-stat-bg);
-  border: 1px solid var(--dihor-stat-border-color);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: var(--dihor-card-border-radius);
-  text-align: center;
-}
-
-.dihor-stat-icon {
-  font-size: 18px;
-}
-
-.dihor-stat-label {
-  font-size: 11px;
-  color: var(--dihor-subtitle-color);
-  font-weight: 500;
-  margin-bottom: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.dihor-stat-value {
-  font-size: 14px;
-  color: var(--dihor-title-color);
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-.dihor-card-content {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.server-info-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.info-label {
-  font-size: 11px;
-  color: var(--dihor-subtitle-color);
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-.info-value {
-  font-size: 14px;
-  color: var(--dihor-title-color);
-  font-weight: 600;
-  text-align: right;
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.server-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 8px;
-  background: var(--dihor-stat-bg);
-  border: 1px solid var(--dihor-stat-border-color);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: var(--dihor-card-border-radius);
-  text-align: center;
-}
-
-.stat-value {
-  font-size: 14px;
-  color: var(--dihor-title-color);
-  font-weight: 700;
-  line-height: 1.2;
-  max-width: 100%;
-  overflow-wrap: anywhere;
-}
-
-.stat-label {
-  margin-top: 4px;
-  font-size: 11px;
-  color: var(--dihor-subtitle-color);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* BADGES */
 .dihor-badge {
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-weight: 600;
+  flex: 0 0 auto;
   color: white;
+  background: var(--dihor-badge-online-bg);
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
   white-space: nowrap;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 8px 18px rgba(0, 0, 0, 0.16);
 }
@@ -174,14 +54,82 @@
   background: var(--dihor-badge-offline-bg);
 }
 
-.dihor-badge-players {
-  background: var(--dihor-badge-players-bg);
+.dihor-card-content {
+  display: grid;
+  gap: var(--dihor-content-gap);
 }
 
-.dihor-badge-version {
-  background: var(--dihor-badge-version-bg);
+.server-info-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--dihor-control-gap);
 }
 
-.dihor-badge-latency {
-  background: var(--dihor-badge-latency-bg);
+.info-label,
+.stat-label {
+  color: var(--dihor-subtitle-color);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.info-value {
+  min-width: 0;
+  color: var(--dihor-title-color);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.server-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--dihor-control-gap);
+}
+
+.stat-item {
+  min-width: 0;
+  min-height: var(--dihor-stat-min-height);
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: calc(var(--dihor-control-gap) * 0.5);
+  padding: var(--dihor-stat-padding);
+  background: var(--dihor-stat-bg);
+  border: 1px solid var(--dihor-stat-border-color);
+  border-radius: var(--dihor-card-border-radius);
+  text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.stat-value {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  color: var(--dihor-title-color);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 360px) {
+  .dihor-card-title {
+    font-size: 17px;
+  }
+
+  .server-stats-grid {
+    gap: 8px;
+  }
+
+  .stat-item {
+    padding-inline: 6px;
+  }
 }

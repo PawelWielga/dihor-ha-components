@@ -3,7 +3,7 @@
     "id": "minecraft",
     "folder": "minecraft",
     "name": "dihor-minecraft-card",
-    "icon": "🎮",
+    "icon": "mdi:minecraft",
     "preview": {
       "css": "dihor-minecraft-card.css"
     },
@@ -23,6 +23,10 @@
       {
         "key": "entity_prefix",
         "value": "server_minecraft"
+      },
+      {
+        "key": "density",
+        "value": "s"
       }
     ]
   },
@@ -30,7 +34,7 @@
     "id": "clock",
     "folder": "clock",
     "name": "dihor-clock-card",
-    "icon": "🕒",
+    "icon": "mdi:clock-outline",
     "preview": {
       "css": "dihor-clock-card.css"
     },
@@ -46,6 +50,10 @@
       {
         "key": "size",
         "value": "2"
+      },
+      {
+        "key": "density",
+        "value": "s"
       }
     ]
   },
@@ -53,7 +61,7 @@
     "id": "person",
     "folder": "person",
     "name": "dihor-person-card",
-    "icon": "👤",
+    "icon": "mdi:account",
     "preview": {
       "css": "dihor-person-card.css"
     },
@@ -68,7 +76,11 @@
       },
       {
         "key": "entity",
-        "value": "person.example"
+        "value": "person.tomek"
+      },
+      {
+        "key": "density",
+        "value": "s"
       }
     ]
   },
@@ -76,7 +88,7 @@
     "id": "toggle-button",
     "folder": "toggle-button",
     "name": "dihor-toggle-button-card",
-    "icon": "🔘",
+    "icon": "mdi:toggle-switch",
     "preview": {
       "css": "dihor-toggle-button-card.css"
     },
@@ -96,6 +108,132 @@
       {
         "key": "icon",
         "value": "mdi:lightbulb-on-outline"
+      },
+      {
+        "key": "density",
+        "value": "s"
+      }
+    ],
+    "variants": [
+      {
+        "name": {
+          "pl": "Ikona",
+          "en": "Icon"
+        },
+        "usage": [
+          {
+            "key": "type",
+            "value": "custom:dihor-toggle-button-card"
+          },
+          {
+            "key": "entity",
+            "value": "switch.living_room"
+          },
+          {
+            "key": "icon",
+            "value": "mdi:lightbulb-on-outline"
+          },
+          {
+            "key": "label",
+            "value": ""
+          },
+          {
+            "key": "density",
+            "value": "s"
+          }
+        ]
+      },
+      {
+        "name": {
+          "pl": "Ikona i podpis",
+          "en": "Icon and label"
+        },
+        "usage": [
+          {
+            "key": "type",
+            "value": "custom:dihor-toggle-button-card"
+          },
+          {
+            "key": "entity",
+            "value": "switch.kitchen"
+          },
+          {
+            "key": "icon",
+            "value": "mdi:power"
+          },
+          {
+            "key": "label",
+            "value": "Kitchen"
+          },
+          {
+            "key": "density",
+            "value": "s"
+          }
+        ]
+      },
+      {
+        "name": {
+          "pl": "Podpis pod przyciskiem",
+          "en": "Label under button"
+        },
+        "usage": [
+          {
+            "key": "type",
+            "value": "custom:dihor-toggle-button-card"
+          },
+          {
+            "key": "entity",
+            "value": "switch.bedroom"
+          },
+          {
+            "key": "icon",
+            "value": "mdi:fan"
+          },
+          {
+            "key": "label",
+            "value": "Fan"
+          },
+          {
+            "key": "show_label_under",
+            "value": true
+          },
+          {
+            "key": "density",
+            "value": "s"
+          }
+        ]
+      },
+      {
+        "name": {
+          "pl": "Kolor aktywny",
+          "en": "Active color"
+        },
+        "usage": [
+          {
+            "key": "type",
+            "value": "custom:dihor-toggle-button-card"
+          },
+          {
+            "key": "entity",
+            "value": "switch.scene"
+          },
+          {
+            "key": "icon",
+            "value": "mdi:toggle-switch"
+          },
+          {
+            "key": "label",
+            "value": "Scene"
+          },
+          {
+            "key": "active_color",
+            "value": "#22c55e"
+          },
+          {
+            "key": "density",
+            "value": "s"
+          }
+        ]
       }
     ]
   }

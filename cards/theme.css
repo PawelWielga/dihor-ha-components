@@ -5,11 +5,22 @@
   --dihor-glass-sheen: rgba(255, 255, 255, 0.34);
   --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.12);
   --dihor-glass-inner-border: rgba(255, 255, 255, 0.24);
-  --dihor-glass-blur: 18px;
+  --dihor-glass-blur: 14px;
   --dihor-card-border-size: var(--ha-card-border-width, 1px);
-  --dihor-card-border-radius: var(--ha-card-border-radius, 16px);
+  --dihor-card-border-radius: var(--ha-card-border-radius, 14px);
   --dihor-card-border-color: var(--ha-card-border-color, rgba(255, 255, 255, 0.32));
-  --dihor-card-shadow: var(--ha-card-box-shadow, 0 18px 42px rgba(15, 23, 42, 0.18));
+  --dihor-card-shadow: var(--ha-card-box-shadow, 0 14px 32px rgba(15, 23, 42, 0.16));
+  --dihor-card-padding: 14px;
+  --dihor-content-gap: 10px;
+  --dihor-control-gap: 10px;
+  --dihor-stat-min-height: 58px;
+  --dihor-stat-padding: 8px 7px;
+  --dihor-avatar-size: 68px;
+  --dihor-toggle-size: 112px;
+  --dihor-toggle-icon-size: 34px;
+  --dihor-clock-min-height: 96px;
+  --dihor-clock-scale-step: 0.46rem;
+  --dihor-shine-opacity: 0.72;
 
   --dihor-title-color: var(--primary-text-color, #1d1d1f);
   --dihor-subtitle-color: var(--secondary-text-color, #596275);
@@ -28,6 +39,46 @@
   --dihor-toggle-active-glow: rgba(3, 169, 244, 0.28);
   --dihor-toggle-icon-color: var(--primary-text-color, #1d1d1f);
   --dihor-toggle-label-color: var(--primary-text-color, #1d1d1f);
+}
+
+:host([data-density="s"]) {
+  --dihor-glass-card-bg: color-mix(in srgb, var(--dihor-card-bg) 64%, transparent);
+  --dihor-glass-sheen: rgba(255, 255, 255, 0.22);
+  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.08);
+  --dihor-glass-blur: 10px;
+  --dihor-card-border-radius: var(--ha-card-border-radius, 12px);
+  --dihor-card-shadow: var(--ha-card-box-shadow, 0 10px 24px rgba(15, 23, 42, 0.14));
+  --dihor-card-padding: 10px;
+  --dihor-content-gap: 8px;
+  --dihor-control-gap: 8px;
+  --dihor-stat-min-height: 50px;
+  --dihor-stat-padding: 7px 6px;
+  --dihor-avatar-size: 56px;
+  --dihor-toggle-size: 92px;
+  --dihor-toggle-icon-size: 30px;
+  --dihor-clock-min-height: 78px;
+  --dihor-clock-scale-step: 0.38rem;
+  --dihor-shine-opacity: 0.52;
+}
+
+:host([data-density="l"]) {
+  --dihor-glass-card-bg: color-mix(in srgb, var(--dihor-card-bg) 76%, transparent);
+  --dihor-glass-sheen: rgba(255, 255, 255, 0.42);
+  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.15);
+  --dihor-glass-blur: 20px;
+  --dihor-card-border-radius: var(--ha-card-border-radius, 18px);
+  --dihor-card-shadow: var(--ha-card-box-shadow, 0 20px 48px rgba(15, 23, 42, 0.2));
+  --dihor-card-padding: 18px;
+  --dihor-content-gap: 14px;
+  --dihor-control-gap: 14px;
+  --dihor-stat-min-height: 74px;
+  --dihor-stat-padding: 12px 10px;
+  --dihor-avatar-size: 84px;
+  --dihor-toggle-size: 136px;
+  --dihor-toggle-icon-size: 42px;
+  --dihor-clock-min-height: 128px;
+  --dihor-clock-scale-step: 0.55rem;
+  --dihor-shine-opacity: 0.9;
 }
 
 .dihor-theme-light {
