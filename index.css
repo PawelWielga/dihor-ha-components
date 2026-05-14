@@ -383,6 +383,12 @@ body.dark .phone-card {
   width: 100%;
 }
 
+.phone-card-preview .dihor-card-live {
+  --primary-text-color: #f8fafc;
+  --secondary-text-color: #cbd5e1;
+  --disabled-text-color: #94a3b8;
+}
+
 ha-icon {
   display: inline-flex;
   width: 1em;
