@@ -1,5 +1,9 @@
 /* NAGŁÓWEK */
 .dihor-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 16px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--dihor-divider-color);
@@ -20,11 +24,18 @@
   font-weight: 700;
   color: var(--dihor-title-color);
   margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .dihor-icon {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--dihor-toggle-active-color);
+  filter: drop-shadow(0 6px 12px var(--dihor-toggle-active-glow));
 }
 
 .dihor-card-subtitle {
@@ -50,6 +61,9 @@
   align-items: center;
   padding: 10px 0;
   background: var(--dihor-stat-bg);
+  border: 1px solid var(--dihor-stat-border-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: var(--dihor-card-border-radius);
   text-align: center;
 }
@@ -100,6 +114,8 @@
   color: var(--dihor-title-color);
   font-weight: 600;
   text-align: right;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .server-stats-grid {
@@ -114,6 +130,9 @@
   align-items: center;
   padding: 10px 8px;
   background: var(--dihor-stat-bg);
+  border: 1px solid var(--dihor-stat-border-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: var(--dihor-card-border-radius);
   text-align: center;
 }
@@ -123,6 +142,8 @@
   color: var(--dihor-title-color);
   font-weight: 700;
   line-height: 1.2;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .stat-label {
@@ -141,6 +162,8 @@
   border-radius: 12px;
   font-weight: 600;
   color: white;
+  white-space: nowrap;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 8px 18px rgba(0, 0, 0, 0.16);
 }
 
 .dihor-badge-online {

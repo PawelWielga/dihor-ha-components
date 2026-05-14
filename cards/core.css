@@ -1,13 +1,20 @@
-/* KARTA */
 :host {
-  font-family: 'Inter', sans-serif;
+  display: block;
+  font-family: var(--primary-font-family, 'Inter', sans-serif);
+  color: var(--dihor-title-color);
+}
+
+ha-card {
+  box-sizing: border-box;
+  color: var(--dihor-title-color);
 }
 
 .dihor-card {
   margin: 0;
   width: 100%;
-  background: var(--dihor-card-bg);
-  backdrop-filter: blur(20px);
+  background: var(--dihor-glass-card-bg);
+  backdrop-filter: blur(var(--dihor-glass-blur)) saturate(145%);
+  -webkit-backdrop-filter: blur(var(--dihor-glass-blur)) saturate(145%);
   border-radius: var(--dihor-card-border-radius);
   box-sizing: border-box;
   padding: 18px;
@@ -18,53 +25,75 @@
 /* Glassmorphism Design System */
 .glass-card {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: var(--dihor-card-border-radius);
+  border: var(--dihor-card-border-size) solid var(--dihor-card-border-color);
+  background: var(--dihor-glass-card-bg);
+  backdrop-filter: blur(var(--dihor-glass-blur)) saturate(145%);
+  -webkit-backdrop-filter: blur(var(--dihor-glass-blur)) saturate(145%);
+  box-shadow: var(--dihor-card-shadow);
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   box-sizing: border-box;
+  min-width: 0;
+  isolation: isolate;
+}
+
+.glass-card::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: calc(var(--dihor-card-border-radius) - 1px);
+  border: 1px solid var(--dihor-glass-inner-border);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glass-card > :not(.glass-shine):not(.glass-glow) {
+  position: relative;
+  z-index: 1;
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.02);
+  border-color: color-mix(in srgb, var(--dihor-card-border-color) 70%, var(--primary-color, #03a9f4));
 }
 
 .glass-card.pressed {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(0.98);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: color-mix(in srgb, var(--dihor-toggle-active-color) 18%, var(--dihor-glass-card-bg));
+  border-color: var(--dihor-toggle-active-color);
+  backdrop-filter: blur(calc(var(--dihor-glass-blur) + 4px)) saturate(165%);
+  -webkit-backdrop-filter: blur(calc(var(--dihor-glass-blur) + 4px)) saturate(165%);
 }
 
 .glass-shine {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: linear-gradient(135deg,
-      rgba(255, 255, 255, 0.2) 0%,
-      transparent 100%);
+      var(--dihor-glass-sheen) 0%,
+      var(--dihor-glass-sheen-soft) 38%,
+      transparent 72%);
   pointer-events: none;
   z-index: 0;
+  opacity: 0.9;
+}
+
+@supports not (background: color-mix(in srgb, white, black)) {
+  :host {
+    --dihor-glass-card-bg: var(--dihor-card-bg);
+    --dihor-stat-bg: var(--secondary-background-color, rgba(127, 127, 127, 0.12));
+  }
+
+  .glass-card:hover {
+    border-color: var(--primary-color, #03a9f4);
+  }
 }
 
 .glass-glow {
   position: absolute;
   top: -16px;
   right: -16px;
-  width: 48px;
-  height: 48px;
-  background: rgba(34, 211, 238, 0.2);
+  width: 64px;
+  height: 64px;
+  background: color-mix(in srgb, var(--dihor-toggle-active-color) 36%, transparent);
   filter: blur(40px);
   pointer-events: none;
   z-index: 0;
