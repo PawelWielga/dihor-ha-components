@@ -26,6 +26,22 @@ EN: Home Assistant `person` entity card.
 PL: Przycisk toggle dla pojedynczej encji.  
 EN: Toggle button for a single entity.
 
+## Shared Options / Wspolne opcje
+
+PL: Wszystkie karty wspieraja `density`, czyli gestosc wizualna kontrolujaca odstepy, rozmycie szkla, cien i rozmiary elementow pomocniczych.
+
+EN: All cards support `density`, a visual density option that controls spacing, glass blur, shadow, and supporting element sizes.
+
+```yaml
+type: custom:dihor-minecraft-card
+entity_prefix: server_minecraft
+density: s # s | m | l
+```
+
+- `s` - PL: kompaktowo, mniej swiatla i mniejsze odstepy. EN: compact, less light and tighter spacing.
+- `m` - PL: wariant zbalansowany, domyslny. EN: balanced default.
+- `l` - PL: wiecej swiatla i przestrzeni. EN: more light and spacing.
+
 ## Tech Stack
 
 PL:
@@ -58,44 +74,6 @@ EN:
 
 PL: `npm run dev` uruchamia przygotowanie docs i preview lokalnie.  
 EN: `npm run dev` prepares docs and starts local preview.
-
-## Dashboard Background (Supported)
-
-PL: Ten projekt nie ustawia juz tla dashboardu z poziomu konfiguracji karty. Uzywamy oficjalnych mechanizmow Home Assistant.  
-EN: This project no longer sets dashboard background from card config. Use official Home Assistant mechanisms.
-
-### Method 1: View background / Tlo widoku
-
-```yaml
-views:
-  - title: Home
-    path: home
-    background: center / cover no-repeat fixed url("/local/backgrounds/home.jpg")
-    cards:
-      - type: custom:dihor-clock-card
-        size: 2
-```
-
-### Method 2: Global theme background / Tlo globalne przez motyw
-
-```yaml
-frontend:
-  themes:
-    Dihor Theme:
-      lovelace-background: 'center / cover no-repeat fixed url("/local/backgrounds/global.jpg")'
-```
-
-### Migration / Migracja
-
-PL:
-1. Przenies obraz do `config/www/backgrounds/`.
-2. Zmien stare `background:` z konfiguracji karty na `views[].background` albo `lovelace-background`.
-3. Odswiez frontend Home Assistant.
-
-EN:
-1. Put image into `config/www/backgrounds/`.
-2. Replace old card-level `background:` with `views[].background` or `lovelace-background`.
-3. Refresh Home Assistant frontend.
 
 ## Add New Card / Dodawanie nowej karty
 

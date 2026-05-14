@@ -2,6 +2,9 @@ import { html, nothing, css, unsafeCSS } from 'lit';
 import {
   BaseCardConfig,
   BaseDihorCard,
+  DIHOR_DENSITY_SCHEMA,
+  getDihorDensityHelper,
+  getDihorDensityLabel,
 } from '../../shared/base-card';
 import { registerCustomCard } from '../../shared/custom-card-registry';
 import cardCssStr from "./dihor-person-card.css";
@@ -41,13 +44,18 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
               domain: "person"
             }
           }
-        }
+        },
+        DIHOR_DENSITY_SCHEMA,
       ],
       computeLabel: (schema: any) => {
+        const densityLabel = getDihorDensityLabel(schema);
+        if (densityLabel) return densityLabel;
         if (schema.name === "entity") return "Person Entity";
         return undefined;
       },
       computeHelper: (schema: any) => {
+        const densityHelper = getDihorDensityHelper(schema);
+        if (densityHelper) return densityHelper;
         if (schema.name === "entity") return "Select the person entity to display";
         return undefined;
       },

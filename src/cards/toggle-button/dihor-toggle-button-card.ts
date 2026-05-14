@@ -3,6 +3,9 @@ import { styleMap } from "lit/directives/style-map.js";
 import {
   BaseCardConfig,
   BaseDihorCard,
+  DIHOR_DENSITY_SCHEMA,
+  getDihorDensityHelper,
+  getDihorDensityLabel,
 } from "../../shared/base-card";
 import { registerCustomCard } from "../../shared/custom-card-registry";
 import cardCssStr from "./dihor-toggle-button-card.css";
@@ -78,9 +81,12 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
               }
             }
           ]
-        }
+        },
+        DIHOR_DENSITY_SCHEMA,
       ],
       computeLabel: (schema: any) => {
+        const densityLabel = getDihorDensityLabel(schema);
+        if (densityLabel) return densityLabel;
         switch (schema.name) {
           case "entity": return "Entity";
           case "label": return "Custom Label";
@@ -91,9 +97,11 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
         return undefined;
       },
       computeHelper: (schema: any) => {
+        const densityHelper = getDihorDensityHelper(schema);
+        if (densityHelper) return densityHelper;
         switch (schema.name) {
           case "entity": return "Entity to control (toggle on/off)";
-          case "label": return "Optional custom label (defaults to entity friendly name)";
+          case "label": return "Optional custom label (defaults to entity friendly name, leave empty for icon-only)";
           case "icon": return "Optional custom icon";
           case "show_label_under": return "Display label below the button instead of inside";
           case "active_color": return "Active Color (Background & Border)";
@@ -122,9 +130,9 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
     const entityId = this._config.entity;
     const stateObj = this.hass.states[entityId];
 
-    const label = this._config.label ||
-      stateObj?.attributes?.friendly_name ||
+    const fallbackLabel = stateObj?.attributes?.friendly_name ||
       entityId.replace(/^.*\./, "");
+    const label = this._config.label ?? fallbackLabel;
 
     const icon = this._config.icon ||
       (stateObj?.attributes?.icon as string | undefined) ||
@@ -141,41 +149,37 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
       : {};
 
     return html`
-      <ha-card class="glass-button-container">
+      <div class="button-card-root">
         <div class="glass-button-wrapper">
-          <button 
-            class="glass-card glass-button ${isOn ? 'pressed' : ''}"
+          <button
+            type="button"
+            class="glass-button ${isOn ? 'pressed' : ''} ${showLabelUnder ? 'has-label-under' : 'has-inline-label'}"
             style=${styleMap(customStyle)}
             @click=${this.toggleEntity}
-            aria-label=${label}
+            aria-label=${label || fallbackLabel}
             aria-pressed=${isOn ? "true" : "false"}
           >
-            <div class="glass-shine"></div>
-            
-            ${isOn ? html`<div class="glass-glow"></div>` : nothing}
-            
             ${icon ? html`<ha-icon icon="${icon}" class="glass-icon"></ha-icon>` : nothing}
-            
-            ${!showLabelUnder && label && !icon ? html`<span class="glass-label-inside">${label}</span>` : nothing}
+            ${!showLabelUnder && label ? html`<span class="glass-label-inside">${label}</span>` : nothing}
           </button>
 
           ${showLabelUnder && label ? html`<span class="glass-label-under">${label}</span>` : nothing}
         </div>
-      </ha-card>
+      </div>
     `;
   }
 
   getCardSize() {
-    return 2;
+    return 1;
   }
 
   getGridOptions() {
     return {
-      rows: 2,
-      columns: 3,
-      min_rows: 2,
-      min_columns: 3,
-      max_columns: 6,
+      rows: 1,
+      columns: 2,
+      min_rows: 1,
+      min_columns: 1,
+      max_columns: 4,
     };
   }
 

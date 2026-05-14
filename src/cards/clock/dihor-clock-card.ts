@@ -3,6 +3,9 @@ import { state } from "lit/decorators.js";
 import {
   BaseCardConfig,
   BaseDihorCard,
+  DIHOR_DENSITY_SCHEMA,
+  getDihorDensityHelper,
+  getDihorDensityLabel,
 } from "../../shared/base-card";
 import { registerCustomCard } from "../../shared/custom-card-registry";
 import cardCssStr from "./dihor-clock-card.css";
@@ -40,13 +43,18 @@ export class ClockCard extends BaseDihorCard<ClockCardConfig> {
               mode: "box"
             }
           }
-        }
+        },
+        DIHOR_DENSITY_SCHEMA,
       ],
       computeLabel: (schema: any) => {
+        const densityLabel = getDihorDensityLabel(schema);
+        if (densityLabel) return densityLabel;
         if (schema.name === "size") return "Clock Size";
         return undefined;
       },
       computeHelper: (schema: any) => {
+        const densityHelper = getDihorDensityHelper(schema);
+        if (densityHelper) return densityHelper;
         if (schema.name === "size") return "Size of the clock display (1-5, default: 2)";
         return undefined;
       },
