@@ -1,3 +1,10 @@
+## [4.0.6](https://github.com/PawelWielga/dihor-ha-components/compare/v4.0.5...v4.0.6) (2026-05-15)
+
+
+### Bug Fixes
+
+* make cards fill grid cells ([2c32276](https://github.com/PawelWielga/dihor-ha-components/commit/2c3227621ab994e3a4b631c5d8ede8292719913e))
+
 ## [4.0.5](https://github.com/PawelWielga/dihor-ha-components/compare/v4.0.4...v4.0.5) (2026-05-15)
 
 
