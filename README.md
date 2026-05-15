@@ -23,8 +23,19 @@ PL: Karta encji `person` z Home Assistant.
 EN: Home Assistant `person` entity card.
 
 4. `dihor-toggle-button-card`  
-PL: Przycisk toggle dla pojedynczej encji.  
-EN: Toggle button for a single entity.
+PL: Przycisk toggle dla pojedynczej encji, z akcjami `tap_action`, `hold_action` i `double_tap_action`.  
+EN: Toggle button for a single entity, with `tap_action`, `hold_action`, and `double_tap_action`.
+
+```yaml
+type: custom:dihor-toggle-button-card
+entity: light.bedroom
+icon: mdi:lightbulb-on-outline
+show_label: false
+tap_action:
+  action: toggle
+hold_action:
+  action: more-info
+```
 
 ## Shared Options / Wspolne opcje
 

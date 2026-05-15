@@ -14,11 +14,24 @@ export interface ToggleButtonCardConfig extends BaseCardConfig {
   entity: string;
   label?: string;
   icon?: string;
+  show_label?: boolean;
   show_label_under?: boolean;
   active_color?: string;
+  tap_action?: DihorActionConfig;
+  hold_action?: DihorActionConfig;
+  double_tap_action?: DihorActionConfig;
 }
 
+type DihorActionConfig = {
+  action?: string;
+  [key: string]: unknown;
+};
+
 export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
+  private holdTimer?: number;
+  private tapTimer?: number;
+  private holdTriggered = false;
+  private suppressNextClick = false;
 
   static get styles() {
     return [
@@ -64,10 +77,47 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
           }
         },
         {
+          name: "show_label",
+          selector: {
+            boolean: {}
+          }
+        },
+        {
           name: "show_label_under",
           selector: {
             boolean: {}
           }
+        },
+        {
+          type: "expandable",
+          name: "",
+          title: "Actions",
+          schema: [
+            {
+              name: "tap_action",
+              selector: {
+                ui_action: {
+                  default_action: "toggle"
+                }
+              }
+            },
+            {
+              name: "hold_action",
+              selector: {
+                ui_action: {
+                  default_action: "more-info"
+                }
+              }
+            },
+            {
+              name: "double_tap_action",
+              selector: {
+                ui_action: {
+                  default_action: "none"
+                }
+              }
+            }
+          ]
         },
         {
           type: "expandable",
@@ -91,7 +141,11 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
           case "entity": return "Entity";
           case "label": return "Custom Label";
           case "icon": return "Custom Icon";
+          case "show_label": return "Show Label";
           case "show_label_under": return "Show Label Under Button";
+          case "tap_action": return "Tap Action";
+          case "hold_action": return "Hold Action";
+          case "double_tap_action": return "Double Tap Action";
           case "active_color": return "Active Color";
         }
         return undefined;
@@ -103,7 +157,11 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
           case "entity": return "Entity to control (toggle on/off)";
           case "label": return "Optional custom label (defaults to entity friendly name, leave empty for icon-only)";
           case "icon": return "Optional custom icon";
+          case "show_label": return "Show or hide the entity label";
           case "show_label_under": return "Display label below the button instead of inside";
+          case "tap_action": return "Defaults to toggle";
+          case "hold_action": return "Defaults to more-info";
+          case "double_tap_action": return "Defaults to none";
           case "active_color": return "Active Color (Background & Border)";
         }
         return undefined;
@@ -114,17 +172,91 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
     };
   }
 
-  private async toggleEntity() {
-    if (!this._config?.entity) return;
-    const stateObj = this.hass.states[this._config.entity];
-    if (!stateObj || stateObj.state === "unavailable" || stateObj.state === "unknown") return;
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.clearActionTimers();
+  }
 
-    try {
-      await this.hass.callService("homeassistant", "toggle", {
-        entity_id: this._config.entity,
-      });
-    } catch (error) {
-      console.error("Failed to toggle entity:", error);
+  private clearActionTimers() {
+    if (this.holdTimer) {
+      window.clearTimeout(this.holdTimer);
+      this.holdTimer = undefined;
+    }
+
+    if (this.tapTimer) {
+      window.clearTimeout(this.tapTimer);
+      this.tapTimer = undefined;
+    }
+  }
+
+  private buildActionConfig() {
+    return {
+      ...this._config,
+      entity: this._config.entity,
+      tap_action: this._config.tap_action ?? { action: "toggle" },
+      hold_action: this._config.hold_action ?? { action: "more-info" },
+      double_tap_action: this._config.double_tap_action ?? { action: "none" },
+    };
+  }
+
+  private fireAction(action: "tap" | "hold" | "double_tap") {
+    if (!this._config?.entity) return;
+
+    this.dispatchEvent(new CustomEvent("hass-action", {
+      bubbles: true,
+      composed: true,
+      detail: {
+        config: this.buildActionConfig(),
+        action,
+      },
+    }));
+  }
+
+  private handlePointerDown(event: PointerEvent) {
+    if (event.button !== 0 || !this._config?.entity) return;
+    this.holdTriggered = false;
+    window.clearTimeout(this.holdTimer);
+    this.holdTimer = window.setTimeout(() => {
+      this.holdTriggered = true;
+      this.suppressNextClick = true;
+      this.fireAction("hold");
+    }, 500);
+  }
+
+  private handlePointerEnd() {
+    window.clearTimeout(this.holdTimer);
+    this.holdTimer = undefined;
+  }
+
+  private handleClick(event: MouseEvent) {
+    if (this.suppressNextClick || this.holdTriggered) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.suppressNextClick = false;
+      this.holdTriggered = false;
+      return;
+    }
+
+    if (this.tapTimer) {
+      window.clearTimeout(this.tapTimer);
+      this.tapTimer = undefined;
+      this.fireAction("double_tap");
+      return;
+    }
+
+    this.tapTimer = window.setTimeout(() => {
+      this.fireAction("tap");
+      this.tapTimer = undefined;
+    }, 260);
+  }
+
+  private handleDoubleClick(event: MouseEvent) {
+    event.preventDefault();
+  }
+
+  private handleContextMenu(event: MouseEvent) {
+    if (this.holdTriggered) {
+      event.preventDefault();
     }
   }
 
@@ -135,7 +267,8 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
 
     const fallbackLabel = stateObj?.attributes?.friendly_name ||
       entityId.replace(/^.*\./, "");
-    const label = this._config.label ?? fallbackLabel;
+    const showLabel = this._config.show_label ?? true;
+    const label = showLabel ? (this._config.label ?? fallbackLabel) : "";
 
     const icon = this._config.icon ||
       (stateObj?.attributes?.icon as string | undefined) ||
@@ -158,10 +291,15 @@ export class ToggleButtonCard extends BaseDihorCard<ToggleButtonCardConfig> {
             type="button"
             class="glass-button ${isOn ? 'pressed' : ''} ${isUnavailable ? 'unavailable' : ''} ${showLabelUnder ? 'has-label-under' : 'has-inline-label'}"
             style=${styleMap(customStyle)}
-            @click=${this.toggleEntity}
+            @pointerdown=${this.handlePointerDown}
+            @pointerup=${this.handlePointerEnd}
+            @pointerleave=${this.handlePointerEnd}
+            @pointercancel=${this.handlePointerEnd}
+            @click=${this.handleClick}
+            @dblclick=${this.handleDoubleClick}
+            @contextmenu=${this.handleContextMenu}
             aria-label=${label || fallbackLabel}
             aria-pressed=${isOn ? "true" : "false"}
-            ?disabled=${isUnavailable}
           >
             ${icon ? html`<ha-icon icon="${icon}" class="glass-icon"></ha-icon>` : nothing}
             ${!showLabelUnder && label ? html`<span class="glass-label-inside">${label}</span>` : nothing}
