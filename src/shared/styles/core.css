@@ -1,11 +1,20 @@
 :host {
   display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
   font-family: var(--primary-font-family, 'Inter', sans-serif);
   color: var(--dihor-title-color);
+  box-sizing: border-box;
 }
 
 ha-card {
   display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
   box-sizing: border-box;
   color: var(--dihor-title-color);
 }
@@ -13,6 +22,7 @@ ha-card {
 .dihor-card {
   margin: 0;
   width: 100%;
+  height: 100%;
   background: var(--dihor-glass-card-bg);
   backdrop-filter: blur(var(--dihor-glass-blur)) saturate(145%);
   -webkit-backdrop-filter: blur(var(--dihor-glass-blur)) saturate(145%);
@@ -26,6 +36,8 @@ ha-card {
 /* Glassmorphism Design System */
 .glass-card {
   position: relative;
+  width: 100%;
+  height: 100%;
   border-radius: var(--dihor-card-border-radius);
   border: var(--dihor-card-border-size) solid var(--dihor-card-border-color);
   background: var(--dihor-glass-card-bg);
@@ -36,7 +48,16 @@ ha-card {
   transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   box-sizing: border-box;
   min-width: 0;
+  min-height: 0;
   isolation: isolate;
+}
+
+.card-content {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
 }
 
 .glass-card::after {

@@ -1,28 +1,38 @@
 /* Compact Toggle Button */
 
 .button-card-root {
-  display: inline-flex;
-  width: auto;
-  max-width: 100%;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  align-items: stretch;
+  justify-content: stretch;
 }
 
 .glass-button-wrapper {
-  display: inline-flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
   align-items: center;
+  justify-items: stretch;
   gap: 6px;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
   max-width: 100%;
 }
 
 .glass-button {
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  width: 100%;
+  height: 100%;
   min-width: 44px;
   min-height: 44px;
-  height: 44px;
   max-width: 100%;
   appearance: none;
   padding: 0 14px;
@@ -51,8 +61,7 @@
 }
 
 .glass-button.has-label-under {
-  width: 44px;
-  padding: 0;
+  padding: 0 14px;
 }
 
 .glass-button:not(:disabled):hover {
@@ -122,6 +131,7 @@
 
 /* Label under button */
 .glass-label-under {
+  justify-self: center;
   font-size: 0.78rem;
   font-weight: 700;
   line-height: 1.2;
