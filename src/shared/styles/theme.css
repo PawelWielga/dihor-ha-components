@@ -1,15 +1,15 @@
 /* Style variables for dihor cards */
 :host {
   --dihor-card-bg: var(--ha-card-background, var(--card-background-color, rgba(255, 255, 255, 0.72)));
-  --dihor-glass-card-bg: color-mix(in srgb, var(--dihor-card-bg) 72%, transparent);
-  --dihor-glass-sheen: rgba(255, 255, 255, 0.34);
-  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.12);
-  --dihor-glass-inner-border: rgba(255, 255, 255, 0.24);
-  --dihor-glass-blur: 14px;
-  --dihor-card-border-size: var(--ha-card-border-width, 1px);
+  --dihor-glass-card-bg: color-mix(in srgb, var(--dihor-card-bg) 62%, transparent);
+  --dihor-glass-sheen: rgba(255, 255, 255, 0.2);
+  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.06);
+  --dihor-glass-inner-border: transparent;
+  --dihor-glass-blur: 18px;
+  --dihor-card-border-size: 0;
   --dihor-card-border-radius: var(--ha-card-border-radius, 14px);
-  --dihor-card-border-color: var(--ha-card-border-color, rgba(255, 255, 255, 0.32));
-  --dihor-card-shadow: var(--ha-card-box-shadow, 0 14px 32px rgba(15, 23, 42, 0.16));
+  --dihor-card-border-color: color-mix(in srgb, var(--ha-card-border-color, rgba(255, 255, 255, 0.24)) 42%, transparent);
+  --dihor-card-shadow: var(--ha-card-box-shadow, 0 12px 30px rgba(15, 23, 42, 0.12));
   --dihor-card-padding: 14px;
   --dihor-content-gap: 10px;
   --dihor-control-gap: 10px;
@@ -24,8 +24,8 @@
 
   --dihor-title-color: var(--primary-text-color, #1d1d1f);
   --dihor-subtitle-color: var(--secondary-text-color, #596275);
-  --dihor-stat-bg: color-mix(in srgb, var(--dihor-card-bg) 54%, transparent);
-  --dihor-stat-border-color: rgba(255, 255, 255, 0.22);
+  --dihor-stat-bg: color-mix(in srgb, var(--dihor-card-bg) 34%, transparent);
+  --dihor-stat-border-color: transparent;
 
   --dihor-badge-online-bg: #4caf50;
   --dihor-badge-offline-bg: #ff3b30;
@@ -33,7 +33,7 @@
   --dihor-badge-version-bg: #007aff;
   --dihor-badge-latency-bg: #ff9500;
 
-  --dihor-divider-color: var(--divider-color, rgba(255, 255, 255, 0.22));
+  --dihor-divider-color: color-mix(in srgb, var(--divider-color, rgba(255, 255, 255, 0.22)) 48%, transparent);
   --dihor-focus-ring: var(--primary-color, #03a9f4);
   --dihor-toggle-active-color: var(--primary-color, #03a9f4);
   --dihor-toggle-active-glow: rgba(3, 169, 244, 0.28);
@@ -42,12 +42,12 @@
 }
 
 :host([data-density="s"]) {
-  --dihor-glass-card-bg: color-mix(in srgb, var(--dihor-card-bg) 64%, transparent);
-  --dihor-glass-sheen: rgba(255, 255, 255, 0.22);
-  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.08);
-  --dihor-glass-blur: 10px;
+  --dihor-glass-card-bg: color-mix(in srgb, var(--dihor-card-bg) 56%, transparent);
+  --dihor-glass-sheen: rgba(255, 255, 255, 0.16);
+  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.04);
+  --dihor-glass-blur: 14px;
   --dihor-card-border-radius: var(--ha-card-border-radius, 12px);
-  --dihor-card-shadow: var(--ha-card-box-shadow, 0 10px 24px rgba(15, 23, 42, 0.14));
+  --dihor-card-shadow: var(--ha-card-box-shadow, 0 8px 22px rgba(15, 23, 42, 0.1));
   --dihor-card-padding: 10px;
   --dihor-content-gap: 8px;
   --dihor-control-gap: 8px;
@@ -62,12 +62,12 @@
 }
 
 :host([data-density="l"]) {
-  --dihor-glass-card-bg: color-mix(in srgb, var(--dihor-card-bg) 76%, transparent);
-  --dihor-glass-sheen: rgba(255, 255, 255, 0.42);
-  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.15);
-  --dihor-glass-blur: 20px;
+  --dihor-glass-card-bg: color-mix(in srgb, var(--dihor-card-bg) 66%, transparent);
+  --dihor-glass-sheen: rgba(255, 255, 255, 0.24);
+  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.08);
+  --dihor-glass-blur: 22px;
   --dihor-card-border-radius: var(--ha-card-border-radius, 18px);
-  --dihor-card-shadow: var(--ha-card-box-shadow, 0 20px 48px rgba(15, 23, 42, 0.2));
+  --dihor-card-shadow: var(--ha-card-box-shadow, 0 16px 40px rgba(15, 23, 42, 0.14));
   --dihor-card-padding: 18px;
   --dihor-content-gap: 14px;
   --dihor-control-gap: 14px;
@@ -83,19 +83,19 @@
 
 .dihor-theme-light {
   --dihor-card-bg: rgba(255, 255, 255, 0.72);
-  --dihor-glass-card-bg: rgba(255, 255, 255, 0.56);
-  --dihor-glass-sheen: rgba(255, 255, 255, 0.5);
-  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.18);
-  --dihor-glass-inner-border: rgba(255, 255, 255, 0.34);
-  --dihor-card-border-size: 1px;
+  --dihor-glass-card-bg: rgba(255, 255, 255, 0.46);
+  --dihor-glass-sheen: rgba(255, 255, 255, 0.26);
+  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.08);
+  --dihor-glass-inner-border: transparent;
+  --dihor-card-border-size: 0;
   --dihor-card-border-radius: 16px;
-  --dihor-card-border-color: rgba(255, 255, 255, 0.46);
-  --dihor-card-shadow: 0 18px 42px rgba(15, 23, 42, 0.16);
+  --dihor-card-border-color: rgba(255, 255, 255, 0.24);
+  --dihor-card-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
 
   --dihor-title-color: #1d1d1f;
   --dihor-subtitle-color: #596275;
-  --dihor-stat-bg: rgba(255, 255, 255, 0.38);
-  --dihor-stat-border-color: rgba(255, 255, 255, 0.4);
+  --dihor-stat-bg: rgba(255, 255, 255, 0.22);
+  --dihor-stat-border-color: transparent;
 
   --dihor-badge-online-bg: #4caf50;
   --dihor-badge-offline-bg: #ff3b30;
@@ -103,24 +103,24 @@
   --dihor-badge-version-bg: #007aff;
   --dihor-badge-latency-bg: #ff9500;
 
-  --dihor-divider-color: rgba(255, 255, 255, 0.28);
+  --dihor-divider-color: rgba(255, 255, 255, 0.18);
 }
 
 .dihor-theme-dark {
   --dihor-card-bg: rgba(20, 24, 34, 0.68);
-  --dihor-glass-card-bg: rgba(20, 24, 34, 0.56);
-  --dihor-glass-sheen: rgba(255, 255, 255, 0.14);
-  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.06);
-  --dihor-glass-inner-border: rgba(255, 255, 255, 0.16);
-  --dihor-card-border-size: 1px;
+  --dihor-glass-card-bg: rgba(20, 24, 34, 0.46);
+  --dihor-glass-sheen: rgba(255, 255, 255, 0.1);
+  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.04);
+  --dihor-glass-inner-border: transparent;
+  --dihor-card-border-size: 0;
   --dihor-card-border-radius: 16px;
-  --dihor-card-border-color: rgba(255, 255, 255, 0.18);
-  --dihor-card-shadow: 0 20px 48px rgba(0, 0, 0, 0.48);
+  --dihor-card-border-color: rgba(255, 255, 255, 0.12);
+  --dihor-card-shadow: 0 16px 42px rgba(0, 0, 0, 0.42);
 
   --dihor-title-color: #f3f3f3;
   --dihor-subtitle-color: #c7ceda;
-  --dihor-stat-bg: rgba(255, 255, 255, 0.08);
-  --dihor-stat-border-color: rgba(255, 255, 255, 0.12);
+  --dihor-stat-bg: rgba(255, 255, 255, 0.055);
+  --dihor-stat-border-color: transparent;
 
   --dihor-badge-online-bg: #4caf50;
   --dihor-badge-offline-bg: #ff3b30;
