@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: var(--dihor-control-gap);
-  margin-bottom: var(--dihor-content-gap);
+  margin-bottom: calc(var(--dihor-content-gap) * 0.75);
   padding-bottom: calc(var(--dihor-content-gap) * 0.5);
   border-bottom: 1px solid var(--dihor-divider-color);
 }
@@ -56,7 +56,7 @@
 
 .dihor-card-content {
   display: grid;
-  gap: var(--dihor-content-gap);
+  gap: calc(var(--dihor-content-gap) * 0.75);
 }
 
 .server-info-row {

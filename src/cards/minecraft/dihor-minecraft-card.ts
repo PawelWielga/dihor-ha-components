@@ -97,9 +97,9 @@ export class MinecraftCard extends BaseDihorCard<MinecraftCardConfig> {
 
   getGridOptions() {
     return {
-      rows: 3,
+      rows: 2,
       columns: 6,
-      min_rows: 3,
+      min_rows: 2,
       min_columns: 3,
       max_columns: 12,
     };
