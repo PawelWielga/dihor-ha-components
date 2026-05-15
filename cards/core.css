@@ -40,13 +40,7 @@ ha-card {
 }
 
 .glass-card::after {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  border-radius: calc(var(--dihor-card-border-radius) - 1px);
-  border: 1px solid var(--dihor-glass-inner-border);
-  pointer-events: none;
-  z-index: 0;
+  content: none;
 }
 
 .glass-card > :not(.glass-shine):not(.glass-glow) {
@@ -55,12 +49,12 @@ ha-card {
 }
 
 .glass-card:hover {
-  border-color: color-mix(in srgb, var(--dihor-card-border-color) 70%, var(--primary-color, #03a9f4));
+  background: color-mix(in srgb, var(--dihor-glass-card-bg) 92%, rgba(255, 255, 255, 0.18));
 }
 
 .glass-card.pressed {
-  background: color-mix(in srgb, var(--dihor-toggle-active-color) 18%, var(--dihor-glass-card-bg));
-  border-color: var(--dihor-toggle-active-color);
+  background: color-mix(in srgb, var(--dihor-toggle-active-color) 14%, var(--dihor-glass-card-bg));
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--dihor-toggle-active-color) 22%, rgba(15, 23, 42, 0.18));
   backdrop-filter: blur(calc(var(--dihor-glass-blur) + 4px)) saturate(165%);
   -webkit-backdrop-filter: blur(calc(var(--dihor-glass-blur) + 4px)) saturate(165%);
 }
@@ -84,7 +78,7 @@ ha-card {
   }
 
   .glass-card:hover {
-    border-color: var(--primary-color, #03a9f4);
+    background: var(--dihor-card-bg);
   }
 }
 
