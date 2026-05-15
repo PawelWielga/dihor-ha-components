@@ -1,3 +1,10 @@
+## [4.0.5](https://github.com/PawelWielga/dihor-ha-components/compare/v4.0.4...v4.0.5) (2026-05-15)
+
+
+### Bug Fixes
+
+* **ui:** reduce card spacing in grid layouts ([ef9fc47](https://github.com/PawelWielga/dihor-ha-components/commit/ef9fc47625bdf8edd8c3da0abc51141a1bf8b497))
+
 ## [4.0.4](https://github.com/PawelWielga/dihor-ha-components/compare/v4.0.3...v4.0.4) (2026-05-15)
 
 
