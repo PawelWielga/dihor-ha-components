@@ -110,6 +110,12 @@
         "value": "mdi:lightbulb-on-outline"
       },
       {
+        "key": "hold_action",
+        "value": {
+          "action": "more-info"
+        }
+      },
+      {
         "key": "density",
         "value": "s"
       }
@@ -138,6 +144,10 @@
             "value": ""
           },
           {
+            "key": "show_label",
+            "value": false
+          },
+          {
             "key": "density",
             "value": "s"
           }
@@ -164,6 +174,18 @@
           {
             "key": "label",
             "value": "Kitchen"
+          },
+          {
+            "key": "tap_action",
+            "value": {
+              "action": "toggle"
+            }
+          },
+          {
+            "key": "hold_action",
+            "value": {
+              "action": "more-info"
+            }
           },
           {
             "key": "density",
@@ -228,6 +250,12 @@
           {
             "key": "active_color",
             "value": "#22c55e"
+          },
+          {
+            "key": "double_tap_action",
+            "value": {
+              "action": "more-info"
+            }
           },
           {
             "key": "density",
