@@ -1,3 +1,10 @@
+## [4.0.4](https://github.com/PawelWielga/dihor-ha-components/compare/v4.0.3...v4.0.4) (2026-05-15)
+
+
+### Bug Fixes
+
+* **ui:** simplify glassmorphism card styling ([a445bcf](https://github.com/PawelWielga/dihor-ha-components/commit/a445bcf8b0cb2c34cb92a4f09b2b5f43b335c420))
+
 ## [4.0.3](https://github.com/PawelWielga/dihor-ha-components/compare/v4.0.2...v4.0.3) (2026-05-15)
 
 
