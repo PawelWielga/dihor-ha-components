@@ -45,7 +45,11 @@ ha-card {
   -webkit-backdrop-filter: blur(var(--dihor-glass-blur)) saturate(145%);
   box-shadow: var(--dihor-card-shadow);
   overflow: hidden;
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
@@ -75,7 +79,8 @@ ha-card {
 
 .glass-card.pressed {
   background: color-mix(in srgb, var(--dihor-toggle-active-color) 14%, var(--dihor-glass-card-bg));
-  box-shadow: 0 14px 34px color-mix(in srgb, var(--dihor-toggle-active-color) 22%, rgba(15, 23, 42, 0.18));
+  box-shadow: 0 14px 34px
+    color-mix(in srgb, var(--dihor-toggle-active-color) 22%, rgba(15, 23, 42, 0.18));
   backdrop-filter: blur(calc(var(--dihor-glass-blur) + 4px)) saturate(165%);
   -webkit-backdrop-filter: blur(calc(var(--dihor-glass-blur) + 4px)) saturate(165%);
 }
@@ -83,10 +88,12 @@ ha-card {
 .glass-shine {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg,
-      var(--dihor-glass-sheen) 0%,
-      var(--dihor-glass-sheen-soft) 38%,
-      transparent 72%);
+  background: linear-gradient(
+    135deg,
+    var(--dihor-glass-sheen) 0%,
+    var(--dihor-glass-sheen-soft) 38%,
+    transparent 72%
+  );
   pointer-events: none;
   z-index: 0;
   opacity: var(--dihor-shine-opacity);

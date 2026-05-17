@@ -1,6 +1,9 @@
 /* Style variables for dihor cards */
 :host {
-  --dihor-card-bg: var(--ha-card-background, var(--card-background-color, rgba(255, 255, 255, 0.72)));
+  --dihor-card-bg: var(
+    --ha-card-background,
+    var(--card-background-color, rgba(255, 255, 255, 0.72))
+  );
   --dihor-glass-card-bg: color-mix(in srgb, var(--dihor-card-bg) 62%, transparent);
   --dihor-glass-sheen: rgba(255, 255, 255, 0.2);
   --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.06);
@@ -8,7 +11,11 @@
   --dihor-glass-blur: 18px;
   --dihor-card-border-size: 0;
   --dihor-card-border-radius: var(--ha-card-border-radius, 14px);
-  --dihor-card-border-color: color-mix(in srgb, var(--ha-card-border-color, rgba(255, 255, 255, 0.24)) 42%, transparent);
+  --dihor-card-border-color: color-mix(
+    in srgb,
+    var(--ha-card-border-color, rgba(255, 255, 255, 0.24)) 42%,
+    transparent
+  );
   --dihor-card-shadow: var(--ha-card-box-shadow, 0 12px 30px rgba(15, 23, 42, 0.12));
   --dihor-card-padding: 14px;
   --dihor-content-gap: 10px;
@@ -33,52 +40,16 @@
   --dihor-badge-version-bg: #007aff;
   --dihor-badge-latency-bg: #ff9500;
 
-  --dihor-divider-color: color-mix(in srgb, var(--divider-color, rgba(255, 255, 255, 0.22)) 48%, transparent);
+  --dihor-divider-color: color-mix(
+    in srgb,
+    var(--divider-color, rgba(255, 255, 255, 0.22)) 48%,
+    transparent
+  );
   --dihor-focus-ring: var(--primary-color, #03a9f4);
   --dihor-toggle-active-color: var(--primary-color, #03a9f4);
   --dihor-toggle-active-glow: rgba(3, 169, 244, 0.28);
   --dihor-toggle-icon-color: var(--primary-text-color, #1d1d1f);
   --dihor-toggle-label-color: var(--primary-text-color, #1d1d1f);
-}
-
-:host([data-density="s"]) {
-  --dihor-glass-card-bg: color-mix(in srgb, var(--dihor-card-bg) 56%, transparent);
-  --dihor-glass-sheen: rgba(255, 255, 255, 0.16);
-  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.04);
-  --dihor-glass-blur: 14px;
-  --dihor-card-border-radius: var(--ha-card-border-radius, 12px);
-  --dihor-card-shadow: var(--ha-card-box-shadow, 0 8px 22px rgba(15, 23, 42, 0.1));
-  --dihor-card-padding: 10px;
-  --dihor-content-gap: 8px;
-  --dihor-control-gap: 8px;
-  --dihor-stat-min-height: 50px;
-  --dihor-stat-padding: 7px 6px;
-  --dihor-avatar-size: 56px;
-  --dihor-toggle-size: 92px;
-  --dihor-toggle-icon-size: 30px;
-  --dihor-clock-min-height: 78px;
-  --dihor-clock-scale-step: 0.38rem;
-  --dihor-shine-opacity: 0.52;
-}
-
-:host([data-density="l"]) {
-  --dihor-glass-card-bg: color-mix(in srgb, var(--dihor-card-bg) 66%, transparent);
-  --dihor-glass-sheen: rgba(255, 255, 255, 0.24);
-  --dihor-glass-sheen-soft: rgba(255, 255, 255, 0.08);
-  --dihor-glass-blur: 22px;
-  --dihor-card-border-radius: var(--ha-card-border-radius, 18px);
-  --dihor-card-shadow: var(--ha-card-box-shadow, 0 16px 40px rgba(15, 23, 42, 0.14));
-  --dihor-card-padding: 18px;
-  --dihor-content-gap: 14px;
-  --dihor-control-gap: 14px;
-  --dihor-stat-min-height: 74px;
-  --dihor-stat-padding: 12px 10px;
-  --dihor-avatar-size: 84px;
-  --dihor-toggle-size: 136px;
-  --dihor-toggle-icon-size: 42px;
-  --dihor-clock-min-height: 128px;
-  --dihor-clock-scale-step: 0.55rem;
-  --dihor-shine-opacity: 0.9;
 }
 
 .dihor-theme-light {
