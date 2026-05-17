@@ -85,6 +85,12 @@ PL: Karty dopasowują się do dostępnej przestrzeni w układzie Home Assistant.
 
 EN: Cards adapt to the available space in the Home Assistant layout. You do not need to set a shared sizing option.
 
+## Tło dla efektu glass / Background for the Glass Effect
+
+PL: Do glass componentów z tej paczki warto dodać [PawelWielga/dihor-ha-background](https://github.com/PawelWielga/dihor-ha-background), żeby ustawić własne tło dashboardu i dobrze zobaczyć efekt szkła.
+
+EN: For the glass components in this package, it works well to add [PawelWielga/dihor-ha-background](https://github.com/PawelWielga/dihor-ha-background) so you can set a custom dashboard background and clearly see the glass effect.
+
 ## Dla deweloperów / For Developers
 
 PL: Informacje techniczne, komendy, struktura projektu i proces release są w [TECHNICAL.md](TECHNICAL.md).
