@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/PawelWielga/dihor-ha-components/compare/v4.0.6...v4.1.0) (2026-05-17)
+
+
+### Features
+
+* **person:** add configurable phone and battery details ([485d28e](https://github.com/PawelWielga/dihor-ha-components/commit/485d28ec9f6084a0c5799aa71aaff1b0c5226216))
+
 ## [4.0.6](https://github.com/PawelWielga/dihor-ha-components/compare/v4.0.5...v4.0.6) (2026-05-15)
 
 
