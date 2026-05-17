@@ -1,9 +1,23 @@
+.person-card {
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.person-card:focus-visible {
+  outline: 2px solid var(--dihor-focus-ring);
+  outline-offset: 3px;
+}
+
 .person-card-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: calc(var(--dihor-content-gap) * 0.7);
+  gap: calc(var(--dihor-content-gap) * 0.85);
   padding: calc(var(--dihor-card-padding) * 0.75) var(--dihor-card-padding);
   height: 100%;
   min-width: 0;
@@ -11,7 +25,18 @@
   box-sizing: border-box;
 }
 
+.person-avatar-wrap {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: var(--dihor-avatar-size);
+  height: var(--dihor-avatar-size);
+}
+
 .person-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: var(--dihor-avatar-size);
   height: var(--dihor-avatar-size);
   border-radius: 50%;
@@ -21,12 +46,122 @@
   background: var(--dihor-stat-bg);
 }
 
+.person-avatar-fallback {
+  color: var(--dihor-title-color);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04)),
+    var(--dihor-stat-bg);
+}
+
+.person-avatar-fallback ha-icon {
+  --mdc-icon-size: 34px;
+  width: 34px;
+  height: 34px;
+}
+
+.person-status-dot {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--dihor-person-status-color, var(--dihor-badge-version-bg));
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--dihor-glass-card-bg) 88%, transparent),
+    0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.person-card.is-home {
+  --dihor-person-status-color: var(--dihor-badge-online-bg);
+}
+
+.person-card.is-away {
+  --dihor-person-status-color: var(--dihor-badge-offline-bg);
+}
+
+.person-card.is-zone {
+  --dihor-person-status-color: var(--dihor-badge-version-bg);
+}
+
+.person-card.is-unavailable {
+  --dihor-person-status-color: var(--disabled-text-color, var(--secondary-text-color, #8a94a6));
+}
+
+.person-main {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  max-width: 100%;
+  min-width: 0;
+}
+
 .person-name {
   font-size: 1.25rem;
   font-weight: 600;
+  line-height: 1.15;
   color: var(--dihor-title-color);
   max-width: 100%;
   text-align: center;
   overflow-wrap: anywhere;
   text-shadow: none;
+}
+
+.person-location {
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--dihor-person-status-color, var(--dihor-subtitle-color));
+  max-width: 100%;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.person-meta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  max-width: 100%;
+  min-width: 0;
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.2;
+  color: var(--dihor-subtitle-color);
+}
+
+.person-meta ha-icon {
+  flex: 0 0 auto;
+  --mdc-icon-size: 15px;
+  width: 15px;
+  height: 15px;
+}
+
+.person-meta span {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.person-battery {
+  color: var(--dihor-title-color);
+}
+
+.person-updated {
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--dihor-subtitle-color);
+  max-width: 100%;
+  text-align: center;
+  overflow-wrap: anywhere;
+  opacity: 0.82;
+}
+
+@supports not (background: color-mix(in srgb, white, black)) {
+  .person-status-dot {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
 }

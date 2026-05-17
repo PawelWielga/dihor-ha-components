@@ -69,6 +69,174 @@
       {
         "key": "entity",
         "value": "person.tomek"
+      },
+      {
+        "key": "phone_entity",
+        "value": "device_tracker.tomek_phone"
+      },
+      {
+        "key": "battery_entity",
+        "value": "sensor.tomek_phone_battery_level"
+      },
+      {
+        "key": "show_entity_picture",
+        "value": true
+      },
+      {
+        "key": "show_name",
+        "value": true
+      },
+      {
+        "key": "show_state",
+        "value": true
+      },
+      {
+        "key": "show_phone",
+        "value": true
+      },
+      {
+        "key": "show_battery",
+        "value": true
+      }
+    ],
+    "variants": [
+      {
+        "name": {
+          "pl": "Lokalizacja i status",
+          "en": "Location and status"
+        },
+        "usage": [
+          {
+            "key": "type",
+            "value": "custom:dihor-person-card"
+          },
+          {
+            "key": "entity",
+            "value": "person.tomek"
+          },
+          {
+            "key": "show_state",
+            "value": true
+          },
+          {
+            "key": "show_name",
+            "value": true
+          },
+          {
+            "key": "show_badge",
+            "value": true
+          },
+          {
+            "key": "show_phone",
+            "value": true
+          },
+          {
+            "key": "show_battery",
+            "value": true
+          }
+        ]
+      },
+      {
+        "name": {
+          "pl": "Bez zdjęcia",
+          "en": "Without picture"
+        },
+        "usage": [
+          {
+            "key": "type",
+            "value": "custom:dihor-person-card"
+          },
+          {
+            "key": "entity",
+            "value": "person.anna"
+          },
+          {
+            "key": "name",
+            "value": "Anna"
+          },
+          {
+            "key": "icon",
+            "value": "mdi:account-circle"
+          },
+          {
+            "key": "show_entity_picture",
+            "value": false
+          },
+          {
+            "key": "show_name",
+            "value": true
+          },
+          {
+            "key": "show_phone",
+            "value": false
+          },
+          {
+            "key": "show_battery",
+            "value": false
+          }
+        ]
+      },
+      {
+        "name": {
+          "pl": "Telefon i bateria",
+          "en": "Phone and battery"
+        },
+        "usage": [
+          {
+            "key": "type",
+            "value": "custom:dihor-person-card"
+          },
+          {
+            "key": "entity",
+            "value": "person.tomek"
+          },
+          {
+            "key": "phone_entity",
+            "value": "device_tracker.tomek_phone"
+          },
+          {
+            "key": "phone_name",
+            "value": "Tomek Phone"
+          },
+          {
+            "key": "battery_entity",
+            "value": "sensor.tomek_phone_battery_level"
+          },
+          {
+            "key": "show_phone",
+            "value": true
+          },
+          {
+            "key": "show_battery",
+            "value": true
+          }
+        ]
+      },
+      {
+        "name": {
+          "pl": "Z czasem zmiany",
+          "en": "With last changed"
+        },
+        "usage": [
+          {
+            "key": "type",
+            "value": "custom:dihor-person-card"
+          },
+          {
+            "key": "entity",
+            "value": "person.tomek"
+          },
+          {
+            "key": "show_last_changed",
+            "value": true
+          },
+          {
+            "key": "tap_action",
+            "value": {
+              "action": "more-info"
+            }
+          }
+        ]
       }
     ]
   },
