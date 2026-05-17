@@ -1,30 +1,72 @@
 # Dihor HA Components
 
-PL: Kolekcja nowoczesnych kart customowych dla Home Assistant, zbudowana na Lit + TypeScript.  
-EN: A collection of modern custom cards for Home Assistant, built with Lit + TypeScript.
+PL: `dihor-ha-components` to paczka kart do Home Assistant. Dodaje kilka gotowych kart Lovelace, które możesz wrzucić na dashboard bez pisania własnego kodu.
 
-## Demo
+EN: `dihor-ha-components` is a Home Assistant card package. It adds ready-to-use Lovelace cards that you can place on a dashboard without writing custom code.
 
-PL: Instalacja, przyklady konfiguracji i podglad kart: [Demo Page](docs/index.html)  
-EN: Installation, configuration examples, and live preview: [Demo Page](docs/index.html)
+## Co zawiera / What's Included
 
-## Components / Komponenty
+### `dihor-clock-card`
 
-1. `dihor-clock-card`  
-PL: Konfigurowalny zegar cyfrowy.  
-EN: Configurable digital clock.
+PL: Prosty, konfigurowalny zegar cyfrowy.
 
-2. `dihor-minecraft-card`  
-PL: Monitor statusu serwera Minecraft.  
-EN: Minecraft server status monitor.
+EN: A simple configurable digital clock.
 
-3. `dihor-person-card`  
-PL: Karta encji `person` z Home Assistant.  
-EN: Home Assistant `person` entity card.
+### `dihor-minecraft-card`
 
-4. `dihor-toggle-button-card`  
-PL: Przycisk toggle dla pojedynczej encji, z akcjami `tap_action`, `hold_action` i `double_tap_action`.  
-EN: Toggle button for a single entity, with `tap_action`, `hold_action`, and `double_tap_action`.
+PL: Karta do podglądu statusu serwera Minecraft.
+
+EN: A card for checking Minecraft server status.
+
+### `dihor-person-card`
+
+PL: Karta osoby z Home Assistant, oparta o encję `person`.
+
+EN: A Home Assistant person card based on a `person` entity.
+
+### `dihor-toggle-button-card`
+
+PL: Duży przycisk do sterowania pojedynczą encją, na przykład światłem, przełącznikiem albo sceną.
+
+EN: A large button for controlling a single entity, such as a light, switch, or scene.
+
+## Instalacja przez HACS / HACS Installation
+
+PL:
+1. Otwórz HACS w Home Assistant.
+2. Wejdź w `Integrations` lub `Frontend`, zależnie od widoku HACS.
+3. Dodaj to repozytorium jako custom repository typu `Dashboard`.
+4. Zainstaluj `dihor-ha-components`.
+5. Odśwież Home Assistant albo wyczyść cache przeglądarki, jeśli karta nie pojawi się od razu.
+
+EN:
+1. Open HACS in Home Assistant.
+2. Go to `Integrations` or `Frontend`, depending on your HACS view.
+3. Add this repository as a `Dashboard` custom repository.
+4. Install `dihor-ha-components`.
+5. Refresh Home Assistant or clear the browser cache if the card does not appear immediately.
+
+## Zasób Home Assistant / Home Assistant Resource
+
+PL: HACS powinien dodać zasób automatycznie. Jeśli robisz to ręcznie, dodaj:
+
+EN: HACS should add the resource automatically. If you add it manually, use:
+
+```yaml
+url: /hacsfiles/dihor-ha-components/dihor-ha-components.js
+type: module
+```
+
+## Przykłady / Examples
+
+### Minecraft
+
+```yaml
+type: custom:dihor-minecraft-card
+entity_prefix: server_minecraft
+```
+
+### Toggle Button
 
 ```yaml
 type: custom:dihor-toggle-button-card
@@ -37,134 +79,17 @@ hold_action:
   action: more-info
 ```
 
-## Shared Options / Wspolne opcje
+## Dopasowanie do dashboardu / Dashboard Fit
 
-PL: Wszystkie karty wspieraja `density`, czyli gestosc wizualna kontrolujaca odstepy, rozmycie szkla, cien i rozmiary elementow pomocniczych.
+PL: Karty dopasowują się do dostępnej przestrzeni w układzie Home Assistant. Nie trzeba ustawiać wspólnej opcji rozmiaru.
 
-EN: All cards support `density`, a visual density option that controls spacing, glass blur, shadow, and supporting element sizes.
+EN: Cards adapt to the available space in the Home Assistant layout. You do not need to set a shared sizing option.
 
-```yaml
-type: custom:dihor-minecraft-card
-entity_prefix: server_minecraft
-density: s # s | m | l
-```
+## Dla deweloperów / For Developers
 
-- `s` - PL: kompaktowo, mniej swiatla i mniejsze odstepy. EN: compact, less light and tighter spacing.
-- `m` - PL: wariant zbalansowany, domyslny. EN: balanced default.
-- `l` - PL: wiecej swiatla i przestrzeni. EN: more light and spacing.
+PL: Informacje techniczne, komendy, struktura projektu i proces release są w [TECHNICAL.md](TECHNICAL.md).
 
-## Tech Stack
-
-PL:
-- `Lit` - web components i reaktywne renderowanie
-- `TypeScript` - typowanie i bezpieczenstwo zmian
-- `Rollup` - bundling do `dist/dihor-ha-components.js`
-- `ESLint` + `Prettier` - jakosc i format kodu
-
-EN:
-- `Lit` - web components and reactive rendering
-- `TypeScript` - typing and safer refactors
-- `Rollup` - bundling into `dist/dihor-ha-components.js`
-- `ESLint` + `Prettier` - code quality and formatting
-
-## Project Structure / Struktura projektu
-
-- `src/cards/*` - implementacje kart
-- `src/shared/base-card.ts` - wspolna baza kart
-- `src/shared/styles/*` - wspolne style
-- `scripts/*` - skrypty pomocnicze
-- `docs/*` - preview i artefakty dla docs
-
-## Build and Preview / Build i podglad
-
-- `npm install`
-- `npm run lint`
-- `npm run build`
-- `npm run prepare-docs`
-- `npm run preview`
-
-PL: `npm run dev` uruchamia przygotowanie docs i preview lokalnie.  
-EN: `npm run dev` prepares docs and starts local preview.
-
-## Add New Card / Dodawanie nowej karty
-
-1. Utworz katalog `src/cards/my-card`
-2. Dodaj pliki:
-   - `dihor-my-card.ts`
-   - `dihor-my-card.css`
-3. Rozszerz `BaseDihorCard`
-4. Dodaj eksport w `src/index.ts`
-5. Zbuduj projekt `npm run build`
-
-Minimal template:
-
-```ts
-import { html, css, unsafeCSS } from "lit";
-import { BaseDihorCard } from "../../shared/base-card";
-import cardCssStr from "./dihor-my-card.css";
-
-interface MyCardConfig {
-  title?: string;
-}
-
-export class MyCard extends BaseDihorCard<MyCardConfig> {
-  static get styles() {
-    return [super.styles, css`${unsafeCSS(cardCssStr)}`];
-  }
-
-  static getStubConfig() {
-    return { title: "My Card" };
-  }
-
-  static getConfigForm() {
-    return {
-      schema: [{ name: "title", selector: { text: {} } }],
-    };
-  }
-
-  protected renderCard() {
-    return html`<ha-card>${this._config?.title ?? "My Card"}</ha-card>`;
-  }
-}
-
-if (!customElements.get("dihor-my-card")) {
-  customElements.define("dihor-my-card", MyCard);
-}
-```
-
-## Publishing Flow
-
-PL:
-- Runtime artifact: `dist/dihor-ha-components.js`
-- Preview artifact: `docs/` po `npm run prepare-docs`
-
-EN:
-- Runtime artifact: `dist/dihor-ha-components.js`
-- Preview artifact: `docs/` after `npm run prepare-docs`
-
-## Contributing
-
-PL:
-1. Fork repozytorium
-2. Stworz branch
-3. Wprowadz zmiany
-4. Push
-5. Otworz PR
-
-EN:
-1. Fork repository
-2. Create branch
-3. Commit changes
-4. Push branch
-5. Open PR
-
-### Commit Messages / Komunikaty commitow
-
-Use Conventional Commits:
-- `feat:` new features
-- `fix:` bug fixes
-- `docs:`, `refactor:`, `chore:` maintenance changes
-- `BREAKING CHANGE:` major release trigger
+EN: Technical information, commands, project structure, and release flow are in [TECHNICAL.md](TECHNICAL.md).
 
 ## License
 

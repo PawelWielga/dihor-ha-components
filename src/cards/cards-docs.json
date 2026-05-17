@@ -23,10 +23,6 @@
       {
         "key": "entity_prefix",
         "value": "server_minecraft"
-      },
-      {
-        "key": "density",
-        "value": "s"
       }
     ]
   },
@@ -50,10 +46,6 @@
       {
         "key": "size",
         "value": "2"
-      },
-      {
-        "key": "density",
-        "value": "s"
       }
     ]
   },
@@ -77,10 +69,6 @@
       {
         "key": "entity",
         "value": "person.tomek"
-      },
-      {
-        "key": "density",
-        "value": "s"
       }
     ]
   },
@@ -114,10 +102,6 @@
         "value": {
           "action": "more-info"
         }
-      },
-      {
-        "key": "density",
-        "value": "s"
       }
     ],
     "variants": [
@@ -146,10 +130,6 @@
           {
             "key": "show_label",
             "value": false
-          },
-          {
-            "key": "density",
-            "value": "s"
           }
         ]
       },
@@ -186,10 +166,6 @@
             "value": {
               "action": "more-info"
             }
-          },
-          {
-            "key": "density",
-            "value": "s"
           }
         ]
       },
@@ -218,10 +194,6 @@
           {
             "key": "show_label_under",
             "value": true
-          },
-          {
-            "key": "density",
-            "value": "s"
           }
         ]
       },
@@ -256,10 +228,6 @@
             "value": {
               "action": "more-info"
             }
-          },
-          {
-            "key": "density",
-            "value": "s"
           }
         ]
       }

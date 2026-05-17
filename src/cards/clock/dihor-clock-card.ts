@@ -1,33 +1,29 @@
-import { html, css, unsafeCSS } from "lit";
-import { state } from "lit/decorators.js";
-import {
-  BaseCardConfig,
-  BaseDihorCard,
-  DIHOR_DENSITY_SCHEMA,
-  getDihorDensityHelper,
-  getDihorDensityLabel,
-} from "../../shared/base-card";
-import { registerCustomCard } from "../../shared/custom-card-registry";
-import cardCssStr from "./dihor-clock-card.css";
+import { html, css, unsafeCSS } from 'lit';
+import { state } from 'lit/decorators.js';
+import { BaseCardConfig, BaseDihorCard } from '../../shared/base-card';
+import { registerCustomCard } from '../../shared/custom-card-registry';
+import cardCssStr from './dihor-clock-card.css';
 
 export interface ClockCardConfig extends BaseCardConfig {
   size?: number;
 }
 
 export class ClockCard extends BaseDihorCard<ClockCardConfig> {
-  @state() private _timeString: string = "";
+  @state() private _timeString: string = '';
   private _interval?: number;
 
   static get styles() {
     return [
       super.styles,
-      css`${unsafeCSS(cardCssStr)}`
+      css`
+        ${unsafeCSS(cardCssStr)}
+      `,
     ];
   }
 
   static getStubConfig() {
     return {
-      size: 2
+      size: 2,
     };
   }
 
@@ -35,32 +31,27 @@ export class ClockCard extends BaseDihorCard<ClockCardConfig> {
     return {
       schema: [
         {
-          name: "size",
+          name: 'size',
           selector: {
             number: {
               min: 1,
               max: 5,
-              mode: "box"
-            }
-          }
+              mode: 'box',
+            },
+          },
         },
-        DIHOR_DENSITY_SCHEMA,
       ],
       computeLabel: (schema: any) => {
-        const densityLabel = getDihorDensityLabel(schema);
-        if (densityLabel) return densityLabel;
-        if (schema.name === "size") return "Clock Size";
+        if (schema.name === 'size') return 'Clock Size';
         return undefined;
       },
       computeHelper: (schema: any) => {
-        const densityHelper = getDihorDensityHelper(schema);
-        if (densityHelper) return densityHelper;
-        if (schema.name === "size") return "Size of the clock display (1-5, default: 2)";
+        if (schema.name === 'size') return 'Size of the clock display (1-5, default: 2)';
         return undefined;
       },
       assertConfig: (config: ClockCardConfig) => {
         ClockCard.validateConfig(config);
-      }
+      },
     };
   }
 
@@ -102,9 +93,9 @@ export class ClockCard extends BaseDihorCard<ClockCardConfig> {
       <ha-card class="clock-card glass-card" style="--dihor-clock-scale: ${this.getClockScale()};">
         <div class="glass-shine"></div>
         <div class="card-content">
-           <div class="clock-face">
-             <span id="time" class="time-display">${this._timeString}</span>
-           </div>
+          <div class="clock-face">
+            <span id="time" class="time-display">${this._timeString}</span>
+          </div>
         </div>
       </ha-card>
     `;
@@ -131,7 +122,7 @@ export class ClockCard extends BaseDihorCard<ClockCardConfig> {
   }
 
   private static normalizeSize(size: unknown): number {
-    if (size === undefined || size === null || size === "") return 2;
+    if (size === undefined || size === null || size === '') return 2;
     const numericSize = Number(size);
     if (!Number.isFinite(numericSize)) return 2;
     return Math.min(5, Math.max(1, numericSize));
@@ -139,11 +130,11 @@ export class ClockCard extends BaseDihorCard<ClockCardConfig> {
 
   private static validateConfig(config: ClockCardConfig) {
     const size = config.size as unknown;
-    if (size === undefined || size === null || size === "") return;
+    if (size === undefined || size === null || size === '') return;
 
     const numericSize = Number(size);
     if (!Number.isFinite(numericSize) || numericSize < 1 || numericSize > 5) {
-      throw new Error("size must be a number between 1 and 5");
+      throw new Error('size must be a number between 1 and 5');
     }
   }
 }
@@ -156,5 +147,5 @@ registerCustomCard({
   type: 'dihor-clock-card',
   name: 'Dihor Clock Card',
   preview: true,
-  description: 'Minimal digital clock card with configurable size'
+  description: 'Minimal digital clock card with configurable size',
 });

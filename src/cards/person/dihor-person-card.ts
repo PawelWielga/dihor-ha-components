@@ -1,24 +1,19 @@
 import { html, nothing, css, unsafeCSS } from 'lit';
-import {
-  BaseCardConfig,
-  BaseDihorCard,
-  DIHOR_DENSITY_SCHEMA,
-  getDihorDensityHelper,
-  getDihorDensityLabel,
-} from '../../shared/base-card';
+import { BaseCardConfig, BaseDihorCard } from '../../shared/base-card';
 import { registerCustomCard } from '../../shared/custom-card-registry';
-import cardCssStr from "./dihor-person-card.css";
+import cardCssStr from './dihor-person-card.css';
 
 export interface PersonCardConfig extends BaseCardConfig {
   entity: string;
 }
 
 export class PersonCard extends BaseDihorCard<PersonCardConfig> {
-
   static get styles() {
     return [
       super.styles,
-      css`${unsafeCSS(cardCssStr)}`
+      css`
+        ${unsafeCSS(cardCssStr)}
+      `,
     ];
   }
 
@@ -29,7 +24,7 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
 
   static getStubConfig() {
     return {
-      entity: "person.example"
+      entity: 'person.example',
     };
   }
 
@@ -37,31 +32,26 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
     return {
       schema: [
         {
-          name: "entity",
+          name: 'entity',
           required: true,
           selector: {
             entity: {
-              domain: "person"
-            }
-          }
+              domain: 'person',
+            },
+          },
         },
-        DIHOR_DENSITY_SCHEMA,
       ],
       computeLabel: (schema: any) => {
-        const densityLabel = getDihorDensityLabel(schema);
-        if (densityLabel) return densityLabel;
-        if (schema.name === "entity") return "Person Entity";
+        if (schema.name === 'entity') return 'Person Entity';
         return undefined;
       },
       computeHelper: (schema: any) => {
-        const densityHelper = getDihorDensityHelper(schema);
-        if (densityHelper) return densityHelper;
-        if (schema.name === "entity") return "Select the person entity to display";
+        if (schema.name === 'entity') return 'Select the person entity to display';
         return undefined;
       },
       assertConfig: (config: PersonCardConfig) => {
         PersonCard.validateConfig(config);
-      }
+      },
     };
   }
 
@@ -73,10 +63,8 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
     if (!state) {
       return html`
         <ha-card class="glass-card" header="Person not found">
-            <div class="glass-shine"></div>
-            <div class="card-content">
-                Entity ${this._config.entity} not found.
-            </div>
+          <div class="glass-shine"></div>
+          <div class="card-content">Entity ${this._config.entity} not found.</div>
         </ha-card>
       `;
     }
@@ -88,8 +76,8 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
       <ha-card class="glass-card">
         <div class="glass-shine"></div>
         <div class="card-content person-card-content">
-            ${picture ? html`<img src="${picture}" alt="${name}" class="person-avatar" />` : nothing}
-            <div class="person-name">${name}</div>
+          ${picture ? html`<img src="${picture}" alt="${name}" class="person-avatar" />` : nothing}
+          <div class="person-name">${name}</div>
         </div>
       </ha-card>
     `;
@@ -110,7 +98,7 @@ export class PersonCard extends BaseDihorCard<PersonCardConfig> {
   }
 
   private static validateConfig(config: PersonCardConfig) {
-    if (!config.entity || typeof config.entity !== "string") {
+    if (!config.entity || typeof config.entity !== 'string') {
       throw new Error('Entity is required');
     }
   }
@@ -124,5 +112,5 @@ registerCustomCard({
   type: 'dihor-person-card',
   name: 'Dihor Person Card',
   preview: true,
-  description: 'Displays Home Assistant person entity'
+  description: 'Displays Home Assistant person entity',
 });

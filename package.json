@@ -9,7 +9,8 @@
     "dev": "npm run prepare-docs && npm run preview",
     "semantic-release": "semantic-release",
     "lint": "eslint \"src/**/*.{ts,js}\" --quiet",
-    "format": "prettier --write \"src/**/*.{ts,js,css,html}\""
+    "format": "prettier --write \"src/**/*.{ts,js,css,html}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js,css,html}\""
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^16.0.1",

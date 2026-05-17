@@ -1,32 +1,32 @@
 .person-card-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: calc(var(--dihor-content-gap) * 0.7);
-    padding: calc(var(--dihor-card-padding) * 0.75) var(--dihor-card-padding);
-    height: 100%;
-    min-width: 0;
-    min-height: 0;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--dihor-content-gap) * 0.7);
+  padding: calc(var(--dihor-card-padding) * 0.75) var(--dihor-card-padding);
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
 }
 
 .person-avatar {
-    width: var(--dihor-avatar-size);
-    height: var(--dihor-avatar-size);
-    border-radius: 50%;
-    border: 0;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-    object-fit: cover;
-    background: var(--dihor-stat-bg);
+  width: var(--dihor-avatar-size);
+  height: var(--dihor-avatar-size);
+  border-radius: 50%;
+  border: 0;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  object-fit: cover;
+  background: var(--dihor-stat-bg);
 }
 
 .person-name {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--dihor-title-color);
-    max-width: 100%;
-    text-align: center;
-    overflow-wrap: anywhere;
-    text-shadow: none;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--dihor-title-color);
+  max-width: 100%;
+  text-align: center;
+  overflow-wrap: anywhere;
+  text-shadow: none;
 }

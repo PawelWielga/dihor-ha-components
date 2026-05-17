@@ -15,9 +15,7 @@ declare global {
 export function registerCustomCard(metadata: CustomCardMetadata): void {
   window.customCards = window.customCards || [];
 
-  const existingIndex = window.customCards.findIndex(
-    (card) => card.type === metadata.type
-  );
+  const existingIndex = window.customCards.findIndex((card) => card.type === metadata.type);
 
   if (existingIndex >= 0) {
     window.customCards[existingIndex] = metadata;
