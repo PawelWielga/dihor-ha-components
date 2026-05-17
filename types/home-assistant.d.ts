@@ -1,6 +1,8 @@
 export interface HomeAssistant {
   states: Record<string, {
     state: string;
+    last_changed?: string;
+    last_updated?: string;
     attributes: Record<string, any>;
   }>;
   themes?: {

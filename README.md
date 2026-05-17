@@ -79,6 +79,28 @@ hold_action:
   action: more-info
 ```
 
+### Person
+
+```yaml
+type: custom:dihor-person-card
+entity: person.tomek
+phone_entity: device_tracker.tomek_phone
+battery_entity: sensor.tomek_phone_battery_level
+show_entity_picture: true
+show_name: true
+show_state: true
+show_phone: true
+show_battery: true
+show_badge: true
+show_last_changed: false
+tap_action:
+  action: more-info
+```
+
+PL: `phone_entity` jest opcjonalne. Jeśli go nie podasz, karta spróbuje użyć atrybutu `source` z encji `person`. `battery_entity` może wskazywać sensor baterii telefonu; bez niego karta spróbuje odczytać `battery_level` lub `battery` z encji osoby albo telefonu.
+
+EN: `phone_entity` is optional. If you do not set it, the card tries to use the `source` attribute from the `person` entity. `battery_entity` can point to a phone battery sensor; without it, the card tries to read `battery_level` or `battery` from the person or phone entity.
+
 ## Dopasowanie do dashboardu / Dashboard Fit
 
 PL: Karty dopasowują się do dostępnej przestrzeni w układzie Home Assistant. Nie trzeba ustawiać wspólnej opcji rozmiaru.
